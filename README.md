@@ -1,10 +1,21 @@
 # Corporate Security Matrix
 
+![Corporate Security Matrix visual preview](assets/github-preview.svg)
+
 An open-source, English-language corporate security matrix for organizations of any size and sector.
 
 Suggested GitHub repository slug: `corporate-security-matrix`
 
 The project is built from globally reusable source packs drawn from standards bodies, intergovernmental organizations and official regulator guidance. EK is retained as one useful supporting source, but the structure and content are not built around EK alone.
+
+## At a glance
+
+- `9 domains` covering corporate, physical, cyber, continuity, compliance, environmental and worker safety concerns
+- `5 lifecycle phases` in every domain: Identify, Protect, Detect, Respond, Recover
+- `3 decision layers` in every matrix cell: possible actors, detailed risks and mitigations
+- `1 visual operating model` that makes the repository understandable directly on GitHub, before opening the live site
+
+![Matrix anatomy](assets/matrix-anatomy.svg)
 
 ## Mission
 
@@ -27,6 +38,8 @@ The repository is intentionally not centered on any single national framework.
 
 - `index.html` for the site shell and preview
 - `styles.css` for the visual system and responsive matrix layout
+- `assets/github-preview.svg` for the GitHub-facing visual repository preview
+- `assets/matrix-anatomy.svg` for the matrix structure explainer used in the README
 - `matrix-domains.js` for lifecycle phases and domain matrix content
 - `matrix-actors.js` for possible actor profiles by domain and lifecycle
 - `matrix-briefs.js` for domain briefings, ownership framing and phase guidance

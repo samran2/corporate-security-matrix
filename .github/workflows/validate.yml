@@ -39,6 +39,8 @@ jobs:
           python3 -m http.server 8010 >/tmp/attack-total-defence-http.log 2>&1 &
           sleep 2
           curl -fI http://127.0.0.1:8010/index.html
+          curl -fI http://127.0.0.1:8010/assets/github-preview.svg
+          curl -fI http://127.0.0.1:8010/assets/matrix-anatomy.svg
           curl -fI http://127.0.0.1:8010/matrix-domains.js
           curl -fI http://127.0.0.1:8010/matrix-actors.js
           curl -fI http://127.0.0.1:8010/matrix-briefs.js

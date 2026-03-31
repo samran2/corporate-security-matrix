@@ -13,6 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 REQUIRED_FILES = [
     ROOT / "index.html",
     ROOT / "styles.css",
+    ROOT / "assets" / "github-preview.svg",
+    ROOT / "assets" / "matrix-anatomy.svg",
     ROOT / "matrix-domains.js",
     ROOT / "matrix-actors.js",
     ROOT / "matrix-briefs.js",
