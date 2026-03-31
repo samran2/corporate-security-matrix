@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'"
+    >
+    <meta name="referrer" content="no-referrer">
+    <title>Corporate Security Matrix</title>
+    <meta
+      name="description"
+      content="An ATT&CK-inspired corporate security matrix synthesized from leading global official sources, combining threats and controls in one view."
+    >
+    <meta name="robots" content="index,follow">
+    <meta name="theme-color" content="#c55a11">
+    <meta property="og:title" content="Corporate Security Matrix">
+    <meta property="og:description" content="An open-source corporate security matrix built from global official sources.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Corporate Security Matrix">
+    <meta name="twitter:description" content="An open-source corporate security matrix built from global official sources.">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="page" data-view="all">
+      <section class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow">Corporate Security Matrix</p>
+          <h1>Corporate Security Matrix</h1>
+          <p class="lede">
+            An open-source, GitHub Pages-ready matrix inspired by the ATT&amp;CK interaction model.
+            The structure is synthesized from leading global official sources including ISO, NIST,
+            WHO, ILO, UNDRR, UNODC, OECD, IFC, ENISA and CISA. EK remains a useful supporting
+            reference, but not the governing framework of the project.
+          </p>
+          <div class="hero__links">
+            <a href="https://www.iso.org/standard/65694.html" target="_blank" rel="noopener noreferrer">ISO 31000</a>
+            <a href="https://www.nist.gov/cyberframework" target="_blank" rel="noopener noreferrer">NIST CSF 2.0</a>
+            <a href="#references">Reference library</a>
+          </div>
+        </div>
+
+        <aside class="hero__panel">
+          <p class="hero__panel-label">Core logic</p>
+          <h2>Threats and controls in one operating picture</h2>
+          <ul class="principles">
+            <li>Govern cross-functionally with accountable owners and decision rights.</li>
+            <li>Identify critical exposure before it becomes loss.</li>
+            <li>Reduce likelihood through hardening, training and governance.</li>
+            <li>Detect, respond and recover fast enough to preserve continuity.</li>
+          </ul>
+        </aside>
+      </section>
+
+      <section class="control-bar" aria-label="Matrix controls">
+        <div class="control-panel">
+          <p class="control-label">Domain tabs</p>
+          <div class="chip-group" id="domainFilters" role="tablist" aria-label="Select security domain"></div>
+        </div>
+
+        <div class="control-panel">
+          <p class="control-label">Cell view</p>
+          <div class="view-switch" role="radiogroup" aria-label="Select matrix view">
+            <button type="button" class="view-switch__button is-active" data-view-mode="all">All</button>
+            <button type="button" class="view-switch__button" data-view-mode="actors">Actors</button>
+            <button type="button" class="view-switch__button" data-view-mode="risks">Detailed Risks</button>
+            <button type="button" class="view-switch__button" data-view-mode="mitigations">Mitigations</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="overview">
+        <article class="overview-card">
+          <p class="overview-card__eyebrow">How to read it</p>
+          <h2>Tabs open ATT&amp;CK-style matrices. Columns stay on the defensive lifecycle.</h2>
+          <p>
+            Each tab opens one domain-specific matrix built as stacked lifecycle columns, similar in
+            interaction logic to the MITRE ATT&amp;CK Enterprise Matrix. It is meant for strategy
+            work, board-level discussion, security program scoping and cross-functional planning
+            across jurisdictions and sectors.
+          </p>
+        </article>
+
+        <article class="overview-card">
+          <p class="overview-card__eyebrow">Reference Authorities</p>
+          <h2>Use the strongest official sources as implementation anchors.</h2>
+          <ul class="standards">
+            <li><strong>ISO</strong> Risk, resilience, safety, quality and management systems</li>
+            <li><strong>NIST</strong> Cybersecurity governance, incident response and control baselines</li>
+            <li><strong>WHO</strong> Health emergency management, worker wellbeing and chemical safety</li>
+            <li><strong>ILO</strong> Occupational safety, labour protection and workplace conduct</li>
+            <li><strong>UNDRR / UNODC / OECD</strong> Resilience, integrity and anti-corruption frameworks</li>
+            <li><strong>IFC</strong> Good international industry practice for EHS and site operations</li>
+            <li><strong>ENISA / CISA</strong> Threat intelligence, physical security and operational cyber baselines</li>
+            <li><strong>EK</strong> Supporting comparator for transferable corporate-security structure</li>
+          </ul>
+        </article>
+
+        <article class="overview-card">
+          <p class="overview-card__eyebrow">Method</p>
+          <h2>Built from global official frameworks, not a single national model.</h2>
+          <p>
+            Source priority runs from international standards and multilateral guidance to national
+            regulator material. National frameworks such as EK are used as helpful comparators, not
+            as the controlling taxonomy.
+          </p>
+        </article>
+
+        <article class="overview-card">
+          <p class="overview-card__eyebrow">Operating Use</p>
+          <h2>Use it as a live management system, not a static poster.</h2>
+          <p>
+            Assign owners to each domain, score lifecycle coverage cell by cell, attach applicable
+            standards and obligations, and refresh the matrix after exercises, incidents and major
+            business change.
+          </p>
+        </article>
+      </section>
+
+      <section class="matrix-panel" aria-labelledby="matrix-title">
+        <div class="matrix-panel__top">
+          <div>
+            <p class="eyebrow eyebrow--small">Matrix</p>
+            <h2 id="matrix-title">ATT&amp;CK-style domain matrix with actors, risks and mitigations</h2>
+          </div>
+
+          <div class="matrix-panel__meta">
+            <p id="resultCount" aria-live="polite"></p>
+            <div class="legend" aria-label="Legend">
+              <span class="legend__item legend__item--actor">Possible actor</span>
+              <span class="legend__item legend__item--threat">Threat signal</span>
+              <span class="legend__item legend__item--control">Control response</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="active-domain" id="activeDomain"></div>
+
+        <div class="matrix-scroll" role="region" aria-label="Corporate security matrix" tabindex="0">
+          <div class="matrix-grid" id="matrixGrid"></div>
+        </div>
+      </section>
+
+      <section class="reference-library" id="references" aria-labelledby="reference-title">
+        <div class="reference-library__intro">
+          <div>
+            <p class="eyebrow eyebrow--small">Evidence Base</p>
+            <h2 id="reference-title">Official source pack for the active domain</h2>
+            <p>
+              Each tab is backed by curated primary sources selected for that domain. The source pack
+              below should be treated as the authority base for tailoring local controls, legal
+              obligations and assurance practices.
+            </p>
+          </div>
+        </div>
+
+        <div class="reference-grid" id="referenceGrid"></div>
+      </section>
+
+      <footer class="footer">
+        <p>
+          ATT&amp;CK-inspired refers to the matrix interaction pattern, not to the MITRE ATT&amp;CK
+          taxonomy. This project is intended as an open-source planning aid for businesses globally,
+          using original synthesis text grounded first in international official sources.
+        </p>
+      </footer>
+    </main>
+
+    <script src="matrix-domains.js"></script>
+    <script src="matrix-actors.js"></script>
+    <script src="matrix-briefs.js"></script>
+    <script src="matrix-references.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+name: Validate
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate JavaScript syntax
+        run: |
+          node --check matrix-domains.js
+          node --check matrix-actors.js
+          node --check matrix-briefs.js
+          node --check matrix-references.js
+          node --check app.js
+
+      - name: Validate links and static security baseline
+        run: python3 scripts/validate_project.py
+
+      - name: Smoke-test static site
+        run: |
+          python3 -m http.server 8010 >/tmp/attack-total-defence-http.log 2>&1 &
+          sleep 2
+          curl -fI http://127.0.0.1:8010/index.html
+          curl -fI http://127.0.0.1:8010/matrix-domains.js
+          curl -fI http://127.0.0.1:8010/matrix-actors.js
+          curl -fI http://127.0.0.1:8010/matrix-briefs.js
+          curl -fI http://127.0.0.1:8010/matrix-references.js
+          curl -fI http://127.0.0.1:8010/app.js
+          curl -fI http://127.0.0.1:8010/styles.css
