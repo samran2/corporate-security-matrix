@@ -17,6 +17,40 @@ The project is built from globally reusable source packs drawn from standards bo
 
 ![Matrix anatomy](assets/matrix-anatomy.svg)
 
+## Framework layer
+
+The repository now includes a dedicated framework layer so the project works as a full operating model, not only a matrix:
+
+- `framework.html` for the governance, maturity, scoring, cadence and metric model
+- `FRAMEWORK.md` for the repository-readable framework specification
+- the matrix remains the working risk-and-mitigation view at the center of the model
+
+## Language support
+
+The public site now supports major-language entry points through a `?lang=` parameter and a built-in language switcher.
+
+Supported language codes:
+
+- `en` English
+- `ar` Arabic
+- `zh` Chinese (Simplified)
+- `es` Spanish
+- `fr` French
+- `de` German
+- `hi` Hindi
+- `ja` Japanese
+- `pt` Portuguese
+- `fi` Finnish
+
+Examples:
+
+- `http://127.0.0.1:8000/index.html?lang=fi`
+- `http://127.0.0.1:8000/index.html?lang=es`
+- `http://127.0.0.1:8000/framework.html?lang=ar`
+- `http://127.0.0.1:8000/acknowledgements.html?lang=zh`
+
+All supported non-English locales now include a full public-site translation across the matrix view, domain briefings, framework page and acknowledgements page. Official source titles remain canonical where needed for source fidelity.
+
 ## Mission
 
 Build a practical matrix that helps organizations:
@@ -37,6 +71,7 @@ The repository is intentionally not centered on any single national framework.
 ## What the project contains
 
 - `index.html` for the site shell and preview
+- `framework.html` for the operating framework layer
 - `acknowledgements.html` for the dedicated recognition page for Sami Rantanen
 - `styles.css` for the visual system and responsive matrix layout
 - `assets/github-preview.svg` for the GitHub-facing visual repository preview
@@ -45,14 +80,20 @@ The repository is intentionally not centered on any single national framework.
 - `matrix-actors.js` for possible actor profiles by domain and lifecycle
 - `matrix-briefs.js` for domain briefings, ownership framing and phase guidance
 - `matrix-references.js` for official source packs and evidence links
+- `matrix-fi.js` for the full Finnish matrix content layer used by `?lang=fi`
+- `matrix-locales.js` for the full matrix content layers used by `?lang=ar`, `?lang=zh`, `?lang=es`, `?lang=fr`, `?lang=de`, `?lang=hi`, `?lang=ja` and `?lang=pt`
+- `i18n.js` for multilingual navigation, page localization and language-aware matrix labels
+- `i18n-full-locales.js` for the full-page locale overlays used by the non-English public pages
 - `app.js` for the UI state, rendering and interaction logic
 - `SOURCE-LIBRARY.md` for the human-readable evidence base
+- `FRAMEWORK.md` for the governance, scoring and operating model
 - `FACT-CHECK.md` for source verification notes and corrected official titles
 - `CONTRIBUTING.md` for contribution rules
 - `CODE_OF_CONDUCT.md` for collaboration norms
 - `SECURITY.md` for project reporting guidance
 - `security_best_practices_report.md` for the latest static-site security audit
 - `scripts/validate_project.py` for repeatable validation
+- `scripts/generate_locale_layers.py` for regenerating the non-English locale overlays and matrix language layers
 - `.github/workflows/validate.yml` for CI validation on pushes and pull requests
 - `LICENSE` for reuse terms
 
@@ -85,6 +126,19 @@ Each matrix cell contains:
 - `Mitigations`: practical measures that prevent, detect, contain or recover
 
 Each active domain also includes a briefing layer with mission, protected assets, likely owners, failure modes and leadership questions. This makes the UI usable both as a leadership overview and as a domain-level working canvas for security, safety, operations, compliance and resilience teams. Each lifecycle column renders as a stack of actor, risk and mitigation entries rather than a single text block.
+
+## Framework operating model
+
+The framework layer defines how organizations should use the matrix as a management system:
+
+- `Maturity model`: five levels from exposed to adaptive
+- `Scoring method`: criticality, coverage and evidence strength
+- `Governance model`: board oversight, executive sponsorship, framework lead, domain owners and independent assurance
+- `Operating cadence`: weekly signal review, monthly domain review, quarterly executive review and annual re-baselining
+- `Metrics`: coverage, readiness, resilience and integrity indicators
+- `Adoption path`: a structured 30 / 90 / 180 / 365-day implementation sequence
+
+This makes the repository usable as a full enterprise-security framework rather than only a visual matrix.
 
 ## Implementation workflow
 
@@ -128,6 +182,10 @@ node --check matrix-domains.js
 node --check matrix-actors.js
 node --check matrix-briefs.js
 node --check matrix-references.js
+node --check matrix-fi.js
+node --check matrix-locales.js
+node --check i18n.js
+node --check i18n-full-locales.js
 node --check app.js
 python3 scripts/validate_project.py
 python3 -m http.server 8000
@@ -136,11 +194,20 @@ python3 -m http.server 8000
 Then verify:
 
 - `http://127.0.0.1:8000/index.html`
+- `http://127.0.0.1:8000/index.html?lang=fi`
+- `http://127.0.0.1:8000/index.html?lang=es`
+- `http://127.0.0.1:8000/framework.html`
+- `http://127.0.0.1:8000/framework.html?lang=ar`
 - `http://127.0.0.1:8000/acknowledgements.html`
+- `http://127.0.0.1:8000/acknowledgements.html?lang=zh`
 - `http://127.0.0.1:8000/matrix-domains.js`
 - `http://127.0.0.1:8000/matrix-actors.js`
 - `http://127.0.0.1:8000/matrix-briefs.js`
 - `http://127.0.0.1:8000/matrix-references.js`
+- `http://127.0.0.1:8000/matrix-fi.js`
+- `http://127.0.0.1:8000/matrix-locales.js`
+- `http://127.0.0.1:8000/i18n.js`
+- `http://127.0.0.1:8000/i18n-full-locales.js`
 - `http://127.0.0.1:8000/app.js`
 - `http://127.0.0.1:8000/styles.css`
 
@@ -168,11 +235,14 @@ Then browse to `http://127.0.0.1:8000`.
 
 No build step is required. The `.nojekyll` file is included so GitHub Pages serves the repository as a plain static site without Jekyll processing.
 
-## Source material
+## Source materials
 
-- Global evidence base: see `SOURCE-LIBRARY.md`
-- EK corporate security page: <https://ek.fi/hyotytietoa-yrityksille/yritysturvallisuus/>
-- Official English EK PDF: <https://ek.fi/wp-content/uploads/2025/10/Yritysturvallisuusmalli_tekstiosuudet_2025_EN_Final.pdf>
+- `SOURCE-LIBRARY.md` for the curated global primary-source library and official URLs used across the matrix
+- `FACT-CHECK.md` for verified titles, corrected official names and fact-check notes
+- `FRAMEWORK.md` for the operating model, maturity structure and implementation guidance behind the site
+- `matrix-references.js` for the domain-by-domain source packs rendered in the live matrix
+- EK corporate security page: <https://ek.fi/hyotytietoa-yrityksille/yritysturvallisuus/> as a supporting comparator source
+- Official English EK PDF: <https://ek.fi/wp-content/uploads/2025/10/Yritysturvallisuusmalli_tekstiosuudet_2025_EN_Final.pdf> as the English-language EK reference document
 
 ## Note
 
