@@ -36,8 +36,10 @@ function setActiveDomain(domainId, { focus = false } = {}) {
   renderMatrix();
   renderReferences();
 
+  const activeTab = domainFilters.querySelector(`[data-domain-id="${domainId}"]`);
+  activeTab?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+
   if (focus) {
-    const activeTab = domainFilters.querySelector(`[data-domain-id="${domainId}"]`);
     activeTab?.focus();
   }
 }

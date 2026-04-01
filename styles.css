@@ -26,6 +26,7 @@
   --radius-sm: 12px;
   --font-body: "Aptos", "Segoe UI", "Helvetica Neue", sans-serif;
   --font-display: "Avenir Next", "Trebuchet MS", "Gill Sans", sans-serif;
+  --sticky-offset: 0.9rem;
 }
 
 * {
@@ -245,6 +246,9 @@ h1 {
 }
 
 .control-bar {
+  position: sticky;
+  top: var(--sticky-offset);
+  z-index: 20;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 1rem;
@@ -252,17 +256,60 @@ h1 {
   margin-bottom: 1.25rem;
   padding: 1.2rem 1.25rem;
   border-radius: 22px;
+  background:
+    linear-gradient(180deg, rgba(255, 252, 247, 0.97), rgba(243, 237, 227, 0.93)),
+    var(--surface-strong);
+  box-shadow:
+    0 18px 44px rgba(30, 43, 53, 0.14),
+    0 0 0 1px rgba(27, 52, 64, 0.04);
 }
 
 .control-panel {
   min-width: 0;
 }
 
+.control-panel:first-child {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.control-panel:first-child::after {
+  content: "Pinned domain navigation stays visible while you move across lifecycle categories.";
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
 .chip-group,
 .view-switch {
   display: flex;
-  flex-wrap: wrap;
   gap: 0.6rem;
+}
+
+.chip-group {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.05rem 0 0.2rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(40, 87, 107, 0.32) transparent;
+}
+
+.view-switch {
+  flex-wrap: wrap;
+}
+
+.chip-group::-webkit-scrollbar {
+  height: 0.45rem;
+}
+
+.chip-group::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(40, 87, 107, 0.26);
+}
+
+.chip-group::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .chip,
@@ -285,8 +332,11 @@ h1 {
 }
 
 .chip {
+  position: relative;
+  flex: 0 0 auto;
   min-height: 2.5rem;
   padding: 0 0.95rem;
+  white-space: nowrap;
 }
 
 .view-switch__button {
@@ -299,6 +349,26 @@ h1 {
   border-color: rgba(197, 90, 17, 0.3);
   background: rgba(197, 90, 17, 0.12);
   color: var(--accent-strong);
+}
+
+.chip.is-active {
+  padding-right: 1.45rem;
+  box-shadow:
+    0 8px 20px rgba(197, 90, 17, 0.12),
+    inset 0 0 0 1px rgba(197, 90, 17, 0.08);
+}
+
+.chip.is-active::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0.72rem;
+  width: 0.46rem;
+  height: 0.46rem;
+  border-radius: 999px;
+  background: var(--accent);
+  transform: translateY(-50%);
+  box-shadow: 0 0 0 0.24rem rgba(197, 90, 17, 0.13);
 }
 
 .overview {
@@ -572,6 +642,7 @@ h1 {
     linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(246, 240, 232, 0.82)),
     var(--surface-strong);
   box-shadow: 0 10px 30px rgba(27, 52, 64, 0.08);
+  scroll-margin-top: 8rem;
 }
 
 .active-domain__lead {
@@ -966,6 +1037,10 @@ a:focus-visible,
     grid-template-columns: 1fr;
   }
 
+  .control-bar {
+    top: 0.55rem;
+  }
+
   .matrix-panel__top {
     align-items: start;
     flex-direction: column;
@@ -993,6 +1068,14 @@ a:focus-visible,
   .control-bar {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+
+  .control-bar {
+    top: 0.35rem;
+  }
+
+  .control-panel:first-child::after {
+    font-size: 0.8rem;
   }
 
   h1 {
