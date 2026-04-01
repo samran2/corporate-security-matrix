@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = [
     ROOT / "index.html",
+    ROOT / "acknowledgements.html",
     ROOT / "styles.css",
     ROOT / "assets" / "github-preview.svg",
     ROOT / "assets" / "matrix-anatomy.svg",
@@ -28,6 +29,7 @@ REQUIRED_FILES = [
 
 SOURCE_SCAN_FILES = [
     ROOT / "index.html",
+    ROOT / "acknowledgements.html",
     ROOT / "matrix-domains.js",
     ROOT / "matrix-actors.js",
     ROOT / "matrix-briefs.js",
@@ -37,6 +39,7 @@ SOURCE_SCAN_FILES = [
 
 URL_SCAN_FILES = [
     ROOT / "index.html",
+    ROOT / "acknowledgements.html",
     ROOT / "matrix-references.js",
     ROOT / "README.md",
     ROOT / "SOURCE-LIBRARY.md",
@@ -103,16 +106,17 @@ def main() -> int:
         if not path.exists():
             fail(errors, f"Missing required file: {path.relative_to(ROOT)}")
 
-    index_html = (ROOT / "index.html").read_text(encoding="utf-8")
-    if 'http-equiv="Content-Security-Policy"' not in index_html:
-        fail(errors, "index.html is missing the CSP meta tag.")
-    if 'name="referrer"' not in index_html:
-        fail(errors, "index.html is missing the Referrer-Policy meta tag.")
+    for html_path in (ROOT / "index.html", ROOT / "acknowledgements.html"):
+        html_text = html_path.read_text(encoding="utf-8")
+        if 'http-equiv="Content-Security-Policy"' not in html_text:
+            fail(errors, f"{html_path.relative_to(ROOT)} is missing the CSP meta tag.")
+        if 'name="referrer"' not in html_text:
+            fail(errors, f"{html_path.relative_to(ROOT)} is missing the Referrer-Policy meta tag.")
 
-    for match in re.finditer(r"<a\b[^>]*target=\"_blank\"[^>]*>", index_html):
-        tag = match.group(0)
-        if 'rel="noopener noreferrer"' not in tag:
-            fail(errors, f"External link missing rel=\"noopener noreferrer\": {tag}")
+        for match in re.finditer(r"<a\b[^>]*target=\"_blank\"[^>]*>", html_text):
+            tag = match.group(0)
+            if 'rel="noopener noreferrer"' not in tag:
+                fail(errors, f"External link missing rel=\"noopener noreferrer\": {tag}")
 
     for path in SOURCE_SCAN_FILES:
         text = path.read_text(encoding="utf-8")

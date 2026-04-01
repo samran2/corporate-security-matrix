@@ -37,6 +37,7 @@ The repository is intentionally not centered on any single national framework.
 ## What the project contains
 
 - `index.html` for the site shell and preview
+- `acknowledgements.html` for the dedicated recognition page for Sami Rantanen
 - `styles.css` for the visual system and responsive matrix layout
 - `assets/github-preview.svg` for the GitHub-facing visual repository preview
 - `assets/matrix-anatomy.svg` for the matrix structure explainer used in the README
@@ -135,6 +136,7 @@ python3 -m http.server 8000
 Then verify:
 
 - `http://127.0.0.1:8000/index.html`
+- `http://127.0.0.1:8000/acknowledgements.html`
 - `http://127.0.0.1:8000/matrix-domains.js`
 - `http://127.0.0.1:8000/matrix-actors.js`
 - `http://127.0.0.1:8000/matrix-briefs.js`
