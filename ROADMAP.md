@@ -2,8 +2,8 @@
 
 Last updated: August 29, 2026
 
-Current release target: `v1.0.0`
-Product status: public-release candidate
+Current release: `v1.0.0`
+Product status: public release
 
 This roadmap is the operating plan for taking the Corporate Security Matrix from a strong static product to a dependable, professionally governed GitHub release. It combines product work, content assurance, repository governance, deployment and post-release ownership in one place.
 
@@ -22,7 +22,7 @@ A release is complete only when it is:
 
 Status key:
 
-- `[x]` complete in the release candidate
+- `[x]` complete for the current release
 - `[ ]` required before or immediately after publication
 - `[~]` intentionally scheduled for a later release
 
@@ -106,8 +106,8 @@ Status key:
 - [x] Confirm the `Quality`, `External source links` and `Publish GitHub Pages` workflows.
 - [x] Verify the production home page, framework, acknowledgements, 404 handling, assets and deep links.
 - [x] Confirm canonical URLs, sitemap and social-preview image return HTTP 200.
-- [ ] Create the immutable `v1.0.0` tag from the final `main` commit.
-- [ ] Publish a GitHub Release from `CHANGELOG.md` with upgrade and verification notes.
+- [x] Create the immutable `v1.0.0` tag from release commit `2444f052d283ea63df5722810bab35a92aedf6c1`.
+- [x] Publish the latest GitHub Release from `CHANGELOG.md` with upgrade and verification notes.
 - [x] Confirm the repository homepage points to the live Pages URL.
 
 ## Required release gates
@@ -157,9 +157,9 @@ If the production site fails a release gate after deployment:
 
 ### First 24 hours
 
-- [ ] Recheck the production Pages URL, framework, social image, sitemap and representative deep link.
-- [ ] Confirm no workflow regression or deployment warning is unresolved.
-- [ ] Confirm the GitHub Release and citation metadata show the same version and date.
+- [x] Recheck the production Pages URL, framework, social image, sitemap and representative deep link.
+- [x] Confirm no workflow regression or deployment warning is unresolved.
+- [x] Confirm the GitHub Release and citation metadata identify `v1.0.0` with the August 29, 2026 Europe/Helsinki release date.
 
 ### First 7 days
 
