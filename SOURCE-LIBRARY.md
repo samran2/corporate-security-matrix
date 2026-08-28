@@ -4,6 +4,14 @@ This project prefers primary sources. The matrix text is original synthesis, but
 
 Current coverage intentionally spans ISO standards, NIST, CISA, ENISA, WHO, ILO, IFRC, UNODC, UNDRR, OECD, IFC and the World Bank. EK is retained as a supporting comparator, not as the governing source base.
 
+## Geographic scope and interpretation
+
+- ISO, IFC, IFRC, ILO, OECD, UNDRR, UN Global Compact, UNODC, WHO and World Bank material is used as international guidance.
+- ENISA material represents a European Union perspective.
+- CISA, NIST and OSHA material is United States guidance. It is included for its practical and transferable control detail, not as a claim that United States law applies globally.
+- EK material is a Finland-specific comparator and is not treated as a universal or normative source.
+- Applicability, legal effect and local implementation must always be checked for the organization, sector and jurisdiction in question.
+
 ## Cross-cutting foundation
 
 - ISO 31000:2018 Risk management — Guidelines: <https://www.iso.org/standard/65694.html>
@@ -20,7 +28,7 @@ Current coverage intentionally spans ISO standards, NIST, CISA, ENISA, WHO, ILO,
 
 ## Domain mappings
 
-### Personnel Security
+### People and Personnel Security
 
 Context: use these sources for travel risk, workplace conduct, psychosocial safety and targeted personal protection.
 
@@ -29,7 +37,7 @@ Context: use these sources for travel risk, workplace conduct, psychosocial safe
 - ILO Violence and Harassment Convention, 2019 (No. 190): <https://www.ilo.org/resource/ilc/108/violence-and-harassment-convention-2019-no-190>
 - WHO Guidelines on Mental Health at Work: <https://www.who.int/publications/i/item/9789240053052>
 
-### Premises Security
+### Physical and Site Security
 
 Context: use these sources for protective design, site planning, access control and facility-level physical resilience.
 
@@ -38,7 +46,7 @@ Context: use these sources for protective design, site planning, access control 
 - ISO 22341:2021 Security and resilience — Protective security — Guidelines for crime prevention through environmental design: <https://www.iso.org/standard/50078.html>
 - ISO 22342:2023 Security and resilience — Protective security — Guidelines for the development of a security plan for an organization: <https://www.iso.org/standard/50079.html>
 
-### Rescue Safety
+### Emergency Preparedness and Life Safety
 
 Context: use these sources for emergency action planning, evacuation, first response and coordinated incident handling.
 
@@ -49,7 +57,7 @@ Context: use these sources for emergency action planning, evacuation, first resp
 - IFRC International First Aid, Resuscitation and Education Guidelines 2020: <https://www.ifrc.org/sites/default/files/2022-02/EN_GFARC_GUIDELINES_2020.pdf>
 - WHO Mass Casualty Management: <https://www.who.int/teams/integrated-health-services/clinical-services-and-systems/emergency-and-critical-care/mass-casualty-management>
 
-### Security of Production and Operations
+### Operations, Supply Chain and Quality
 
 Context: use these sources for supply-chain dependence, quality control, continuity of delivery and operational risk treatment.
 
@@ -59,7 +67,7 @@ Context: use these sources for supply-chain dependence, quality control, continu
 - NIST SP 800-161 Rev. 1 Cybersecurity Supply Chain Risk Management Practices for Systems and Organizations: <https://csrc.nist.gov/pubs/sp/800/161/r1/upd1/final>
 - ISO 9001:2015 Quality management systems — Requirements: <https://www.iso.org/standard/62085.html>
 
-### Environmental Safety
+### Environmental and Hazardous Materials Safety
 
 Context: use these sources for environmental management systems, hazardous substances, emissions and incident containment.
 
@@ -69,7 +77,7 @@ Context: use these sources for environmental management systems, hazardous subst
 - WHO Chemical Incidents: <https://www.who.int/health-topics/chemical-incidents/>
 - WHO Chemical Safety: <https://www.who.int/health-topics/chemical-safety>
 
-### Information and Cyber Security
+### Information and Cybersecurity
 
 Context: use these sources for cyber-risk governance, baseline controls, incident response and threat-informed defense.
 
@@ -80,7 +88,7 @@ Context: use these sources for cyber-risk governance, baseline controls, inciden
 - NIST SP 800-53 Rev. 5 Security and Privacy Controls for Information Systems and Organizations: <https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final>
 - ENISA Threat Landscape 2025: <https://www.enisa.europa.eu/publications/enisa-threat-landscape-2025>
 
-### Compliance Control
+### Integrity, Compliance and Investigations
 
 Context: use these sources for anti-corruption, integrity programmes, misconduct reporting and control governance.
 
@@ -91,7 +99,7 @@ Context: use these sources for anti-corruption, integrity programmes, misconduct
 - ISO 37001:2025 Anti-bribery management systems — Requirements with guidance for use: <https://www.iso.org/standard/37001>
 - World Bank Integrity Compliance Programs for SMEs: <https://openknowledge.worldbank.org/entities/publication/9bf2cf98-510c-47ef-a1dc-7f440ed08649>
 
-### Contingency and Crisis Management
+### Business Continuity and Crisis Management
 
 Context: use these sources for continuity systems, crisis exercises, all-hazards resilience and coordinated recovery.
 
@@ -101,7 +109,7 @@ Context: use these sources for continuity systems, crisis exercises, all-hazards
 - ISO 22398:2013 Societal security — Guidelines for exercises: <https://www.iso.org/standard/50294.html>
 - WHO Health Emergency and Disaster Risk Management Framework: <https://iris.who.int/handle/10665/326106>
 
-### Industrial Safety
+### Occupational Health and Safety
 
 Context: use these sources for occupational safety systems, worker health, preventive controls and safe work conditions.
 
@@ -109,4 +117,4 @@ Context: use these sources for occupational safety systems, worker health, preve
 - ISO 45001:2018 Occupational health and safety management systems: <https://www.iso.org/standard/63787.html>
 - IFC General Environmental, Health, and Safety Guidelines: <https://www.ifc.org/en/insights-reports/general-environmental-health-and-safety-guidelines>
 - ILO Occupational Safety and Health Convention, 1981 (No. 155): <https://www.ilo.org/resource/other/occupational-safety-and-health-convention-no-155-fundamental-convention>
-- WHO Protecting Workers' Health: <https://www.who.int/news-room/fact-sheets/detail/protecting-workers%27-health>
+- WHO Occupational Health: <https://www.who.int/health-topics/occupational-health>

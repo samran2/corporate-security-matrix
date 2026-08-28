@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use or adapt the Corporate Security Matrix, please cite this repository."
+title: "Corporate Security Matrix"
+type: software
+authors:
+  - family-names: Rantanen
+    given-names: Sami
+version: 1.0.0
+date-released: 2026-08-28
+license: MIT
+repository-code: "https://github.com/samran2/corporate-security-matrix"
+url: "https://samran2.github.io/corporate-security-matrix/"
+abstract: "An open, evidence-led operating model for enterprise security across nine domains and five lifecycle phases."

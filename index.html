@@ -5,171 +5,240 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; frame-src 'none'; worker-src 'none'; manifest-src 'none'"
+      content="default-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; frame-src 'none'; worker-src 'none'"
     >
-    <meta name="referrer" content="no-referrer">
-    <title>Corporate Security Matrix</title>
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#07111f">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <title>Corporate Security Matrix — See risk. Decide faster.</title>
     <meta
       name="description"
-      content="An ATT&CK-inspired corporate security matrix synthesized from leading global official sources, combining threats and controls in one view."
+      content="Explore nine corporate-security domains across Identify, Protect, Detect, Respond and Recover—grounded in authoritative global sources."
     >
-    <meta name="robots" content="index,follow">
-    <meta name="theme-color" content="#c55a11">
+    <link rel="canonical" href="https://samran2.github.io/corporate-security-matrix/">
     <meta property="og:title" content="Corporate Security Matrix">
-    <meta property="og:description" content="An open-source corporate security matrix built from global official sources.">
+    <meta property="og:description" content="See risk. Decide faster. Build resilience across nine enterprise-security domains.">
     <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:site_name" content="Corporate Security Matrix">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:url" content="https://samran2.github.io/corporate-security-matrix/">
+    <meta property="og:image" content="https://samran2.github.io/corporate-security-matrix/assets/social-preview.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Corporate Security Matrix — See risk. Decide faster. Build resilience.">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Corporate Security Matrix">
-    <meta name="twitter:description" content="An open-source corporate security matrix built from global official sources.">
+    <meta name="twitter:description" content="See risk. Decide faster. Build resilience across nine enterprise-security domains.">
+    <meta name="twitter:image" content="https://samran2.github.io/corporate-security-matrix/assets/social-preview.png">
+    <meta name="twitter:image:alt" content="Corporate Security Matrix — See risk. Decide faster. Build resilience.">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <main class="page" data-view="all">
-      <section class="hero">
-        <div class="hero__copy">
-          <p class="eyebrow">Corporate Security Matrix</p>
-          <h1>Corporate Security Matrix</h1>
-          <p class="lede">
-            An open-source, GitHub Pages-ready matrix inspired by the ATT&amp;CK interaction model.
-            The structure is synthesized from leading global official sources including ISO, NIST,
-            WHO, ILO, UNDRR, UNODC, OECD, IFC, ENISA and CISA. EK remains a useful supporting
-            reference, but not the governing framework of the project.
-          </p>
-          <div class="hero__links">
-            <a href="https://www.iso.org/standard/65694.html" target="_blank" rel="noopener noreferrer">ISO 31000</a>
-            <a href="https://www.nist.gov/cyberframework" target="_blank" rel="noopener noreferrer">NIST CSF 2.0</a>
-            <a href="#references">Reference library</a>
-            <a href="acknowledgements.html">Acknowledgements</a>
-          </div>
-        </div>
+    <a class="skip-link" href="#matrix-explorer">Skip to matrix explorer</a>
 
-        <aside class="hero__panel">
-          <p class="hero__panel-label">Core logic</p>
-          <h2>Threats and controls in one operating picture</h2>
-          <ul class="principles">
-            <li>Govern cross-functionally with accountable owners and decision rights.</li>
-            <li>Identify critical exposure before it becomes loss.</li>
-            <li>Reduce likelihood through hardening, training and governance.</li>
-            <li>Detect, respond and recover fast enough to preserve continuity.</li>
-          </ul>
-        </aside>
-      </section>
+    <header class="site-header" aria-label="Primary navigation">
+      <div class="site-header__inner">
+        <a class="brand" href="index.html" aria-label="Corporate Security Matrix home">
+          <span class="brand__mark" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </span>
+          <span class="brand__name">Corporate Security Matrix</span>
+        </a>
+        <nav class="site-nav" aria-label="Site">
+          <a href="#matrix-explorer">Matrix</a>
+          <a href="framework.html">Framework</a>
+          <a href="#evidence">Evidence</a>
+          <a class="site-nav__github" href="https://github.com/samran2/corporate-security-matrix" target="_blank" rel="noopener noreferrer">
+            View on GitHub <span aria-hidden="true">↗</span>
+          </a>
+        </nav>
+        <details class="mobile-nav">
+          <summary>Menu</summary>
+          <nav aria-label="Mobile site navigation">
+            <a href="#matrix-explorer">Matrix</a>
+            <a href="framework.html">Framework</a>
+            <a href="#evidence">Evidence</a>
+            <a href="https://github.com/samran2/corporate-security-matrix" target="_blank" rel="noopener noreferrer">View on GitHub <span aria-hidden="true">↗</span></a>
+          </nav>
+        </details>
+      </div>
+    </header>
 
-      <section class="control-bar" aria-label="Matrix controls">
-        <div class="control-panel">
-          <p class="control-label">Domain tabs</p>
-          <div class="chip-group" id="domainFilters" role="tablist" aria-label="Select security domain"></div>
-        </div>
-
-        <div class="control-panel">
-          <p class="control-label">Cell view</p>
-          <div class="view-switch" role="radiogroup" aria-label="Select matrix view">
-            <button type="button" class="view-switch__button is-active" data-view-mode="all">All</button>
-            <button type="button" class="view-switch__button" data-view-mode="actors">Actors</button>
-            <button type="button" class="view-switch__button" data-view-mode="risks">Detailed Risks</button>
-            <button type="button" class="view-switch__button" data-view-mode="mitigations">Mitigations</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="overview">
-        <article class="overview-card">
-          <p class="overview-card__eyebrow">How to read it</p>
-          <h2>Tabs open ATT&amp;CK-style matrices. Columns stay on the defensive lifecycle.</h2>
-          <p>
-            Each tab opens one domain-specific matrix built as stacked lifecycle columns, similar in
-            interaction logic to the MITRE ATT&amp;CK Enterprise Matrix. It is meant for strategy
-            work, board-level discussion, security program scoping and cross-functional planning
-            across jurisdictions and sectors.
-          </p>
-        </article>
-
-        <article class="overview-card">
-          <p class="overview-card__eyebrow">Reference Authorities</p>
-          <h2>Use the strongest official sources as implementation anchors.</h2>
-          <ul class="standards">
-            <li><strong>ISO</strong> Risk, resilience, safety, quality and management systems</li>
-            <li><strong>NIST</strong> Cybersecurity governance, incident response and control baselines</li>
-            <li><strong>WHO</strong> Health emergency management, worker wellbeing and chemical safety</li>
-            <li><strong>ILO</strong> Occupational safety, labour protection and workplace conduct</li>
-            <li><strong>UNDRR / UNODC / OECD</strong> Resilience, integrity and anti-corruption frameworks</li>
-            <li><strong>IFC</strong> Good international industry practice for EHS and site operations</li>
-            <li><strong>ENISA / CISA</strong> Threat intelligence, physical security and operational cyber baselines</li>
-            <li><strong>EK</strong> Supporting comparator for transferable corporate-security structure</li>
-          </ul>
-        </article>
-
-        <article class="overview-card">
-          <p class="overview-card__eyebrow">Method</p>
-          <h2>Built from global official frameworks, not a single national model.</h2>
-          <p>
-            Source priority runs from international standards and multilateral guidance to national
-            regulator material. National frameworks such as EK are used as helpful comparators, not
-            as the controlling taxonomy.
-          </p>
-        </article>
-
-        <article class="overview-card">
-          <p class="overview-card__eyebrow">Operating Use</p>
-          <h2>Use it as a live management system, not a static poster.</h2>
-          <p>
-            Assign owners to each domain, score lifecycle coverage cell by cell, attach applicable
-            standards and obligations, and refresh the matrix after exercises, incidents and major
-            business change.
-          </p>
-        </article>
-      </section>
-
-      <section class="matrix-panel" aria-labelledby="matrix-title">
-        <div class="matrix-panel__top">
-          <div>
-            <p class="eyebrow eyebrow--small">Matrix</p>
-            <h2 id="matrix-title">ATT&amp;CK-style domain matrix with actors, risks and mitigations</h2>
+    <main>
+      <section class="hero hero--home" aria-labelledby="hero-title">
+        <div class="hero__inner">
+          <div class="hero__copy">
+            <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Open enterprise-security operating model</p>
+            <h1 id="hero-title">See risk.<br><span>Decide faster.</span></h1>
+            <p class="lede">
+              One evidence-led view of the people, physical, operational, cyber, integrity and resilience risks that shape enterprise security.
+            </p>
+            <div class="hero__actions">
+              <a class="button button--primary" href="#matrix-explorer">Explore the matrix <span aria-hidden="true">↓</span></a>
+              <a class="button button--secondary" href="framework.html">Open the operating framework</a>
+            </div>
+            <p class="hero__note">Edition 1.0.0 · Reviewed August 2026 · No analytics</p>
           </div>
 
-          <div class="matrix-panel__meta">
-            <p id="resultCount" aria-live="polite"></p>
-            <div class="legend" aria-label="Legend">
-              <span class="legend__item legend__item--actor">Possible actor</span>
-              <span class="legend__item legend__item--threat">Threat signal</span>
-              <span class="legend__item legend__item--control">Control response</span>
+          <div class="hero-system" role="group" aria-label="Matrix model overview">
+            <div class="hero-system__topline">
+              <span>Enterprise view</span>
+              <span class="live-label"><span aria-hidden="true"></span> Evidence-led</span>
+            </div>
+            <div class="hero-system__metric">
+              <strong>9</strong>
+              <span>security domains aligned to one decision model</span>
+            </div>
+            <div class="hero-system__phases" role="list" aria-label="Five lifecycle phases">
+              <span role="listitem"><small>01</small>Identify</span>
+              <span role="listitem"><small>02</small>Protect</span>
+              <span role="listitem"><small>03</small>Detect</span>
+              <span role="listitem"><small>04</small>Respond</span>
+              <span role="listitem"><small>05</small>Recover</span>
+            </div>
+            <div class="hero-system__signal">
+              <span>Decision layers</span>
+              <div><i class="signal signal--actor"></i> Actors &amp; sources</div>
+              <div><i class="signal signal--risk"></i> Risks</div>
+              <div><i class="signal signal--control"></i> Mitigations</div>
             </div>
           </div>
         </div>
-
-        <div class="active-domain" id="activeDomain"></div>
-
-        <div class="matrix-scroll" role="region" aria-label="Corporate security matrix" tabindex="0">
-          <div class="matrix-grid" id="matrixGrid"></div>
-        </div>
       </section>
 
-      <section class="reference-library" id="references" aria-labelledby="reference-title">
-        <div class="reference-library__intro">
+      <section class="trust-strip" aria-label="Matrix scope">
+        <div><strong>9</strong><span>Security domains</span></div>
+        <div><strong>5</strong><span>Lifecycle phases</span></div>
+        <div><strong>3</strong><span>Decision layers</span></div>
+        <div><strong>46</strong><span>Source mappings</span></div>
+      </section>
+
+      <section class="intro-section" aria-labelledby="intro-title">
+        <div>
+          <p class="eyebrow">A shared operating picture</p>
+          <h2 id="intro-title">Move from fragmented risk lists to coordinated decisions.</h2>
+        </div>
+        <p>
+          The matrix connects plausible actors and failure sources to material risks and practical mitigations. Use it to frame leadership reviews, establish domain ownership and find gaps across the full defensive lifecycle.
+        </p>
+      </section>
+
+      <section class="explorer" id="matrix-explorer" aria-labelledby="matrix-title">
+        <div class="explorer__heading">
           <div>
-            <p class="eyebrow eyebrow--small">Evidence Base</p>
-            <h2 id="reference-title">Official source pack for the active domain</h2>
-            <p>
-              Each tab is backed by curated primary sources selected for that domain. The source pack
-              below should be treated as the authority base for tailoring local controls, legal
-              obligations and assurance practices.
-            </p>
+            <p class="eyebrow">Interactive matrix</p>
+            <h2 id="matrix-title">Explore the operating model</h2>
+          </div>
+          <div class="explorer__actions">
+            <button class="text-button" id="copyLink" type="button" aria-describedby="copyStatus">
+              Copy this view
+            </button>
+            <span class="sr-only" id="copyStatus" role="status" aria-live="polite"></span>
           </div>
         </div>
 
-        <div class="reference-grid" id="referenceGrid"></div>
+        <noscript><p class="notice">The interactive matrix needs JavaScript. The operating model and evidence policy remain available in the framework and source-library documents.</p></noscript>
+
+        <section class="control-bar" aria-label="Matrix controls">
+          <div class="control-panel control-panel--domains">
+            <div class="control-heading">
+              <label class="control-label" id="domain-label">Security domain</label>
+              <span>Use arrow keys to move</span>
+            </div>
+            <div class="chip-group" id="domainFilters" role="tablist" aria-labelledby="domain-label"></div>
+          </div>
+
+          <div class="control-panel control-panel--search">
+            <label class="control-label" for="matrixSearch">Search this domain</label>
+            <div class="search-field">
+              <span aria-hidden="true">⌕</span>
+              <input id="matrixSearch" type="search" autocomplete="off" spellcheck="false" placeholder="Search this domain">
+              <button id="clearSearch" class="search-field__clear" type="button" aria-label="Clear search" hidden>Clear</button>
+            </div>
+          </div>
+
+          <fieldset class="control-panel control-panel--view">
+            <legend class="control-label">Decision layer</legend>
+            <div class="view-switch" role="radiogroup" aria-label="Filter decision layer">
+              <button type="button" class="view-switch__button is-active" data-view-mode="all" role="radio" aria-checked="true">All</button>
+              <button type="button" class="view-switch__button" data-view-mode="actors" role="radio" aria-checked="false">Actors &amp; sources</button>
+              <button type="button" class="view-switch__button" data-view-mode="risks" role="radio" aria-checked="false">Risks</button>
+              <button type="button" class="view-switch__button" data-view-mode="mitigations" role="radio" aria-checked="false">Mitigations</button>
+            </div>
+          </fieldset>
+        </section>
+
+        <div class="active-domain" id="activeDomain"></div>
+
+        <div class="matrix-panel">
+          <div class="matrix-panel__top">
+            <p id="resultCount" role="status" aria-live="polite"></p>
+            <div class="legend" role="list" aria-label="Decision-layer legend">
+              <span class="legend__item legend__item--actor" role="listitem"><i></i>Actor or failure source</span>
+              <span class="legend__item legend__item--risk" role="listitem"><i></i>Detailed risk</span>
+              <span class="legend__item legend__item--control" role="listitem"><i></i>Mitigation</span>
+            </div>
+          </div>
+          <div class="matrix-scroll" role="region" aria-label="Corporate security lifecycle matrix" tabindex="0">
+            <div class="matrix-grid" id="matrixGrid" role="tabpanel"></div>
+          </div>
+          <div class="empty-state" id="emptyState" hidden>
+            <strong>No matching entries</strong>
+            <span>Try a broader search or show all decision layers.</span>
+          </div>
+        </div>
       </section>
 
-      <footer class="footer">
-        <p>
-          ATT&amp;CK-inspired refers to the matrix interaction pattern, not to the MITRE ATT&amp;CK
-          taxonomy. This project is intended as an open-source planning aid for businesses globally,
-          using original synthesis text grounded first in international official sources. See the
-          <a href="acknowledgements.html">acknowledgements page</a> for recognition of the idea
-          developer behind the initiative.
-        </p>
-      </footer>
+      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+        <div class="evidence-section__intro">
+          <div>
+            <p class="eyebrow">Evidence, not opinion</p>
+            <h2 id="evidence-title">Trace every domain back to authoritative guidance.</h2>
+          </div>
+          <p>
+            Source packs prioritize standards bodies, intergovernmental organizations and official public-sector guidance. They are implementation anchors—not a substitute for applicable law, certified engineering or professional judgment.
+          </p>
+        </div>
+        <div class="reference-grid" id="referenceGrid"></div>
+        <div class="evidence-section__footer">
+          <a href="SOURCE-LIBRARY.md">Open the complete source library <span aria-hidden="true">→</span></a>
+          <a href="FACT-CHECK.md">Read verification notes <span aria-hidden="true">→</span></a>
+        </div>
+      </section>
+
+      <section class="framework-cta" aria-labelledby="framework-cta-title">
+        <p class="eyebrow">From insight to governance</p>
+        <h2 id="framework-cta-title">Turn the matrix into a repeatable management system.</h2>
+        <p>Assign ownership, assess maturity, build evidence and run a disciplined operating cadence.</p>
+        <a class="button button--light" href="framework.html">Explore the framework <span aria-hidden="true">→</span></a>
+      </section>
     </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__top">
+        <div>
+          <a class="brand brand--footer" href="index.html">
+            <span class="brand__mark" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>
+            <span class="brand__name">Corporate Security Matrix</span>
+          </a>
+          <p>An open, evidence-led operating model for enterprise security.</p>
+        </div>
+        <nav aria-label="Footer">
+          <a href="#matrix-explorer">Matrix</a>
+          <a href="framework.html">Framework</a>
+          <a href="acknowledgements.html">Acknowledgements</a>
+          <a href="SECURITY.md">Security</a>
+          <a href="https://github.com/samran2/corporate-security-matrix" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        </nav>
+      </div>
+      <div class="site-footer__bottom">
+        <span>MIT licensed · Privacy by design · No analytics</span>
+        <span>ATT&amp;CK-inspired interaction pattern; not a MITRE taxonomy.</span>
+      </div>
+    </footer>
 
     <script src="matrix-domains.js"></script>
     <script src="matrix-actors.js"></script>

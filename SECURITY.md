@@ -1,13 +1,13 @@
 # Security Policy
 
-This repository is a static knowledge project, not a software product with a runtime attack surface.
+This repository is a static knowledge project with a deliberately small browser attack surface.
 
 ## Current hardening
 
 The published site is intended to stay secure by default:
 
 - no third-party JavaScript
-- no user input processing
+- search input is filtered in memory, reflected in the page URL and rendered with `textContent`; it is never submitted, written to cookies or saved through Web Storage (the URL may remain in browser history or a copied link)
 - no `innerHTML`, `eval`, string timers or browser storage
 - no external font or asset dependency required for rendering
 - Content Security Policy delivered via HTML meta tag for static hosting compatibility
@@ -47,3 +47,5 @@ Use GitHub issues or pull requests for:
 ## Handling sensitive reports
 
 If you believe a public discussion would create avoidable risk for a real organization, report the issue privately to the maintainer instead of posting operationally sensitive detail.
+
+Use GitHub's private vulnerability reporting page: <https://github.com/samran2/corporate-security-matrix/security/advisories/new>.

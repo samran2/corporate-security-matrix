@@ -1,27 +1,36 @@
-name: Validate
+name: Quality
 
 on:
   push:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  validate:
-    runs-on: ubuntu-latest
+  quality:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
         with:
-          node-version: "20"
+          node-version: "24"
+          package-manager-cache: false
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: "3.12"
+          python-version: "3.14"
 
       - name: Validate JavaScript syntax
         run: |
@@ -30,21 +39,27 @@ jobs:
           node --check matrix-briefs.js
           node --check matrix-references.js
           node --check app.js
+          node scripts/validate_data.mjs
 
-      - name: Validate links and static security baseline
+      - name: Validate release surface
         run: python3 scripts/validate_project.py
 
       - name: Smoke-test static site
+        shell: bash
         run: |
-          python3 -m http.server 8010 >/tmp/attack-total-defence-http.log 2>&1 &
-          sleep 2
-          curl -fI http://127.0.0.1:8010/index.html
-          curl -fI http://127.0.0.1:8010/acknowledgements.html
-          curl -fI http://127.0.0.1:8010/assets/github-preview.svg
-          curl -fI http://127.0.0.1:8010/assets/matrix-anatomy.svg
-          curl -fI http://127.0.0.1:8010/matrix-domains.js
-          curl -fI http://127.0.0.1:8010/matrix-actors.js
-          curl -fI http://127.0.0.1:8010/matrix-briefs.js
-          curl -fI http://127.0.0.1:8010/matrix-references.js
-          curl -fI http://127.0.0.1:8010/app.js
-          curl -fI http://127.0.0.1:8010/styles.css
+          python3 -m http.server 8010 --bind 127.0.0.1 >/tmp/corporate-security-matrix-http.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid"' EXIT
+          for attempt in {1..20}; do
+            if curl --fail --silent --show-error http://127.0.0.1:8010/index.html >/dev/null; then
+              break
+            fi
+            if [ "$attempt" -eq 20 ]; then
+              cat /tmp/corporate-security-matrix-http.log
+              exit 1
+            fi
+            sleep 0.25
+          done
+          for path in index.html framework.html acknowledgements.html 404.html styles.css app.js matrix-domains.js matrix-actors.js matrix-briefs.js matrix-references.js robots.txt sitemap.xml assets/favicon.svg assets/apple-touch-icon.png assets/social-preview.png; do
+            curl --fail --silent --show-error "http://127.0.0.1:8010/$path" >/dev/null
+          done

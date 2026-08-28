@@ -1,0 +1,34 @@
+name: Content correction
+description: Report a factual, source, scope or terminology issue
+title: "[Content]: "
+labels: [content]
+body:
+  - type: markdown
+    attributes:
+      value: "Thank you for helping improve the evidence base. Do not include sensitive operational information or personal data."
+  - type: textarea
+    id: location
+    attributes:
+      label: Location
+      description: Identify the domain, lifecycle phase and exact text.
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: What is incorrect or unclear?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Authoritative evidence
+      description: Provide official source links and relevant scope details.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Suggested correction
+    validations:
+      required: false

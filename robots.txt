@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://samran2.github.io/corporate-security-matrix/sitemap.xml

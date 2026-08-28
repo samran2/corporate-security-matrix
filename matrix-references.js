@@ -182,7 +182,7 @@ const referencesByDomain = {
       org: "NIST",
       type: "Framework",
       title: "Cybersecurity Framework 2.0",
-      note: "Global cyber-risk baseline with lifecycle logic aligned to the matrix phases.",
+      note: "Widely used United States cyber-risk governance framework with lifecycle logic aligned to the matrix phases.",
       url: "https://www.nist.gov/cyberframework"
     },
     {
@@ -334,9 +334,9 @@ const referencesByDomain = {
     {
       org: "WHO",
       type: "Worker Health",
-      title: "Protecting Workers' Health",
-      note: "WHO baseline on occupational health risks, preventive systems and worker wellbeing.",
-      url: "https://www.who.int/news-room/fact-sheets/detail/protecting-workers%27-health"
+      title: "Occupational Health",
+      note: "WHO overview of occupational health, preventive systems, working conditions and worker wellbeing.",
+      url: "https://www.who.int/health-topics/occupational-health"
     }
   ]
 };
