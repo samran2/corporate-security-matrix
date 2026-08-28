@@ -102,10 +102,10 @@ Status key:
 - [x] Add a least-privilege Pages build and deployment workflow.
 - [x] Validate the release candidate before packaging the Pages artifact.
 - [x] Smoke-test the deployed home page and framework page in the deployment job.
-- [ ] Push the reviewed release commit to `main`.
-- [ ] Confirm the `Quality`, `External source links` and `Publish GitHub Pages` workflows.
-- [ ] Verify the production home page, framework, acknowledgements, 404 handling, assets and deep links.
-- [ ] Confirm canonical URLs, sitemap and social-preview image return HTTP 200.
+- [x] Push the reviewed release commit to `main`.
+- [x] Confirm the `Quality`, `External source links` and `Publish GitHub Pages` workflows.
+- [x] Verify the production home page, framework, acknowledgements, 404 handling, assets and deep links.
+- [x] Confirm canonical URLs, sitemap and social-preview image return HTTP 200.
 - [ ] Create the immutable `v1.0.0` tag from the final `main` commit.
 - [ ] Publish a GitHub Release from `CHANGELOG.md` with upgrade and verification notes.
 - [x] Confirm the repository homepage points to the live Pages URL.
