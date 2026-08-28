@@ -2,7 +2,7 @@
 
 All notable project changes are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses semantic versioning for public releases.
 
-## [1.0.0] — 2026-08-28
+## [1.0.0] — 2026-08-29
 
 ### Added
 
@@ -34,3 +34,6 @@ All notable project changes are documented here. The format follows [Keep a Chan
 - Stale project naming in licensing and validation metadata
 - Flaky always-on external-link checks in pull-request validation
 - Retired WHO occupational-health source URL
+- Optional Codex skill installation now binds to the reviewed upstream commit
+- Local development serving is explicitly limited to the loopback interface
+- GitHub Actions checkout credentials and Pages publication permissions are more tightly scoped

@@ -6,7 +6,7 @@ authors:
   - family-names: Rantanen
     given-names: Sami
 version: 1.0.0
-date-released: 2026-08-28
+date-released: 2026-08-29
 license: MIT
 repository-code: "https://github.com/samran2/corporate-security-matrix"
 url: "https://samran2.github.io/corporate-security-matrix/"

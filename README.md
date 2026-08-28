@@ -85,10 +85,10 @@ Core files:
 ## Run locally
 
 ```bash
-python3 -m http.server 8000
+python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-Open `http://127.0.0.1:8000/`.
+Open `http://127.0.0.1:8000/`. The explicit loopback bind keeps the development server local to this computer.
 
 ## Validate a change
 

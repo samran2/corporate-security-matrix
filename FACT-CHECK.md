@@ -1,6 +1,6 @@
 # Fact Check
 
-Verification date: August 28, 2026
+Verification date: August 29, 2026
 
 This repository was checked against official source domains as part of the 1.0.0 publication review.
 

@@ -1,6 +1,6 @@
 # Corporate Security Matrix Roadmap
 
-Last updated: August 28, 2026
+Last updated: August 29, 2026
 
 Current release target: `v1.0.0`
 Product status: public-release candidate
@@ -78,7 +78,7 @@ Status key:
 - [x] Retry transient network failures while continuing to fail on persistent broken links.
 - [x] Pass JavaScript syntax, Python compilation, YAML parsing, project validation and W3C HTML error checks.
 - [x] Pass local HTTP smoke tests for every shipped page, script, stylesheet and image.
-- [ ] Record a final production-browser console check after GitHub Pages deployment.
+- [x] Record a final production-browser console check after GitHub Pages deployment.
 
 ### 4. Repository professionalism
 
@@ -91,14 +91,14 @@ Status key:
 - [x] Add a resilient project-aware `404.html`.
 - [x] Add this roadmap and make it discoverable from the README.
 - [x] Document the optional agent-assisted workflow and its verified skill baseline.
-- [ ] Set the GitHub repository description, homepage and topics.
-- [ ] Enable private vulnerability reporting in repository settings.
+- [x] Set the GitHub repository description, homepage and topics.
+- [x] Enable private vulnerability reporting in repository settings.
 - [ ] Add a branch ruleset requiring the `Quality` workflow for pull requests after the first release is stable.
 - [ ] Review and close or supersede stale test pull requests and branches without deleting active work.
 
 ### 5. GitHub Pages and release publication
 
-- [ ] Enable GitHub Pages with GitHub Actions as the build source.
+- [x] Enable GitHub Pages with GitHub Actions as the build source.
 - [x] Add a least-privilege Pages build and deployment workflow.
 - [x] Validate the release candidate before packaging the Pages artifact.
 - [x] Smoke-test the deployed home page and framework page in the deployment job.
@@ -106,9 +106,9 @@ Status key:
 - [ ] Confirm the `Quality`, `External source links` and `Publish GitHub Pages` workflows.
 - [ ] Verify the production home page, framework, acknowledgements, 404 handling, assets and deep links.
 - [ ] Confirm canonical URLs, sitemap and social-preview image return HTTP 200.
-- [ ] Create and push the signed or annotated `v1.0.0` tag.
+- [ ] Create the immutable `v1.0.0` tag from the final `main` commit.
 - [ ] Publish a GitHub Release from `CHANGELOG.md` with upgrade and verification notes.
-- [ ] Confirm the repository homepage points to the live Pages URL.
+- [x] Confirm the repository homepage points to the live Pages URL.
 
 ## Required release gates
 

@@ -54,11 +54,11 @@ The seven shared upstream references are also required for complete internal lin
 The upstream repository supports native Codex plugin installation:
 
 ```bash
-codex plugin marketplace add addyosmani/agent-skills
+codex plugin marketplace add addyosmani/agent-skills --ref f63ec56a3cc936408d792956ae583c3c96a825bd
 codex plugin add agent-skills@agent-skills
 ```
 
-Start a new Codex session after installation so the skills are discovered. Review upstream changes before updating the installed revision; development instructions can materially change agent behavior.
+The full commit SHA is intentional: it binds the marketplace snapshot to the reviewed baseline above before Codex loads its instructions. Start a new Codex session after installation so the skills are discovered. Review upstream changes before updating the pinned revision; development instructions can materially change agent behavior.
 
 ## Project workflow mapping
 
@@ -98,7 +98,7 @@ Complete responsive, keyboard, reduced-motion and print review before a public r
 
 1. Review the upstream changelog and diff from the recorded revision.
 2. Check for renamed skills, new shared references and changed tool requirements.
-3. Install into a fresh session and verify that all referenced support files resolve.
+3. Replace the `--ref` value in the installation command with the reviewed full commit SHA, install into a fresh session and verify that all referenced support files resolve.
 4. Run this repository's complete validation and visual QA.
 5. Update the revision recorded in this file only after verification.
 
