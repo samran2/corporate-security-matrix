@@ -7,8 +7,9 @@ This repository is a static knowledge project with a deliberately small browser 
 The published site is intended to stay secure by default:
 
 - no third-party JavaScript
-- search input is filtered in memory, reflected in the page URL and rendered with `textContent`; it is never submitted, written to cookies or saved through Web Storage (the URL may remain in browser history or a copied link)
-- no `innerHTML`, `eval`, string timers or browser storage
+- search input is filtered in memory, reflected in the page URL and rendered with `textContent`; the application does not submit it or persist it in cookies, Web Storage or IndexedDB
+- URL state may remain in browser history, copied links and hosting, CDN or access logs; do not enter sensitive organizational or personal information in search
+- no `innerHTML`, `eval`, string timers or application-managed browser storage
 - no external font or asset dependency required for rendering
 - Content Security Policy delivered via HTML meta tag for static hosting compatibility
 - external links opened with `noopener noreferrer`

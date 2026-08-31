@@ -77,7 +77,19 @@ Use the smallest relevant skill set for the change:
 
 Skills guide the process; repository tests and release gates remain the source of truth. A skill must never be used to bypass the requirements in [ROADMAP.md](ROADMAP.md), weaken security controls or invent evidence.
 
+## Mitigation-tool contract
+
+The integrated candidate keeps implementation aids separate from the core `{ id, text, reviewState }` entry records. Three canonical fragments cover domains D01–D09; `matrix-tools.js` merges them into schema version `1.0.0`, keyed by all 180 canonical mitigation `M` identifiers. Every identifier must have exactly two `{ name, use }` records, for 360 records in total.
+
+Load all three fragments and the aggregator before `app.js`. Missing, extra or malformed tooling must stop initialization before a plausible matrix renders. If the feature is included in a release manifest, all four files are an atomic set. The UI contract requires one visible limitation notice, native `details` disclosures with a 44-pixel summary target, search across both tool fields, safe 320-pixel wrapping and expanded print output. The tooling layer must not add vendor links, runtime network calls or browser storage.
+
+`validate_mitigation_tools.mjs` and `validate_mitigation_tools_ui.mjs` are deterministic structural and bounded text-pattern gates. Their URL, vendor-name, endorsement and absolute-claim rules are intentionally defensive but cannot prove semantic suitability, practical availability, vendor neutrality in every market, safety or compliance. A named competent human must review every mapping and record the domain scope, date, findings and disposition before publication.
+
 ## Local release checks
+
+The default Pages artifact is explicitly scoped to `v1.1.0` in `scripts/site-manifest.json`. Later assessment, comparison, overlay and source-operations files remain available for development but are excluded from that allowlist. Mixed-version source sections use paired `csm-release-scope` markers; `scripts/site.mjs` removes only the manifest-declared future sections and fails closed for missing, malformed, nested or undeclared markers. Validate and upload the assembled `_site` directory only—never the repository root.
+
+For `v1.1.0`, the assembled artifact contains exactly four HTML documents: `index.html`, `framework.html`, `acknowledgements.html` and `404.html`. A later feature may enter the release manifest only when its roadmap gate is complete and the release identity is updated deliberately.
 
 ```bash
 git diff --check
@@ -85,14 +97,55 @@ node --check matrix-domains.js
 node --check matrix-actors.js
 node --check matrix-briefs.js
 node --check matrix-references.js
+node --check matrix-overlays.js
+node --check matrix-tools-d01-d03.js
+node --check matrix-tools-d04-d06.js
+node --check matrix-tools-d07-d09.js
+node --check matrix-tools.js
+node --check assessment-model.js
+node --check assessment-crypto.js
+node --check assessment-compare.js
+node --check assessment.js
+node --check assessment-comparison.js
 node --check app.js
 node scripts/validate_data.mjs
+node scripts/validate_data_contract.mjs
+node scripts/validate_assessment.mjs
+node scripts/validate_assessment_compare.mjs
+node scripts/validate_source_register.mjs
+node scripts/validate_source_register.mjs --test-mutations
+node scripts/validate_overlays.mjs
+node scripts/test_validate_overlays.mjs
+node scripts/test_runtime_bootstrap.mjs
+node scripts/validate_overlay_ui.mjs
+node scripts/validate_mitigation_tools.mjs
+node scripts/validate_mitigation_tools_ui.mjs
+node scripts/validate_ui.mjs
+node scripts/validate_workflows.mjs --self-test
+node scripts/verify_workflow_runs.mjs --self-test
+node scripts/test_site.mjs
 python3 -m py_compile scripts/validate_project.py
 python3 scripts/validate_project.py
+node scripts/site.mjs build _site
+node scripts/validate_html.mjs _site
 python3 scripts/validate_project.py --check-links
 ```
 
+The HTML gate downloads the official, immutable Maven Central build of the Nu HTML Checker into a temporary cache, verifies its pinned version against both the recorded SHA-256 and upstream SHA-1 in `scripts/site-manifest.json`, and then runs it locally with Java 17 or newer. It does not send project HTML to a third-party validation service.
+
+To exercise exactly the same public-route list used after deployment, serve the assembled `_site` directory on loopback and run:
+
+```bash
+node scripts/site.mjs smoke http://127.0.0.1:8000/
+```
+
+The smoke gate checks both the ordinary and cache-busted forms of `/` and `/index.html`, rejects redirects, stripped application-query state and soft 404s, and requires every response body to match its route-specific manifest file. Production requires two consecutive coherent whole-manifest sweeps and reports available CDN diagnostics. `.nojekyll` is retained in the artifact closure and digest but excluded from HTTP smoke checks because GitHub Pages consumes rather than serves that control file.
+
+The workflow contract permits action references only in canonical block-style YAML and requires every external action to use a full 40-character commit SHA. Flow-map steps, multiline action references, explicit or quoted mapping keys, YAML tags, anchors, aliases and merge keys fail closed so alternate YAML spellings cannot bypass the pin check.
+
 Complete responsive, keyboard, reduced-motion and print review before a public release. The exact blocking gates and publication sequence are maintained in [ROADMAP.md](ROADMAP.md).
+
+Branch protection, required environment reviewers and release authorization remain repository settings, not claims automation can establish. Configure and verify them using [RELEASE-CONTROLS.md](RELEASE-CONTROLS.md) before publication.
 
 ## Update policy
 

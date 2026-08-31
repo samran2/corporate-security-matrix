@@ -1,29 +1,29 @@
 const domainProfiles = {
   "personnel-security": {
-    mission: "Keep the workforce trustworthy, protected, capable and operational under routine pressure, travel exposure and crisis conditions.",
+    mission: "Protect people, sustain critical capability and keep trusted access proportionate through employment, travel and crises.",
     protects: [
       "Trusted access, sensitive relationships and delegated authority",
       "Critical-role continuity, executive movement and high-risk travel assignments",
       "Psychological safety, conduct discipline and workforce resilience"
     ],
     owners: [
-      "HR and People Operations",
+      "Human Resources and People Operations",
       "Corporate Security and Travel Security",
       "Legal, line leadership and employee relations"
     ],
     failureModes: [
       "Access is granted faster than trust is verified",
-      "Behavioral red flags stay trapped inside management silos",
+      "Access misuse, coercion and harassment signals remain fragmented across functions",
       "Key-person loss, coercion or burnout becomes visible only after disruption starts"
     ],
     assuranceQuestions: [
       "Which people, roles or contractors can stop the business or expose crown-jewel information if they fail?",
-      "Can we detect insider misuse, coercion, harassment or welfare decline early enough to intervene?",
+      "Can we detect access misuse, coercion or harassment without treating a health condition as evidence of malicious intent?",
       "Do travel, conduct, access and continuity decisions use the same risk picture?"
     ]
   },
   "premises-security": {
-    mission: "Keep sites, access layers, critical utilities and physical assets secure, usable and recoverable under normal, criminal and hostile conditions.",
+    mission: "Keep sites, access layers, critical utilities and physical assets secure, usable and recoverable through routine operations, disruption and targeted attack.",
     protects: [
       "Perimeters, public interfaces and layered access boundaries",
       "Critical rooms, utilities, archives and operational control points",
@@ -35,18 +35,18 @@ const domainProfiles = {
       "Business continuity, emergency leads and local management"
     ],
     failureModes: [
-      "Public-facing space bleeds into trusted space without real control",
+      "Public and controlled areas are not separated by effective boundaries",
       "Visitor, vendor and contractor flows outrun badge and escort discipline",
       "A single site or utility becomes a hidden single point of failure"
     ],
     assuranceQuestions: [
       "Do we know which spaces, routes and utilities matter most to continuity and safety?",
-      "Can we detect hostile reconnaissance, badge misuse or perimeter testing before entry succeeds?",
+      "Can we distinguish lawful assembly from violence while detecting badge misuse or hostile reconnaissance?",
       "Can the business still operate if one facility, access layer or utility is denied?"
     ]
   },
   "rescue-safety": {
-    mission: "Prepare the organization to protect life, coordinate first response and recover safely from fires, severe incidents and all-hazards emergencies.",
+    mission: "Prepare each site to protect life, coordinate first response and recover safely from reasonably foreseeable emergencies.",
     protects: [
       "Life safety, safe egress and accountability for people on site",
       "Emergency command, responder coordination and first-aid capability",
@@ -59,12 +59,12 @@ const domainProfiles = {
     ],
     failureModes: [
       "Plans exist on paper but do not match occupancy, shift patterns or real layouts",
-      "Alarming, suppression or accountability processes degrade without being tested",
+      "Alarm, suppression and accountability systems degrade without routine testing",
       "Command confusion delays evacuation, triage or handover to public responders"
     ],
     assuranceQuestions: [
       "Would our emergency plan still work at night, during maintenance, or with visitors and contractors on site?",
-      "Which severe incidents would exceed our internal first-response capability within minutes?",
+      "Which foreseeable incidents would exceed our internal first-response capability?",
       "Can leaders make shelter, evacuation and re-entry decisions from reliable information?"
     ]
   },
@@ -94,12 +94,12 @@ const domainProfiles = {
   "environmental-safety": {
     mission: "Prevent environmental harm, manage hazardous materials responsibly and sustain legal, operational and community trust under routine and incident conditions.",
     protects: [
-      "Air, water, soil and community receptors around operations",
+      "Air, water, soil, ecosystems and affected communities",
       "Hazardous-material inventories, storage, transport and waste pathways",
-      "Environmental permits, resource efficiency and license to operate"
+      "Environmental permits, resource efficiency, regulatory permission and community acceptance"
     ],
     owners: [
-      "Environmental managers and EHS leaders",
+      "Environmental and sustainability leaders",
       "Operations, maintenance and hazardous-material handlers",
       "Contractor managers, transport partners and site leadership"
     ],
@@ -111,7 +111,7 @@ const domainProfiles = {
     assuranceQuestions: [
       "Which substances, processes or receptors would create our most serious environmental event?",
       "Can we detect leaks, exceedances or permit drift before a regulator or community does?",
-      "Are remediation and restart decisions balancing compliance, ecology and business pressure properly?"
+      "Do remediation and restart decisions protect compliance, ecosystems and affected communities under business pressure?"
     ]
   },
   "information-and-cyber-security": {
@@ -132,8 +132,8 @@ const domainProfiles = {
       "Restoration decisions outrun containment and rebuild trust"
     ],
     assuranceQuestions: [
-      "Which identities, systems or data exposures would create existential business harm first?",
-      "Can we see lateral movement, supplier compromise and backup failure before they become outage?",
+      "Which identities, systems or data exposures could cause the most severe plausible business impact?",
+      "Can we see lateral movement, supplier compromise and backup failure before they cause an outage?",
       "Would we trust our own rebuilt environment after a major cyber incident?"
     ]
   },
@@ -147,16 +147,16 @@ const domainProfiles = {
     owners: [
       "Compliance, legal and investigation functions",
       "Finance controls, procurement and commercial leadership",
-      "HR, internal audit and board-level oversight"
+      "Human Resources, internal audit and board-level oversight"
     ],
     failureModes: [
       "Culture signals tolerate workaround behavior while policies say the opposite",
-      "Case ownership fragments across legal, HR, finance and security",
+      "Case ownership fragments across legal, human resources, finance and security",
       "Remediation closes formally without changing incentives or decision pathways"
     ],
     assuranceQuestions: [
       "Where can improper payments, conflicts or books-and-records manipulation hide in normal business flow?",
-      "Can serious allegations move from intake to evidence protection fast enough to remain credible?",
+      "Can credible allegations move from intake to lawful evidence preservation without delay?",
       "Do leaders see integrity failures as operational risk, not just legal exposure?"
     ]
   },
@@ -179,7 +179,7 @@ const domainProfiles = {
     ],
     assuranceQuestions: [
       "Which dependencies fail first when stress hits several domains at once?",
-      "Can leaders choose what to save, stop and defer within the first hour of a major crisis?",
+      "Can leaders choose what to save, stop and defer within the decision window each scenario requires?",
       "Are exercises testing real decisions, cross-team friction and external coordination, not just document existence?"
     ]
   },
@@ -191,9 +191,9 @@ const domainProfiles = {
       "Long-term work ability, contractor interfaces and trust in supervision"
     ],
     owners: [
-      "Safety leaders, supervisors and line management",
-      "Engineering, maintenance and work-permit authorities",
-      "Occupational health, HR and contractor oversight teams"
+      "Employer, executive and line management",
+      "Workers, worker representatives and supervisors",
+      "Engineering, occupational health, safety, maintenance and contractor leads"
     ],
     failureModes: [
       "Production pressure silently overrides safe-work discipline",
@@ -201,7 +201,7 @@ const domainProfiles = {
       "Corrective actions close on paper while the job remains unchanged"
     ],
     assuranceQuestions: [
-      "Which tasks, exposures or worker groups carry the highest irreversible harm potential?",
+      "Which tasks or exposures carry the highest potential for irreversible harm?",
       "Can we prove that work stops when isolation, guarding, supervision or conditions are wrong?",
       "Do workers trust the system enough to report unsafe conditions before injury happens?"
     ]
@@ -212,23 +212,23 @@ const phaseFramingByDomain = {
   "personnel-security": {
     identify: "Know who holds trust, authority, travel exposure and single-point role knowledge before people risk becomes business risk.",
     protect: "Reduce insider, coercion and wellbeing risk through access discipline, conduct systems and targeted protective measures.",
-    detect: "Spot behavioral drift, misuse, retaliation and welfare decline early enough to intervene without delay.",
-    respond: "Protect the person, preserve evidence, transfer authority and coordinate HR, legal and security decisions immediately.",
+    detect: "Detect access misuse, coercion, retaliation and welfare needs without treating health conditions as malicious intent.",
+    respond: "Protect the person, preserve evidence, transfer authority and coordinate human resources, legal and security decisions.",
     recover: "Rebuild trust, capability and psychosocial resilience while closing the conditions that enabled the personnel event."
   },
   "premises-security": {
-    identify: "Understand site criticality, protective zones, public interfaces and utility dependencies before a physical incident chooses them for you.",
+    identify: "Understand site criticality, protective zones, public interfaces and utility dependencies before an incident exposes them.",
     protect: "Harden the site through layered barriers, trusted access routes and tighter control of visitors, vendors and deliveries.",
     detect: "See reconnaissance, badge misuse, tailgating and equipment failure before a physical breach turns into a continuity event.",
     respond: "Contain the incident at site level while keeping people safe, protecting critical spaces and guiding external responders.",
-    recover: "Restore site trust, access integrity and utility confidence before normal occupancy and operations are resumed fully."
+    recover: "Verify credentials, physical controls and critical utilities before full occupancy and operations resume."
   },
   "rescue-safety": {
     identify: "Model fires, severe injuries and occupancy realities as they actually occur, not as plans assume they occur.",
     protect: "Keep life-safety systems, permits, training and escape routes ready for the moment routine work turns abnormal.",
     detect: "Use inspections, drills and weak-signal reporting to catch readiness drift before an emergency outruns the site.",
     respond: "Create command clarity, protect life first and coordinate internal actions with public emergency services under pressure.",
-    recover: "Return to safe occupancy only after equipment, people and decision processes are truly ready again."
+    recover: "Return to safe occupancy only after competent checks confirm equipment, people and decision processes are ready."
   },
   "security-of-production-and-operations": {
     identify: "Map where supplier, payment, traceability and quality breakdowns can interrupt customer commitments first.",
@@ -241,21 +241,21 @@ const phaseFramingByDomain = {
     identify: "Know which substances, receptors, permits and resource loads define your real environmental risk perimeter.",
     protect: "Control storage, handling, transport and maintenance so routine operations do not drift into environmental damage.",
     detect: "Use monitoring, inspection and complaint intelligence to surface release, exceedance and permit drift before escalation.",
-    respond: "Contain the source quickly, protect people and environment together, and coordinate notifications and impact assessment in real time.",
-    recover: "Restore legal, ecological and community trust through transparent remediation and higher-integrity operating design."
+    respond: "Contain the source, protect people and the environment, and complete required notifications and impact assessment without delay.",
+    recover: "Restore regulatory, ecological and community confidence through transparent remediation and more reliable operating design."
   },
   "information-and-cyber-security": {
     identify: "Prioritize the data, identities, services and third-party trust paths that would matter most in a major cyber event.",
     protect: "Reduce exploitable attack paths with disciplined identity, configuration, endpoint, data-handling and supplier controls.",
     detect: "Turn logging, endpoint, network and identity signals into usable warning of compromise before business disruption peaks.",
-    respond: "Contain scope fast, protect evidence and make restoration decisions from a trusted view of attacker presence and impact.",
+    respond: "Contain affected identities, systems and network paths, preserve evidence and base restoration on verified attacker scope.",
     recover: "Rebuild from trusted states, close architectural weaknesses and restore stakeholder confidence in digital operations."
   },
   "compliance-control": {
     identify: "Pinpoint where bribery, fraud, retaliation and records manipulation can hide inside ordinary business decisions.",
     protect: "Build friction into high-risk decisions so improper payments, override behavior and third-party abuse are harder to execute.",
-    detect: "Use reporting channels, analytics and preservation triggers to surface misconduct before facts disappear or normalize.",
-    respond: "Protect the case, protect reporters and coordinate legal, HR, finance and security so response stays credible.",
+    detect: "Use reporting channels, analytics and preservation triggers before evidence is lost or misconduct becomes normalized.",
+    respond: "Preserve case integrity, protect reporters and coordinate legal, human resources, finance and security decisions.",
     recover: "Turn findings into governance, incentive and oversight changes that prevent the same integrity failure from returning."
   },
   "contingency-and-crisis-management": {
@@ -267,10 +267,10 @@ const phaseFramingByDomain = {
   },
   "industrial-safety": {
     identify: "Understand the real work, not just the written procedure, so hazardous tasks and chronic exposure are visible before harm.",
-    protect: "Use engineered safeguards, permits, supervision and human-factor controls to keep unsafe work from becoming normal.",
+    protect: "Apply the control hierarchy, verified energy isolation, permits and supervision before hazardous work starts.",
     detect: "Treat near misses, exposure trends and weak supervision as early indicators of future injury, not minor noise.",
-    respond: "Stop unsafe work, care for the injured and preserve the facts needed to prevent repeat harm.",
-    recover: "Return people and work safely through verified corrective action, rehabilitation and stronger day-to-day supervision."
+    respond: "Provide urgent care, control the hazard and then preserve evidence needed to prevent repeat harm.",
+    recover: "Support voluntary return to work through verified controls, appropriate adjustments, confidentiality and non-discrimination."
   }
 };
 

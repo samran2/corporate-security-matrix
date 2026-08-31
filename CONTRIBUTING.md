@@ -15,13 +15,15 @@ The optional agent-assisted workflow and its verified skill baseline are documen
 
 When adding or changing matrix content:
 
-1. Prefer primary sources from standards bodies, intergovernmental organizations, regulators and public framework owners.
+1. Prefer original, authoritative records from standards bodies, intergovernmental organizations, regulators and public framework owners.
 2. Do not use vendor marketing, generic blogs or AI-generated citations as evidence.
 3. Keep synthesis wording original; do not reproduce protected standards text.
-4. State jurisdiction, sector or scope limits when guidance is not globally transferable.
-5. Keep risks concrete and mitigations observable in practice.
-6. Update `SOURCE-LIBRARY.md`, `matrix-references.js` and `FACT-CHECK.md` when the evidence base changes.
-7. Distinguish possible actors or failure sources, detailed risks and mitigations consistently.
+4. Record the source edition or release, current status, verification date, authority, access level and applicability.
+5. State jurisdiction, sector, legal, contractual and competence limits when guidance is not globally transferable.
+6. Keep one principal idea per entry: threat sources may be people, hazards, dependencies or initiating conditions; risks describe exposures or failure modes; controls begin with an action and remain testable.
+7. Describe system and control conditions without stigmatizing workers, health conditions, lawful activity or legitimate stakeholders.
+8. Update `SOURCE-LIBRARY.md`, `matrix-references.js`, phase evidence mappings, `FACT-CHECK.md` and `CONTENT-REVIEW.md` when the evidence base changes.
+9. Treat domain and phase sources as contextual guidance unless a specific entry-to-source relationship has been separately verified.
 
 ## Product standards
 
@@ -36,6 +38,7 @@ When adding or changing matrix content:
 - [ ] The change has a clear user or evidence-quality benefit.
 - [ ] New or changed guidance is supported by authoritative sources.
 - [ ] Scope and jurisdiction limitations are visible.
+- [ ] Source status, edition and applicability have been reviewed independently from link reachability.
 - [ ] Documentation and the shipped files tell the same story.
 - [ ] JavaScript syntax checks pass.
 - [ ] `python3 scripts/validate_project.py` passes.
@@ -50,6 +53,8 @@ node --check matrix-actors.js
 node --check matrix-briefs.js
 node --check matrix-references.js
 node --check app.js
+node scripts/validate_data.mjs
+node scripts/validate_ui.mjs
 python3 scripts/validate_project.py
 ```
 

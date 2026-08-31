@@ -1,6 +1,8 @@
 name: External source links
 
 on:
+  push:
+    branches: [main]
   schedule:
     - cron: "17 3 * * 1"
   workflow_dispatch:
@@ -9,8 +11,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: external-source-links
-  cancel-in-progress: true
+  group: external-source-links-${{ github.event_name }}-${{ github.sha }}
+  cancel-in-progress: false
 
 jobs:
   links:
@@ -33,5 +35,31 @@ jobs:
         with:
           python-version: "3.14"
 
-      - name: Verify authoritative source links
-        run: python3 scripts/validate_project.py --check-links
+      - name: Verify authoritative sources and publish restricted-access report
+        shell: bash
+        run: |
+          set +e
+          csm_link_report="$RUNNER_TEMP/external-source-link-report.txt"
+          python3 scripts/validate_project.py --check-links >"$csm_link_report" 2>&1
+          validator_status=$?
+          cat "$csm_link_report"
+          {
+            echo "## External source-link report"
+            echo
+            echo "Commit: \`$GITHUB_SHA\`"
+            echo
+            echo '```text'
+            cat "$csm_link_report"
+            echo '```'
+          } >>"$GITHUB_STEP_SUMMARY"
+          exit "$validator_status"
+
+      - name: Record exact external-link SHA
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## External source-link workflow SHA"
+            echo
+            echo "Commit: \`$GITHUB_SHA\`"
+          } >>"$GITHUB_STEP_SUMMARY"

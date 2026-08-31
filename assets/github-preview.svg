@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820" role="img" aria-labelledby="title desc">
   <title id="title">Corporate Security Matrix GitHub preview</title>
-  <desc id="desc">A visual preview of the Corporate Security Matrix with domain tabs, lifecycle columns, and stacked actor, risk, and mitigation cards.</desc>
+  <desc id="desc">A visual preview of the Corporate Security Matrix with domain tabs, lifecycle columns, and stacked threat-source, risk, and control cards.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#f8f4eb" />
@@ -25,12 +25,11 @@
 
   <g transform="translate(94 94)">
     <text x="0" y="0" fill="#9d4410" font-family="'Avenir Next', 'Trebuchet MS', sans-serif" font-size="20" font-weight="700" letter-spacing="4">CORPORATE SECURITY MATRIX</text>
-    <text x="0" y="68" fill="#16303c" font-family="'Avenir Next', 'Trebuchet MS', sans-serif" font-size="64" font-weight="700">Open-source global</text>
-    <text x="0" y="136" fill="#16303c" font-family="'Avenir Next', 'Trebuchet MS', sans-serif" font-size="64" font-weight="700">security matrix</text>
-    <text x="0" y="188" fill="#55666f" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="24">
-      <tspan x="0" dy="0">Threats, actors and mitigations in one ATT&amp;CK-inspired view.</tspan>
-      <tspan x="0" dy="34">Built from ISO, NIST, WHO, ILO, UNDRR, OECD, CISA and other</tspan>
-      <tspan x="0" dy="34">official global sources for corporate, cyber, safety and resilience work.</tspan>
+    <text x="0" y="68" fill="#16303c" font-family="'Avenir Next', 'Trebuchet MS', sans-serif" font-size="60" font-weight="700">Open-source global</text>
+    <text x="0" y="136" fill="#16303c" font-family="'Avenir Next', 'Trebuchet MS', sans-serif" font-size="60" font-weight="700">security matrix</text>
+    <text x="0" y="188" fill="#55666f" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="22">
+      <tspan x="0" dy="0">Evidence-led guidance across nine security domains.</tspan>
+      <tspan x="0" dy="34">Grounded in ISO, NIST, WHO, ILO and other official sources.</tspan>
     </text>
 
     <g transform="translate(0 252)">
@@ -38,18 +37,18 @@
       <text x="81" y="28" fill="#9d4410" text-anchor="middle" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="18" font-weight="700">9 domains</text>
       <rect x="178" y="0" width="194" height="44" rx="22" fill="#f3f8fa" stroke="#a6c0cb" />
       <text x="275" y="28" fill="#28576b" text-anchor="middle" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="18" font-weight="700">5 lifecycle phases</text>
-      <rect x="388" y="0" width="214" height="44" rx="22" fill="#eef8f3" stroke="#a7c8be" />
-      <text x="495" y="28" fill="#0b5e4b" text-anchor="middle" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="18" font-weight="700">Actors + risks + controls</text>
+      <rect x="388" y="0" width="202" height="44" rx="22" fill="#eef8f3" stroke="#a7c8be" />
+      <text x="489" y="28" fill="#0b5e4b" text-anchor="middle" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="16" font-weight="700">Sources + risks + controls</text>
     </g>
 
     <g transform="translate(0 340)">
       <rect x="0" y="0" width="468" height="254" rx="26" fill="url(#panel)" stroke="#d8d0c1" />
       <text x="28" y="42" fill="#16303c" font-family="'Avenir Next', 'Trebuchet MS', sans-serif" font-size="28" font-weight="700">What the repo shows at a glance</text>
-      <g fill="#55666f" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="21">
-        <text x="28" y="88">1. Domain tabs for personnel, cyber, continuity, integrity and safety.</text>
-        <text x="28" y="128">2. Column matrices that move from Identify to Recover.</text>
-        <text x="28" y="168">3. Detailed cell stacks with possible actors, concrete risks and mitigations.</text>
-        <text x="28" y="208">4. Official source packs and briefing questions for real program use.</text>
+      <g fill="#55666f" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="19">
+        <text x="28" y="88">1. Nine connected security domains.</text>
+        <text x="28" y="128">2. One Identify-to-Recover lifecycle.</text>
+        <text x="28" y="168">3. Sources, risks and practical controls.</text>
+        <text x="28" y="208">4. Official sources for implementation.</text>
       </g>
     </g>
   </g>
@@ -78,17 +77,17 @@
         <rect x="0" y="0" width="102" height="380" rx="20" fill="#f6f1e8" stroke="#d7cfbf" />
         <text x="51" y="32" fill="#16303c" text-anchor="middle" font-family="'Avenir Next', 'Trebuchet MS', sans-serif" font-size="18" font-weight="700">Identify</text>
         <rect x="12" y="54" width="78" height="76" rx="14" fill="#edf4fb" stroke="#b7cce2" />
-        <text x="22" y="78" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="12" font-weight="700">Possible actor</text>
+        <text x="22" y="78" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11" font-weight="700">Threat source</text>
         <text x="22" y="100" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">Broker</text>
         <text x="22" y="116" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">compromising</text>
         <text x="22" y="132" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">supplier access</text>
         <rect x="12" y="140" width="78" height="92" rx="14" fill="#fbeeed" stroke="#e4c0ba" />
-        <text x="22" y="164" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="12" font-weight="700">Detailed risk</text>
+        <text x="22" y="164" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11" font-weight="700">Risk / failure</text>
         <text x="22" y="186" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">Unknown trust</text>
         <text x="22" y="202" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">paths hide critical</text>
         <text x="22" y="218" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">asset exposure</text>
         <rect x="12" y="242" width="78" height="112" rx="14" fill="#edf8f4" stroke="#b9d4c8" />
-        <text x="22" y="266" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="12" font-weight="700">Mitigation</text>
+        <text x="22" y="266" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11" font-weight="700">Control / action</text>
         <text x="22" y="288" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">Map crown jewels,</text>
         <text x="22" y="304" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">identities and</text>
         <text x="22" y="320" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">supplier trust</text>
@@ -99,17 +98,17 @@
         <rect x="0" y="0" width="102" height="380" rx="20" fill="#f6f1e8" stroke="#d7cfbf" />
         <text x="51" y="32" fill="#16303c" text-anchor="middle" font-family="'Avenir Next', 'Trebuchet MS', sans-serif" font-size="18" font-weight="700">Protect</text>
         <rect x="12" y="54" width="78" height="76" rx="14" fill="#edf4fb" stroke="#b7cce2" />
-        <text x="22" y="78" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="12" font-weight="700">Possible actor</text>
+        <text x="22" y="78" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11" font-weight="700">Threat source</text>
         <text x="22" y="100" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">Ransomware</text>
         <text x="22" y="116" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">operator using</text>
         <text x="22" y="132" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">identity sprawl</text>
         <rect x="12" y="140" width="78" height="92" rx="14" fill="#fbeeed" stroke="#e4c0ba" />
-        <text x="22" y="164" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="12" font-weight="700">Detailed risk</text>
+        <text x="22" y="164" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11" font-weight="700">Risk / failure</text>
         <text x="22" y="186" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">Weak MFA, stale</text>
         <text x="22" y="202" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">admins and poor</text>
         <text x="22" y="218" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">segmentation</text>
         <rect x="12" y="242" width="78" height="112" rx="14" fill="#edf8f4" stroke="#b9d4c8" />
-        <text x="22" y="266" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="12" font-weight="700">Mitigation</text>
+        <text x="22" y="266" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11" font-weight="700">Control / action</text>
         <text x="22" y="288" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">Harden identity,</text>
         <text x="22" y="304" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">endpoint and</text>
         <text x="22" y="320" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">backup controls</text>
@@ -120,17 +119,17 @@
         <rect x="0" y="0" width="102" height="380" rx="20" fill="#f6f1e8" stroke="#d7cfbf" />
         <text x="51" y="32" fill="#16303c" text-anchor="middle" font-family="'Avenir Next', 'Trebuchet MS', sans-serif" font-size="18" font-weight="700">Detect</text>
         <rect x="12" y="54" width="78" height="76" rx="14" fill="#edf4fb" stroke="#b7cce2" />
-        <text x="22" y="78" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="12" font-weight="700">Possible actor</text>
+        <text x="22" y="78" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11" font-weight="700">Threat source</text>
         <text x="22" y="100" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">Intrusion set</text>
         <text x="22" y="116" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">moving laterally</text>
         <text x="22" y="132" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">through cloud</text>
         <rect x="12" y="140" width="78" height="92" rx="14" fill="#fbeeed" stroke="#e4c0ba" />
-        <text x="22" y="164" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="12" font-weight="700">Detailed risk</text>
+        <text x="22" y="164" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11" font-weight="700">Risk / failure</text>
         <text x="22" y="186" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">Signals stay split</text>
         <text x="22" y="202" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">across identity,</text>
         <text x="22" y="218" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">endpoint, network</text>
         <rect x="12" y="242" width="78" height="112" rx="14" fill="#edf8f4" stroke="#b9d4c8" />
-        <text x="22" y="266" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="12" font-weight="700">Mitigation</text>
+        <text x="22" y="266" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11" font-weight="700">Control / action</text>
         <text x="22" y="288" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">Correlate events</text>
         <text x="22" y="304" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">into usable alerts</text>
         <text x="22" y="320" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">for early triage</text>
@@ -140,16 +139,16 @@
         <rect x="0" y="0" width="102" height="380" rx="20" fill="#f6f1e8" stroke="#d7cfbf" />
         <text x="51" y="32" fill="#16303c" text-anchor="middle" font-family="'Avenir Next', 'Trebuchet MS', sans-serif" font-size="18" font-weight="700">Respond</text>
         <rect x="12" y="54" width="78" height="76" rx="14" fill="#edf4fb" stroke="#b7cce2" />
-        <text x="22" y="78" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="12" font-weight="700">Possible actor</text>
+        <text x="22" y="78" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11" font-weight="700">Threat source</text>
         <text x="22" y="100" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">Extortion group</text>
         <text x="22" y="116" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">with stolen data</text>
         <rect x="12" y="140" width="78" height="92" rx="14" fill="#fbeeed" stroke="#e4c0ba" />
-        <text x="22" y="164" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="12" font-weight="700">Detailed risk</text>
+        <text x="22" y="164" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11" font-weight="700">Risk / failure</text>
         <text x="22" y="186" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">Containment lags</text>
         <text x="22" y="202" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">and leadership acts</text>
         <text x="22" y="218" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">without facts</text>
         <rect x="12" y="242" width="78" height="112" rx="14" fill="#edf8f4" stroke="#b9d4c8" />
-        <text x="22" y="266" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="12" font-weight="700">Mitigation</text>
+        <text x="22" y="266" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11" font-weight="700">Control / action</text>
         <text x="22" y="288" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">Use an incident</text>
         <text x="22" y="304" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">command model</text>
         <text x="22" y="320" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">with trusted scope</text>
@@ -159,16 +158,16 @@
         <rect x="0" y="0" width="102" height="380" rx="20" fill="#f6f1e8" stroke="#d7cfbf" />
         <text x="51" y="32" fill="#16303c" text-anchor="middle" font-family="'Avenir Next', 'Trebuchet MS', sans-serif" font-size="18" font-weight="700">Recover</text>
         <rect x="12" y="54" width="78" height="76" rx="14" fill="#edf4fb" stroke="#b7cce2" />
-        <text x="22" y="78" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="12" font-weight="700">Possible actor</text>
+        <text x="22" y="78" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11" font-weight="700">Threat source</text>
         <text x="22" y="100" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">Residual access</text>
         <text x="22" y="116" fill="#204a72" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">and weak rebuild</text>
         <rect x="12" y="140" width="78" height="92" rx="14" fill="#fbeeed" stroke="#e4c0ba" />
-        <text x="22" y="164" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="12" font-weight="700">Detailed risk</text>
+        <text x="22" y="164" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11" font-weight="700">Risk / failure</text>
         <text x="22" y="186" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">Return to service</text>
         <text x="22" y="202" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">before trust is</text>
         <text x="22" y="218" fill="#872314" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">re-established</text>
         <rect x="12" y="242" width="78" height="112" rx="14" fill="#edf8f4" stroke="#b9d4c8" />
-        <text x="22" y="266" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="12" font-weight="700">Mitigation</text>
+        <text x="22" y="266" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11" font-weight="700">Control / action</text>
         <text x="22" y="288" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">Restore from</text>
         <text x="22" y="304" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">clean states and</text>
         <text x="22" y="320" fill="#0b5e4b" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="11">close root causes</text>

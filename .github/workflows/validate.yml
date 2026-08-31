@@ -22,6 +22,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
@@ -29,10 +30,49 @@ jobs:
           node-version: "24"
           package-manager-cache: false
 
+      - name: Enforce append-only source history
+        env:
+          CSM_EVENT_NAME: ${{ github.event_name }}
+          CSM_PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          CSM_PUSH_BEFORE_SHA: ${{ github.event.before }}
+        shell: bash
+        run: |
+          case "$CSM_EVENT_NAME" in
+            pull_request)
+              base_sha="$CSM_PR_BASE_SHA"
+              ;;
+            push)
+              base_sha="$CSM_PUSH_BEFORE_SHA"
+              if [ "$base_sha" = "0000000000000000000000000000000000000000" ]; then
+                base_sha="$(git --no-replace-objects rev-parse --verify HEAD^)"
+              fi
+              ;;
+            workflow_dispatch)
+              base_sha="$(git rev-parse --verify HEAD^)"
+              ;;
+            *)
+              echo "Unsupported workflow event: $CSM_EVENT_NAME" >&2
+              exit 1
+              ;;
+          esac
+          if [[ ! "$base_sha" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "Trusted base SHA is missing or malformed." >&2
+            exit 1
+          fi
+          BASE_SHA="$base_sha"
+          node scripts/validate_source_register.mjs --against-git-ref "$BASE_SHA"
+
       - name: Set up Python
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.14"
+
+      - name: Set up Java
+        uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5.6.0
+        with:
+          distribution: temurin
+          java-version: "17"
+          check-latest: false
 
       - name: Validate JavaScript syntax
         run: |
@@ -40,20 +80,73 @@ jobs:
           node --check matrix-actors.js
           node --check matrix-briefs.js
           node --check matrix-references.js
+          node --check matrix-overlays.js
+          node --check matrix-tools-d01-d03.js
+          node --check matrix-tools-d04-d06.js
+          node --check matrix-tools-d07-d09.js
+          node --check matrix-tools.js
+          node --check assessment-model.js
+          node --check assessment-crypto.js
+          node --check assessment-compare.js
+          node --check assessment.js
+          node --check assessment-comparison.js
           node --check app.js
+          node --check scripts/site.mjs
+          node --check scripts/test_site.mjs
+          node --check scripts/validate_data.mjs
+          node --check scripts/validate_data_contract.mjs
+          node --check scripts/validate_assessment.mjs
+          node --check scripts/validate_assessment_compare.mjs
+          node --check scripts/validate_source_register.mjs
+          node --check scripts/validate_overlays.mjs
+          node --check scripts/validate_html.mjs
+          node --check scripts/test_validate_overlays.mjs
+          node --check scripts/test_runtime_bootstrap.mjs
+          node --check scripts/validate_overlay_ui.mjs
+          node --check scripts/validate_mitigation_tools.mjs
+          node --check scripts/validate_mitigation_tools_ui.mjs
+          node --check scripts/validate_ui.mjs
+          node --check scripts/validate_workflows.mjs
+          node --check scripts/verify_workflow_runs.mjs
+
+      - name: Validate data and UI contracts
+        run: |
           node scripts/validate_data.mjs
+          node scripts/validate_data_contract.mjs
+          node scripts/validate_assessment.mjs
+          node scripts/validate_assessment_compare.mjs
+          node scripts/validate_source_register.mjs
+          node scripts/validate_source_register.mjs --test-mutations
+          node scripts/validate_overlays.mjs
+          node scripts/test_validate_overlays.mjs
+          node scripts/test_runtime_bootstrap.mjs
+          node scripts/validate_overlay_ui.mjs
+          node scripts/validate_mitigation_tools.mjs
+          node scripts/validate_mitigation_tools_ui.mjs
+          node scripts/validate_ui.mjs
+          node scripts/validate_workflows.mjs --self-test
+          node scripts/verify_workflow_runs.mjs --self-test
+          node scripts/test_site.mjs
 
       - name: Validate release surface
-        run: python3 scripts/validate_project.py
+        run: |
+          python3 -m py_compile scripts/validate_project.py
+          python3 scripts/validate_project.py
 
-      - name: Smoke-test static site
+      - name: Build and validate Pages artifact
+        run: node scripts/site.mjs build _site
+
+      - name: Validate artifact HTML with pinned Nu Checker
+        run: node scripts/validate_html.mjs _site
+
+      - name: Smoke-test assembled Pages artifact
         shell: bash
         run: |
-          python3 -m http.server 8010 --bind 127.0.0.1 >/tmp/corporate-security-matrix-http.log 2>&1 &
+          python3 -m http.server 8010 --bind 127.0.0.1 --directory _site >/tmp/corporate-security-matrix-http.log 2>&1 &
           server_pid=$!
           trap 'kill "$server_pid"' EXIT
           for attempt in {1..20}; do
-            if curl --fail --silent --show-error http://127.0.0.1:8010/index.html >/dev/null; then
+            if curl --fail --silent --show-error http://127.0.0.1:8010/ >/dev/null; then
               break
             fi
             if [ "$attempt" -eq 20 ]; then
@@ -62,6 +155,14 @@ jobs:
             fi
             sleep 0.25
           done
-          for path in index.html framework.html acknowledgements.html 404.html styles.css app.js matrix-domains.js matrix-actors.js matrix-briefs.js matrix-references.js robots.txt sitemap.xml assets/favicon.svg assets/apple-touch-icon.png assets/social-preview.png; do
-            curl --fail --silent --show-error "http://127.0.0.1:8010/$path" >/dev/null
-          done
+          node scripts/site.mjs smoke http://127.0.0.1:8010/
+
+      - name: Record exact quality SHA
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## Quality workflow SHA"
+            echo
+            echo "Commit: \`$GITHUB_SHA\`"
+          } >>"$GITHUB_STEP_SUMMARY"

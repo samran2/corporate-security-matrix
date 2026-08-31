@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,7 +36,7 @@
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body>
+  <body data-app-state="pending">
     <a class="skip-link" href="#matrix-explorer">Skip to matrix explorer</a>
 
     <header class="site-header" aria-label="Primary navigation">
@@ -50,7 +50,7 @@
         <nav class="site-nav" aria-label="Site">
           <a href="#matrix-explorer">Matrix</a>
           <a href="framework.html">Framework</a>
-          <a href="#evidence">Evidence</a>
+          <a href="#source-pack">Evidence</a>
           <a class="site-nav__github" href="https://github.com/samran2/corporate-security-matrix" target="_blank" rel="noopener noreferrer">
             View on GitHub <span aria-hidden="true">↗</span>
           </a>
@@ -60,7 +60,7 @@
           <nav aria-label="Mobile site navigation">
             <a href="#matrix-explorer">Matrix</a>
             <a href="framework.html">Framework</a>
-            <a href="#evidence">Evidence</a>
+            <a href="#source-pack">Evidence</a>
             <a href="https://github.com/samran2/corporate-security-matrix" target="_blank" rel="noopener noreferrer">View on GitHub <span aria-hidden="true">↗</span></a>
           </nav>
         </details>
@@ -80,7 +80,7 @@
               <a class="button button--primary" href="#matrix-explorer">Explore the matrix <span aria-hidden="true">↓</span></a>
               <a class="button button--secondary" href="framework.html">Open the operating framework</a>
             </div>
-            <p class="hero__note">Edition 1.0.0 · Reviewed August 2026 · No analytics</p>
+            <p class="hero__note">Edition 1.1.0 · Reviewed August 2026 · No analytics</p>
           </div>
 
           <div class="hero-system" role="group" aria-label="Matrix model overview">
@@ -101,9 +101,9 @@
             </div>
             <div class="hero-system__signal">
               <span>Decision layers</span>
-              <div><i class="signal signal--actor"></i> Actors &amp; sources</div>
-              <div><i class="signal signal--risk"></i> Risks</div>
-              <div><i class="signal signal--control"></i> Mitigations</div>
+              <div><i class="signal signal--actor"></i> Threat sources</div>
+              <div><i class="signal signal--risk"></i> Risks &amp; failure modes</div>
+              <div><i class="signal signal--control"></i> Controls &amp; actions</div>
             </div>
           </div>
         </div>
@@ -113,7 +113,7 @@
         <div><strong>9</strong><span>Security domains</span></div>
         <div><strong>5</strong><span>Lifecycle phases</span></div>
         <div><strong>3</strong><span>Decision layers</span></div>
-        <div><strong>46</strong><span>Source mappings</span></div>
+        <div><strong id="sourceMappingCount">59</strong><span>Source records</span></div>
       </section>
 
       <section class="intro-section" aria-labelledby="intro-title">
@@ -122,17 +122,17 @@
           <h2 id="intro-title">Move from fragmented risk lists to coordinated decisions.</h2>
         </div>
         <p>
-          The matrix connects plausible actors and failure sources to material risks and practical mitigations. Use it to frame leadership reviews, establish domain ownership and find gaps across the full defensive lifecycle.
+          The matrix connects threat sources and initiating conditions to material risks, failure modes and practical controls. Use it to frame leadership reviews, establish domain ownership and find gaps across the full defensive lifecycle.
         </p>
       </section>
 
-      <section class="explorer" id="matrix-explorer" aria-labelledby="matrix-title">
+      <section class="explorer" id="matrix-explorer" aria-labelledby="matrix-title" tabindex="-1">
         <div class="explorer__heading">
           <div>
             <p class="eyebrow">Interactive matrix</p>
             <h2 id="matrix-title">Explore the operating model</h2>
           </div>
-          <div class="explorer__actions">
+          <div class="explorer__actions app-interactive">
             <button class="text-button" id="copyLink" type="button" aria-describedby="copyStatus">
               Copy this view
             </button>
@@ -140,15 +140,45 @@
           </div>
         </div>
 
-        <noscript><p class="notice">The interactive matrix needs JavaScript. The operating model and evidence policy remain available in the framework and source-library documents.</p></noscript>
+        <noscript>
+          <div class="notice">
+            <strong>The interactive matrix needs JavaScript.</strong>
+            <p>You can still review the operating model and all 59 source records with their phase-context mappings.</p>
+            <p><a href="framework.html">Open the framework</a> · <a href="SOURCE-LIBRARY.md">Open the complete source library</a></p>
+          </div>
+        </noscript>
 
-        <section class="control-bar" aria-label="Matrix controls">
+        <div id="matrixDataError" class="app-error" role="alert" hidden>
+          <strong>The interactive matrix is temporarily unavailable.</strong>
+          <p>Its data could not be loaded completely, so no partial matrix is shown. Reload the page or use the reviewed supporting documents.</p>
+          <p><a href="framework.html">Open the framework</a> · <a href="SOURCE-LIBRARY.md">Open the complete source library</a></p>
+        </div>
+
+        <section class="control-bar app-interactive" aria-label="Matrix controls">
           <div class="control-panel control-panel--domains">
             <div class="control-heading">
-              <label class="control-label" id="domain-label">Security domain</label>
-              <span>Use arrow keys to move</span>
+              <p class="control-label" id="domain-label">Security domain</p>
+              <span id="domainKeyboardHint">Use left and right arrow keys to move</span>
             </div>
-            <div class="chip-group" id="domainFilters" role="tablist" aria-labelledby="domain-label"></div>
+            <div class="domain-mobile-nav" role="group" aria-label="Security domain navigation">
+              <button id="previousDomain" type="button" aria-label="No previous security domain" disabled>
+                <span aria-hidden="true">←</span>
+              </button>
+              <p id="domainNavStatus" role="status" aria-live="polite" aria-atomic="true">01 / 09 · Personnel Security</p>
+              <button id="nextDomain" type="button" aria-label="Next security domain">
+                <span aria-hidden="true">→</span>
+              </button>
+            </div>
+            <div class="domain-rail is-at-start">
+              <div
+                class="chip-group"
+                id="domainFilters"
+                role="tablist"
+                aria-labelledby="domain-label"
+                aria-describedby="domainKeyboardHint domainNavStatus"
+                aria-orientation="horizontal"
+              ></div>
+            </div>
           </div>
 
           <div class="control-panel control-panel--search">
@@ -160,28 +190,50 @@
             </div>
           </div>
 
+          <!-- csm-release-scope:v1.3.0:begin -->
+          <div class="control-panel control-panel--overlay">
+            <label class="control-label" for="overlaySelect">Jurisdiction context</label>
+            <select id="overlaySelect" aria-describedby="overlayHelp">
+              <option value="">No jurisdiction overlay</option>
+              <option value="eu-fi">EU + Finland pilot</option>
+            </select>
+            <p id="overlayHelp">Adds source-reviewed context only; it does not determine applicability or compliance.</p>
+            <span class="sr-only" id="overlayStatus" role="status" aria-live="polite"></span>
+          </div>
+          <!-- csm-release-scope:v1.3.0:end -->
+
           <fieldset class="control-panel control-panel--view">
             <legend class="control-label">Decision layer</legend>
             <div class="view-switch" role="radiogroup" aria-label="Filter decision layer">
-              <button type="button" class="view-switch__button is-active" data-view-mode="all" role="radio" aria-checked="true">All</button>
-              <button type="button" class="view-switch__button" data-view-mode="actors" role="radio" aria-checked="false">Actors &amp; sources</button>
-              <button type="button" class="view-switch__button" data-view-mode="risks" role="radio" aria-checked="false">Risks</button>
-              <button type="button" class="view-switch__button" data-view-mode="mitigations" role="radio" aria-checked="false">Mitigations</button>
+              <button id="view-all" type="button" class="view-switch__button is-active" data-view-mode="all" role="radio" aria-checked="true">All</button>
+              <button id="view-actors" type="button" class="view-switch__button" data-view-mode="actors" role="radio" aria-checked="false">Threat sources</button>
+              <button id="view-risks" type="button" class="view-switch__button" data-view-mode="risks" role="radio" aria-checked="false">Risks &amp; failure modes</button>
+              <button id="view-mitigations" type="button" class="view-switch__button" data-view-mode="mitigations" role="radio" aria-checked="false">Controls &amp; actions</button>
             </div>
           </fieldset>
         </section>
 
-        <div class="active-domain" id="activeDomain"></div>
+        <div class="active-domain app-interactive" id="activeDomain"></div>
 
-        <div class="matrix-panel">
+        <!-- csm-release-scope:v1.3.0:begin -->
+        <section
+          class="overlay-context app-interactive"
+          id="overlayContext"
+          aria-labelledby="overlayContextTitle"
+          hidden
+        ></section>
+        <!-- csm-release-scope:v1.3.0:end -->
+
+        <div class="matrix-panel app-interactive">
           <div class="matrix-panel__top">
             <p id="resultCount" role="status" aria-live="polite"></p>
             <div class="legend" role="list" aria-label="Decision-layer legend">
-              <span class="legend__item legend__item--actor" role="listitem"><i></i>Actor or failure source</span>
-              <span class="legend__item legend__item--risk" role="listitem"><i></i>Detailed risk</span>
-              <span class="legend__item legend__item--control" role="listitem"><i></i>Mitigation</span>
+              <span class="legend__item legend__item--actor" role="listitem"><i></i>Threat source or initiating condition</span>
+              <span class="legend__item legend__item--risk" role="listitem"><i></i>Risk or failure mode</span>
+              <span class="legend__item legend__item--control" role="listitem"><i></i>Control or response action</span>
             </div>
           </div>
+          <p class="tooling-disclaimer">Tool suggestions are illustrative, vendor-neutral implementation aids. Select, configure and validate them for the organisation's context; they do not guarantee risk elimination.</p>
           <div class="matrix-scroll" role="region" aria-label="Corporate security lifecycle matrix" tabindex="0">
             <div class="matrix-grid" id="matrixGrid" role="tabpanel"></div>
           </div>
@@ -192,17 +244,17 @@
         </div>
       </section>
 
-      <section class="evidence-section" id="evidence" aria-labelledby="evidence-title">
+      <section class="evidence-section" id="source-pack" aria-labelledby="evidence-title" tabindex="-1">
         <div class="evidence-section__intro">
           <div>
-            <p class="eyebrow">Evidence, not opinion</p>
-            <h2 id="evidence-title">Trace every domain back to authoritative guidance.</h2>
+            <p class="eyebrow">Evidence-led synthesis</p>
+            <h2 id="evidence-title">Open the official sources that inform each domain.</h2>
           </div>
           <p>
-            Source packs prioritize standards bodies, intergovernmental organizations and official public-sector guidance. They are implementation anchors—not a substitute for applicable law, certified engineering or professional judgment.
+            Source records preserve scope, applicability, access and review status. They are implementation anchors—not a substitute for applicable law, certified engineering or professional judgment.
           </p>
         </div>
-        <div class="reference-grid" id="referenceGrid"></div>
+        <div class="reference-grid app-interactive" id="referenceGrid"></div>
         <div class="evidence-section__footer">
           <a href="SOURCE-LIBRARY.md">Open the complete source library <span aria-hidden="true">→</span></a>
           <a href="FACT-CHECK.md">Read verification notes <span aria-hidden="true">→</span></a>
@@ -235,7 +287,7 @@
         </nav>
       </div>
       <div class="site-footer__bottom">
-        <span>MIT licensed · Privacy by design · No analytics</span>
+        <span>MIT licensed · Static site · No accounts · No analytics</span>
         <span>ATT&amp;CK-inspired interaction pattern; not a MITRE taxonomy.</span>
       </div>
     </footer>
@@ -244,6 +296,13 @@
     <script src="matrix-actors.js"></script>
     <script src="matrix-briefs.js"></script>
     <script src="matrix-references.js"></script>
+    <!-- csm-release-scope:v1.3.0:begin -->
+    <script src="matrix-overlays.js"></script>
+    <!-- csm-release-scope:v1.3.0:end -->
+    <script src="matrix-tools-d01-d03.js"></script>
+    <script src="matrix-tools-d04-d06.js"></script>
+    <script src="matrix-tools-d07-d09.js"></script>
+    <script src="matrix-tools.js"></script>
     <script src="app.js"></script>
   </body>
 </html>

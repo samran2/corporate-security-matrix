@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "siteBaseUrl": "https://samran2.github.io/corporate-security-matrix/",
+  "sitemapLastModified": "2026-08-29",
+  "releaseScope": {
+    "version": "1.1.0",
+    "excludedScopes": [
+      "v1.2.0",
+      "v1.3.0",
+      "v1.4.0",
+      "v1.5.0"
+    ],
+    "sourcePruning": {
+      "index.html": ["v1.3.0"],
+      "app.js": ["v1.3.0"],
+      "styles.css": ["v1.3.0"],
+      "SOURCE-LIBRARY.md": ["v1.3.0"]
+    },
+    "excludedFiles": [
+      "assessment.html",
+      "assessment.css",
+      "assessment-model.js",
+      "assessment-crypto.js",
+      "assessment-compare.js",
+      "assessment.js",
+      "assessment-comparison.js",
+      "matrix-overlays.js",
+      "source-lifecycle-register.json",
+      "source-change-register.json",
+      "source-change-register.checkpoint.json",
+      "OVERLAY-EU-FI.md",
+      "SOURCE-CHANGE-REGISTER.md",
+      "tasks/plan.md",
+      "tasks/todo.md",
+      "docs/ASSESSMENT-THREAT-MODEL.md",
+      "docs/decisions/0001-local-assessment-and-encrypted-export.md",
+      "docs/decisions/0002-separate-jurisdiction-overlays.md"
+    ],
+    "forbiddenRuntimeReferences": [
+      "assessment.html",
+      "assessment.css",
+      "assessment-model.js",
+      "assessment-crypto.js",
+      "assessment-compare.js",
+      "assessment.js",
+      "assessment-comparison.js",
+      "matrix-overlays.js",
+      "matrixOverlays",
+      "overlaySelect",
+      "overlayContext",
+      "requestedOverlay",
+      "overlayCatalog",
+      "setOverlay(",
+      "source-lifecycle-register.json",
+      "source-change-register.json"
+    ]
+  },
+  "files": [
+    "index.html",
+    "framework.html",
+    "acknowledgements.html",
+    "404.html",
+    "styles.css",
+    "app.js",
+    "matrix-domains.js",
+    "matrix-actors.js",
+    "matrix-briefs.js",
+    "matrix-references.js",
+    "matrix-tools-d01-d03.js",
+    "matrix-tools-d04-d06.js",
+    "matrix-tools-d07-d09.js",
+    "matrix-tools.js",
+    ".nojekyll",
+    "robots.txt",
+    "sitemap.xml",
+    "README.md",
+    "SOURCE-LIBRARY.md",
+    "FACT-CHECK.md",
+    "FRAMEWORK.md",
+    "CONTENT-REVIEW.md",
+    "SECURITY.md",
+    "CONTRIBUTING.md",
+    "CODE_OF_CONDUCT.md",
+    "CHANGELOG.md",
+    "ROADMAP.md",
+    "RELEASE-CONTROLS.md",
+    "DEVELOPMENT.md",
+    "CITATION.cff",
+    "LICENSE",
+    "assets/favicon.svg",
+    "assets/apple-touch-icon.png",
+    "assets/social-preview.png",
+    "assets/github-preview.svg",
+    "assets/matrix-anatomy.svg"
+  ],
+  "htmlFiles": [
+    "index.html",
+    "framework.html",
+    "acknowledgements.html",
+    "404.html"
+  ],
+  "nonPublicFiles": [
+    ".nojekyll"
+  ],
+  "entryPointContract": {
+    "canonicalUrl": "https://samran2.github.io/corporate-security-matrix/",
+    "explicitIndexUrl": "https://samran2.github.io/corporate-security-matrix/index.html",
+    "recoveryFiles": [
+      "README.md",
+      "404.html"
+    ]
+  },
+  "canonicalPages": [
+    {
+      "file": "index.html",
+      "url": "https://samran2.github.io/corporate-security-matrix/"
+    },
+    {
+      "file": "framework.html",
+      "url": "https://samran2.github.io/corporate-security-matrix/framework.html"
+    },
+    {
+      "file": "acknowledgements.html",
+      "url": "https://samran2.github.io/corporate-security-matrix/acknowledgements.html"
+    }
+  ],
+  "deepLinks": [
+    "?domain=information-and-cyber-security&view=risks&q=identity#matrix-explorer",
+    "index.html?domain=industrial-safety&view=mitigations#source-pack",
+    "framework.html#adoption-title"
+  ],
+  "criticalGzipBudgetBytes": 150000,
+  "requiredPredeployWorkflows": [
+    {
+      "file": "validate.yml",
+      "name": "Quality"
+    },
+    {
+      "file": "links.yml",
+      "name": "External source links"
+    }
+  ],
+  "w3cNu": {
+    "version": "26.8.24",
+    "assetUrl": "https://repo1.maven.org/maven2/nu/validator/validator/26.8.24/validator-26.8.24.jar",
+    "sha256": "7e93eabe172d63c0790de7a1e07fc7e94302b22444cf802877c139963ed5f38d",
+    "upstreamSha1": "4adb6d20bd68315cecd69692557acb57dcf88b55",
+    "mainClass": "nu.validator.client.SimpleCommandLineValidator"
+  }
+}

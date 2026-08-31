@@ -1,0 +1,427 @@
+{
+  "schemaVersion": "1.0.0",
+  "keyNamespaces": {
+    "core": "core/{domainId}/{sourceId}",
+    "overlay": "overlay/{overlayId}/{sourceId}"
+  },
+  "reviewPolicy": {
+    "defaultOwnerRole": "Framework source maintainer",
+    "cadenceMonths": 3,
+    "requiresHumanCurrencyJudgement": true
+  },
+  "sources": [
+    {
+      "sourceKey": "core/personnel-security/iso-31030-2021",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/personnel-security/cisa-personal-security",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/personnel-security/cisa-employment-screening",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/personnel-security/cisa-insider-threat-resources",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/personnel-security/ilo-c190",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "In force"
+    },
+    {
+      "sourceKey": "core/personnel-security/who-mental-health-at-work",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/premises-security/cisa-hometown-security",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/premises-security/ifc-general-ehs",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current edition; update underway"
+    },
+    {
+      "sourceKey": "core/premises-security/iso-22341-2021",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current; under review"
+    },
+    {
+      "sourceKey": "core/premises-security/iso-22342-2023",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/premises-security/cisa-be-air-aware",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/rescue-safety/osha-emergency-preparedness",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/rescue-safety/osha-1910-38",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current regulation"
+    },
+    {
+      "sourceKey": "core/rescue-safety/osha-fight-or-flee",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/rescue-safety/ifc-general-ehs",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current edition; update underway"
+    },
+    {
+      "sourceKey": "core/rescue-safety/iso-22320-2018",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/rescue-safety/ifrc-first-aid-2025",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/rescue-safety/who-mass-casualty-emergency-units",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/security-of-production-and-operations/nist-c-scrm-publications",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current resource collection"
+    },
+    {
+      "sourceKey": "core/security-of-production-and-operations/iso-28000-2022",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/security-of-production-and-operations/iso-31000-2018",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current; revision planned"
+    },
+    {
+      "sourceKey": "core/security-of-production-and-operations/nist-sp-800-161-r1",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/security-of-production-and-operations/iso-9001-2015",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current; replacement edition under publication"
+    },
+    {
+      "sourceKey": "core/security-of-production-and-operations/iso-ts-22318-2021",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/environmental-safety/iso-14001-2026",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/environmental-safety/ifc-general-ehs",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current edition; update underway"
+    },
+    {
+      "sourceKey": "core/environmental-safety/iso-50001-2018",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/environmental-safety/who-chemical-incidents",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current topic resource"
+    },
+    {
+      "sourceKey": "core/environmental-safety/who-chemical-safety",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current topic resource"
+    },
+    {
+      "sourceKey": "core/information-and-cyber-security/nist-csf-2-0",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/information-and-cyber-security/cisa-cybersecurity-performance-goals",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/information-and-cyber-security/nist-sp-800-61-r3",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/information-and-cyber-security/iso-iec-27001-2022",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/information-and-cyber-security/nist-sp-800-53-r5",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/information-and-cyber-security/enisa-threat-landscape-2025",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current edition"
+    },
+    {
+      "sourceKey": "core/compliance-control/unodc-uncac",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "In force"
+    },
+    {
+      "sourceKey": "core/compliance-control/unodc-business-integrity",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current resource portal"
+    },
+    {
+      "sourceKey": "core/compliance-control/ungc-principle-10",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current voluntary principle"
+    },
+    {
+      "sourceKey": "core/compliance-control/oecd-anti-bribery-recommendation-2021",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "In force"
+    },
+    {
+      "sourceKey": "core/compliance-control/iso-37001-2025",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/compliance-control/world-bank-integrity-smes",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current publication record"
+    },
+    {
+      "sourceKey": "core/compliance-control/iso-37301-2021",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/compliance-control/iso-37002-2021",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/compliance-control/iso-ts-37008-2023",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/contingency-and-crisis-management/iso-22301-2019",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current; revision in development"
+    },
+    {
+      "sourceKey": "core/contingency-and-crisis-management/undrr-sendai-framework",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current framework period"
+    },
+    {
+      "sourceKey": "core/contingency-and-crisis-management/iso-31000-2018",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current; revision planned"
+    },
+    {
+      "sourceKey": "core/contingency-and-crisis-management/iso-22398-2013",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/contingency-and-crisis-management/who-health-edrm",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current publication"
+    },
+    {
+      "sourceKey": "core/contingency-and-crisis-management/iso-22361-2022",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/contingency-and-crisis-management/iso-ts-22317-2021",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current"
+    },
+    {
+      "sourceKey": "core/industrial-safety/ilo-osh-2001",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current guidance"
+    },
+    {
+      "sourceKey": "core/industrial-safety/iso-45001-2018",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current; revision in development"
+    },
+    {
+      "sourceKey": "core/industrial-safety/ifc-general-ehs-ohs",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current edition; update underway"
+    },
+    {
+      "sourceKey": "core/industrial-safety/ilo-c155",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "In force; fundamental convention"
+    },
+    {
+      "sourceKey": "core/industrial-safety/who-occupational-health",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current topic resource"
+    },
+    {
+      "sourceKey": "core/industrial-safety/ilo-worker-health-surveillance",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Published guidance"
+    },
+    {
+      "sourceKey": "core/industrial-safety/ilo-managing-disability",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Published guidance"
+    },
+    {
+      "sourceKey": "core/industrial-safety/ilo-psychosocial-risks",
+      "reviewOwnerRole": "Framework source maintainer",
+      "verifiedOn": "2026-08-29",
+      "nextReviewOn": "2026-11-29",
+      "status": "Current resource"
+    }
+  ]
+}

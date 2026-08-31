@@ -19,22 +19,41 @@ REQUIRED_FILES = [
     "index.html",
     "framework.html",
     "acknowledgements.html",
+    "assessment.html",
     "404.html",
     "styles.css",
+    "assessment.css",
     "app.js",
     "matrix-domains.js",
     "matrix-actors.js",
     "matrix-briefs.js",
     "matrix-references.js",
+    "matrix-overlays.js",
+    "matrix-tools-d01-d03.js",
+    "matrix-tools-d04-d06.js",
+    "matrix-tools-d07-d09.js",
+    "matrix-tools.js",
+    "assessment-model.js",
+    "assessment-crypto.js",
+    "assessment-compare.js",
+    "assessment.js",
+    "assessment-comparison.js",
+    "source-lifecycle-register.json",
+    "source-change-register.json",
+    "source-change-register.checkpoint.json",
     "README.md",
     "FRAMEWORK.md",
     "SOURCE-LIBRARY.md",
     "FACT-CHECK.md",
+    "CONTENT-REVIEW.md",
     "SECURITY.md",
     "CONTRIBUTING.md",
     "CODE_OF_CONDUCT.md",
     "CHANGELOG.md",
     "ROADMAP.md",
+    "RELEASE-CONTROLS.md",
+    "OVERLAY-EU-FI.md",
+    "SOURCE-CHANGE-REGISTER.md",
     "DEVELOPMENT.md",
     "CITATION.cff",
     "LICENSE",
@@ -47,14 +66,138 @@ REQUIRED_FILES = [
     "assets/github-preview.svg",
     "assets/matrix-anatomy.svg",
     "scripts/validate_data.mjs",
+    "scripts/validate_data_contract.mjs",
+    "scripts/validate_assessment.mjs",
+    "scripts/validate_assessment_compare.mjs",
+    "scripts/validate_source_register.mjs",
+    "scripts/validate_overlays.mjs",
+    "scripts/test_validate_overlays.mjs",
+    "scripts/test_runtime_bootstrap.mjs",
+    "scripts/validate_overlay_ui.mjs",
+    "scripts/validate_mitigation_tools.mjs",
+    "scripts/validate_mitigation_tools_ui.mjs",
+    "scripts/validate_ui.mjs",
+    "scripts/site-manifest.json",
+    "scripts/site.mjs",
+    "scripts/test_site.mjs",
+    "scripts/validate_html.mjs",
+    "scripts/validate_workflows.mjs",
+    "scripts/verify_workflow_runs.mjs",
+    "tasks/plan.md",
+    "tasks/todo.md",
+    "docs/ASSESSMENT-THREAT-MODEL.md",
+    "docs/decisions/0001-local-assessment-and-encrypted-export.md",
+    "docs/decisions/0002-separate-jurisdiction-overlays.md",
     ".github/workflows/validate.yml",
     ".github/workflows/links.yml",
     ".github/workflows/pages.yml",
 ]
 
-HTML_FILES = ["index.html", "framework.html", "acknowledgements.html", "404.html"]
-SOURCE_SCAN_FILES = [*HTML_FILES, "app.js", "matrix-domains.js", "matrix-actors.js", "matrix-briefs.js", "matrix-references.js"]
-URL_SCAN_FILES = [*HTML_FILES, "matrix-references.js", "README.md", "FRAMEWORK.md", "SOURCE-LIBRARY.md", "FACT-CHECK.md"]
+HTML_FILES = ["index.html", "framework.html", "acknowledgements.html", "assessment.html", "404.html"]
+SOURCE_SCAN_FILES = [
+    *HTML_FILES,
+    "app.js",
+    "matrix-domains.js",
+    "matrix-actors.js",
+    "matrix-briefs.js",
+    "matrix-references.js",
+    "matrix-overlays.js",
+    "matrix-tools-d01-d03.js",
+    "matrix-tools-d04-d06.js",
+    "matrix-tools-d07-d09.js",
+    "matrix-tools.js",
+    "assessment-model.js",
+    "assessment-crypto.js",
+    "assessment-compare.js",
+    "assessment.js",
+    "assessment-comparison.js",
+]
+URL_SCAN_FILES = [
+    *HTML_FILES,
+    "matrix-references.js",
+    "README.md",
+    "FRAMEWORK.md",
+    "SOURCE-LIBRARY.md",
+    "FACT-CHECK.md",
+    "CONTENT-REVIEW.md",
+    "OVERLAY-EU-FI.md",
+    "SOURCE-CHANGE-REGISTER.md",
+    "source-lifecycle-register.json",
+    "source-change-register.json",
+    "docs/ASSESSMENT-THREAT-MODEL.md",
+    "docs/decisions/0001-local-assessment-and-encrypted-export.md",
+    "docs/decisions/0002-separate-jurisdiction-overlays.md",
+]
+
+PUBLIC_RELEASE_VERSION = "1.0.0"
+CANDIDATE_VERSION = "1.1.0"
+RELEASE_DATE = "2026-08-29"
+RELEASE_MARKERS = {
+    "index.html": [
+        (
+            f"candidate v{CANDIDATE_VERSION} hero edition",
+            re.compile(rf"\bEdition\s+{re.escape(CANDIDATE_VERSION)}\b"),
+        ),
+        (
+            "root canonical URL",
+            re.compile(r'<link rel="canonical" href="https://samran2\.github\.io/corporate-security-matrix/">'),
+        ),
+        (
+            "root Open Graph URL",
+            re.compile(r'<meta property="og:url" content="https://samran2\.github\.io/corporate-security-matrix/">'),
+        ),
+    ],
+    "README.md": [
+        (
+            "explicit index.html live-entry link",
+            re.compile(r'\[Open the live matrix\]\(https://samran2\.github\.io/corporate-security-matrix/index\.html\)'),
+        ),
+    ],
+    "404.html": [
+        (
+            "explicit index.html recovery CTA",
+            re.compile(r'href="https://samran2\.github\.io/corporate-security-matrix/index\.html"'),
+        ),
+    ],
+    "framework.html": [
+        (
+            f"candidate v{CANDIDATE_VERSION} footer version",
+            re.compile(rf"\bVersion\s+{re.escape(CANDIDATE_VERSION)}\b"),
+        ),
+    ],
+    "CITATION.cff": [
+        (
+            f"current public v{PUBLIC_RELEASE_VERSION} citation version",
+            re.compile(
+                rf"^version:\s*['\"]?{re.escape(PUBLIC_RELEASE_VERSION)}['\"]?\s*$",
+                re.MULTILINE,
+            ),
+        ),
+        (
+            "current public citation release date",
+            re.compile(rf"^date-released:\s*['\"]?{re.escape(RELEASE_DATE)}['\"]?\s*$", re.MULTILINE),
+        ),
+    ],
+    "CHANGELOG.md": [
+        (
+            f"unreleased v{CANDIDATE_VERSION} candidate heading",
+            re.compile(
+                rf"^##\s+\[Unreleased\]\s+[—-]\s+v{re.escape(CANDIDATE_VERSION)}\s+candidate,\s+{re.escape(RELEASE_DATE)}\s*$",
+                re.MULTILINE,
+            ),
+        ),
+    ],
+    "CONTENT-REVIEW.md": [
+        (
+            f"reviewed candidate v{CANDIDATE_VERSION} edition",
+            re.compile(rf"^Edition:\s*{re.escape(CANDIDATE_VERSION)}[ \t]*$", re.MULTILINE),
+        ),
+        (
+            "review date",
+            re.compile(rf"^Review date:\s*{re.escape(RELEASE_DATE)}[ \t]*$", re.MULTILINE),
+        ),
+    ],
+}
 
 DANGEROUS_PATTERNS = {
     "innerHTML": re.compile(r"\binnerHTML\b"),
@@ -77,7 +220,7 @@ SKIP_URL_PREFIXES = (
     "https://samran2.github.io/corporate-security-matrix",
 )
 RESTRICTED_STATUSES = {401, 403, 429}
-PUBLIC_HTML_FILES = {"index.html", "framework.html", "acknowledgements.html"}
+PUBLIC_HTML_FILES = {"index.html", "framework.html", "acknowledgements.html", "assessment.html"}
 
 
 class DocumentParser(HTMLParser):
@@ -230,6 +373,16 @@ def validate_markdown_links(relative_path: str, errors: list[str]) -> None:
             errors.append(f"{relative_path} references missing internal file: {target}")
 
 
+def validate_release_markers(existing_files: set[str], errors: list[str]) -> None:
+    for relative_path, markers in RELEASE_MARKERS.items():
+        if relative_path not in existing_files:
+            continue
+        text = (ROOT / relative_path).read_text(encoding="utf-8")
+        for label, pattern in markers:
+            if not pattern.search(text):
+                errors.append(f"{relative_path} is missing the expected {label} for {RELEASE_DATE}.")
+
+
 def run_data_validation(errors: list[str]) -> None:
     validator = ROOT / "scripts" / "validate_data.mjs"
     if not validator.exists():
@@ -244,6 +397,22 @@ def run_data_validation(errors: list[str]) -> None:
     if result.returncode != 0:
         details = (result.stdout + result.stderr).strip()
         errors.append(f"Data validation failed: {details}")
+
+
+def run_ui_validation(errors: list[str]) -> None:
+    validator = ROOT / "scripts" / "validate_ui.mjs"
+    if not validator.exists():
+        return
+    result = subprocess.run(
+        ["node", str(validator)],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        details = (result.stdout + result.stderr).strip()
+        errors.append(f"UI validation failed: {details}")
 
 
 def main() -> int:
@@ -261,12 +430,23 @@ def main() -> int:
     for relative_path in (
         "README.md",
         "FRAMEWORK.md",
+        "CONTENT-REVIEW.md",
+        "OVERLAY-EU-FI.md",
+        "SOURCE-CHANGE-REGISTER.md",
         "ROADMAP.md",
+        "RELEASE-CONTROLS.md",
         "DEVELOPMENT.md",
         "CONTRIBUTING.md",
         "SECURITY.md",
+        "tasks/plan.md",
+        "tasks/todo.md",
+        "docs/ASSESSMENT-THREAT-MODEL.md",
+        "docs/decisions/0001-local-assessment-and-encrypted-export.md",
+        "docs/decisions/0002-separate-jurisdiction-overlays.md",
     ):
         validate_markdown_links(relative_path, errors)
+
+    validate_release_markers(existing_files, errors)
 
     for relative_path in SOURCE_SCAN_FILES:
         path = ROOT / relative_path
@@ -288,6 +468,7 @@ def main() -> int:
                     pass
 
     run_data_validation(errors)
+    run_ui_validation(errors)
 
     urls = collect_external_urls(existing_files)
     restricted_urls: list[tuple[str, int | None, str | None]] = []
@@ -299,6 +480,13 @@ def main() -> int:
                 restricted_urls.append((url, status, final_url))
             elif status is None or status >= 400:
                 errors.append(f"External URL failed: {url} (status={status}, final={final_url})")
+
+        print("RESTRICTED URL REPORT")
+        if restricted_urls:
+            for url, status, final_url in sorted(restricted_urls):
+                print(f"- status={status} url={url} final={final_url}")
+        else:
+            print("- None")
 
     if errors:
         print("VALIDATION FAILED")
