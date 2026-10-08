@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; frame-src 'none'; worker-src 'none'"
+    >
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#07111f">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Corporate security coverage workspace — Local draft preview</title>
+    <meta name="description" content="Review the scope of eighteen draft corporate-security topics, record management-check judgments in this tab and print a local review record.">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="coverage.css">
+    <script src="matrix-domains.js" defer></script>
+    <script src="matrix-actors.js" defer></script>
+    <script src="matrix-coverage-governance.js" defer></script>
+    <script src="matrix-coverage-safety.js" defer></script>
+    <script src="matrix-coverage-digital.js" defer></script>
+    <script src="matrix-coverage.js" defer></script>
+    <script src="coverage-model.js" defer></script>
+    <script src="coverage.js" defer></script>
+  </head>
+  <body class="coverage-page" data-coverage-state="pending">
+    <a class="skip-link" href="#coverage-workspace">Skip to coverage workspace</a>
+
+    <header class="site-header" aria-label="Primary navigation">
+      <div class="site-header__inner">
+        <a class="brand" href="index.html" aria-label="Corporate Security Matrix home">
+          <span class="brand__mark" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>
+          <span class="brand__name">Corporate Security Matrix</span>
+        </a>
+        <nav class="site-nav" aria-label="Site">
+          <a href="index.html#matrix-explorer">Matrix</a>
+          <a href="framework.html">Framework</a>
+          <a href="assessment.html">Assessment preview</a>
+          <a href="coverage.html" aria-current="page">Coverage preview</a>
+        </nav>
+        <details class="mobile-nav">
+          <summary>Menu</summary>
+          <nav aria-label="Mobile site navigation">
+            <a href="index.html#matrix-explorer">Matrix</a>
+            <a href="framework.html">Framework</a>
+            <a href="assessment.html">Assessment preview</a>
+            <a href="coverage.html" aria-current="page">Coverage preview</a>
+          </nav>
+        </details>
+      </div>
+    </header>
+
+    <main id="coverage-workspace" tabindex="-1">
+      <section class="coverage-hero" aria-labelledby="coverage-title">
+        <div class="coverage-shell coverage-hero__inner">
+          <div>
+            <p class="eyebrow">Local draft preview · Content review pending</p>
+            <h1 id="coverage-title">Corporate security<br><span>coverage workspace</span></h1>
+            <p class="coverage-hero__lede">Explore the scope questions that span corporate security. Decide which draft topics apply to your organisation, examine management evidence and record the next action.</p>
+          </div>
+          <div class="coverage-hero__facts" role="list" aria-label="Draft catalogue scope">
+            <span role="listitem"><strong>18</strong>Draft topics</span>
+            <span role="listitem"><strong>90</strong>Management checks</span>
+            <span role="listitem"><strong>5</strong>Lifecycle phases</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="coverage-shell coverage-main">
+        <section class="coverage-notice" id="coverage-loading" aria-labelledby="coverage-loading-title">
+          <h2 id="coverage-loading-title">Preparing the draft workspace</h2>
+          <p>If this message remains visible, the workspace has not started. Its controls remain unavailable and no judgments have been collected.</p>
+          <noscript><p>This local preview needs JavaScript. The framework and source library remain available without it.</p></noscript>
+          <p><a href="index.html#matrix-explorer">Open the matrix</a> · <a href="framework.html">Read the framework</a> · <a href="SOURCE-LIBRARY.md">Open the 59-source core library</a></p>
+        </section>
+
+        <div class="coverage-notice coverage-notice--error" id="coverage-error" role="alert" tabindex="-1" hidden>
+          <strong>The draft workspace could not start safely.</strong>
+          <p>Its catalogue could not be validated completely. Reload the page or use the matrix, framework and source library.</p>
+        </div>
+
+        <div id="coverage-app" hidden>
+          <div class="coverage-privacy">
+            <p><strong>Current tab only.</strong> The application keeps your judgments in memory. Reloading or leaving this page clears them. It does not write them to URLs, browser storage or network requests.</p>
+            <p>All catalogue content is draft. Topic context does not establish legal applicability, compliance or the adequacy of your controls. Printed output is unencrypted and may contain sensitive organisational information.</p>
+          </div>
+          <p class="sr-only" id="coverage-status" role="status" aria-live="polite" aria-atomic="true"></p>
+
+          <section class="coverage-overview" aria-labelledby="coverage-overview-title">
+            <div class="coverage-section-heading">
+              <div>
+                <p class="eyebrow">Session overview</p>
+                <h2 id="coverage-overview-title">Scope decisions and check judgments</h2>
+              </div>
+              <button class="text-button" id="coverage-reset" type="button">Clear session judgments</button>
+            </div>
+            <dl class="coverage-metrics" id="coverage-stats"></dl>
+            <p class="coverage-summary-note">Check counts reflect topics explicitly marked applicable. “Evidence available” is your assertion and has not been independently verified. Unresolved scope and exclusions remain visible in the report.</p>
+          </section>
+
+          <div class="coverage-work-area">
+            <section class="coverage-browser" aria-labelledby="coverage-browser-title">
+              <div class="coverage-browser__heading">
+                <p class="eyebrow">Explore the catalogue</p>
+                <h2 id="coverage-browser-title">Draft topics</h2>
+                <p id="coverage-topic-count"></p>
+              </div>
+              <div class="coverage-filters">
+                <label for="coverage-profile">Profile suggestions</label>
+                <select id="coverage-profile" aria-describedby="coverage-profile-note"><option value="">No profile selected</option></select>
+                <p id="coverage-profile-note">Profiles suggest topics to consider. They do not decide applicability or exclude any topic.</p>
+                <label for="coverage-domain">Domain context</label>
+                <select id="coverage-domain"><option value="">All domains</option></select>
+                <label for="coverage-search">Search draft topics</label>
+                <input id="coverage-search" type="search" autocomplete="off" spellcheck="false" maxlength="100" placeholder="Topic or management check">
+                <p class="coverage-filter-help">These filters change the displayed list only. Use non-sensitive search terms.</p>
+              </div>
+              <ul class="coverage-topics" id="coverage-topics" aria-label="Draft coverage topics"></ul>
+            </section>
+
+            <section class="coverage-editor" aria-labelledby="coverage-editor-heading">
+              <header class="coverage-editor__heading">
+                <p class="eyebrow">Selected draft topic</p>
+                <h2 id="coverage-editor-heading" tabindex="-1">Select a draft topic</h2>
+              </header>
+              <div class="coverage-topic-context" id="coverage-topic-context"></div>
+
+              <form id="coverage-form" aria-describedby="coverage-sensitive-note">
+                <fieldset class="coverage-scope-fields">
+                  <legend>Applicability and ownership</legend>
+                  <div class="coverage-field-grid">
+                    <div class="coverage-field">
+                      <label for="coverage-applicability">Applicability judgment</label>
+                      <select id="coverage-applicability">
+                        <option value="undetermined">Undetermined</option>
+                        <option value="applicable">Applicable</option>
+                        <option value="not-applicable">Not applicable</option>
+                      </select>
+                    </div>
+                    <div class="coverage-field">
+                      <label for="coverage-owner">Accountable role</label>
+                      <select id="coverage-owner"><option value="">Unassigned</option></select>
+                    </div>
+                  </div>
+                  <div class="coverage-field" id="coverage-rationale-field">
+                    <label for="coverage-rationale">Non-applicability rationale <span>Up to 300 characters</span></label>
+                    <textarea id="coverage-rationale" rows="3" maxlength="300" aria-describedby="coverage-rationale-help coverage-sensitive-note"></textarea>
+                    <p id="coverage-rationale-help">Required when marking a topic not applicable. Explain your scope decision; do not treat it as a legal conclusion.</p>
+                  </div>
+                </fieldset>
+
+                <section class="coverage-check-section" aria-labelledby="coverage-checks-title">
+                  <h3 id="coverage-checks-title">Lifecycle management checks</h3>
+                  <p class="coverage-check-note">Examine the indicated records in your own environment. Record a judgment for each check; no documents or attachments are collected here.</p>
+                  <div id="coverage-checks"></div>
+                </section>
+
+                <fieldset class="coverage-action-fields">
+                  <legend>Decision and next action</legend>
+                  <p class="coverage-sensitive-note" id="coverage-sensitive-note"><strong>Keep text non-sensitive.</strong> Do not enter personal names, credentials, exact access details, confidential evidence or hazardous operational instructions.</p>
+                  <div class="coverage-field">
+                    <label for="coverage-critical-gap">Critical gap <span>Optional · Up to 500 characters</span></label>
+                    <textarea id="coverage-critical-gap" rows="3" maxlength="500" aria-describedby="coverage-sensitive-note" placeholder="Describe the management gap at a high level"></textarea>
+                  </div>
+                  <div class="coverage-field">
+                    <label for="coverage-next-action">Next action <span>Optional · Up to 500 characters</span></label>
+                    <textarea id="coverage-next-action" rows="3" maxlength="500" aria-describedby="coverage-sensitive-note" placeholder="Record a practical next decision or review"></textarea>
+                  </div>
+                </fieldset>
+
+                <p class="coverage-form-error" id="coverage-form-error" role="alert" hidden></p>
+                <div class="coverage-editor__actions">
+                  <button class="text-button text-button--brief" id="coverage-save" type="submit">Save topic judgments</button>
+                  <p>Judgments stay in this tab. Valid changes also save when you switch topics; invalid entries must be corrected first.</p>
+                </div>
+              </form>
+            </section>
+          </div>
+
+          <section class="coverage-scenario-section" aria-labelledby="coverage-scenarios-title">
+            <div class="coverage-section-heading">
+              <div>
+                <p class="eyebrow">Read-only tabletop context</p>
+                <h2 id="coverage-scenarios-title">Rehearse cross-domain decisions</h2>
+              </div>
+              <p>Discussion aids for competent teams. Use approved local procedures for incident response and safety decisions.</p>
+            </div>
+            <div class="coverage-scenarios" id="coverage-scenarios"></div>
+          </section>
+
+          <section class="coverage-report" id="coverage-report" aria-labelledby="coverage-report-title">
+            <div class="coverage-section-heading">
+              <div>
+                <p class="eyebrow">Your local review record</p>
+                <h2 id="coverage-report-title">Review and print the session</h2>
+              </div>
+              <button class="text-button text-button--brief" id="coverage-print" type="button">Print review record</button>
+            </div>
+            <p class="coverage-print-note">The record includes draft and framework versions, unresolved scope, non-applicability rationales, check judgments and action owners. Printing or saving as PDF creates an unencrypted copy under your control.</p>
+            <details class="coverage-report-preview">
+              <summary>Review the current report text</summary>
+              <pre id="coverage-report-text" role="region" aria-label="Current local review report" tabindex="0"></pre>
+            </details>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <footer class="coverage-footer coverage-shell">
+      <p>Local draft preview · Catalogue 0.1.0-draft · Framework 1.1.0-candidate</p>
+      <nav aria-label="Supporting documents">
+        <a href="index.html#matrix-explorer">Core matrix</a>
+        <a href="framework.html">Operating framework</a>
+        <a href="SOURCE-LIBRARY.md">Core source library</a>
+      </nav>
+    </footer>
+  </body>
+</html>
