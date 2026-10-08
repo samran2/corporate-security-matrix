@@ -90,6 +90,7 @@ Target: Q4 2026–Q1 2027
 - [ ] Use AES-256-GCM with a 96-bit random IV, a 128-bit salt and PBKDF2-HMAC-SHA-256 with 600,000 iterations; authenticate the format version and cryptographic parameters as additional data.
 - [ ] Never store the passphrase. Reject an incorrect passphrase, changed ciphertext, files over 1 MiB and unknown schema versions atomically.
 - [ ] Keep assessment and printing available when Web Crypto is unavailable while disabling import and export with an explicit message.
+- [ ] Validate the additive corporate-security coverage preview: eighteen draft subtopics, explicit applicability/exclusion rationale, ninety lifecycle checks with implementation aids, context-profile recommendations and cross-domain scenarios. Keep topic scope and evidence assertions distinct from 45-cell assessment completion; preserve the canonical matrix and existing encrypted document contract.
 
 Release gates:
 
@@ -97,6 +98,7 @@ Release gates:
 - [ ] Cryptographic round-trip, incorrect-passphrase, tamper, size-limit and schema-version tests pass.
 - [ ] Mobile, keyboard, screen-reader, print and reduced-motion paths pass with no new runtime network or storage dependency.
 - [ ] Six security leaders complete the assessment and report flow, with at least 80% of core tasks completed without guidance.
+- [ ] Named competent specialists accept new high-consequence coverage content before it enters a public release; local preview availability is not evidence of expert approval.
 
 ## v1.3.0 — European Union and Finland overlay pilot
 

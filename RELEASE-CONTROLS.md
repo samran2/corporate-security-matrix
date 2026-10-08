@@ -30,7 +30,7 @@ In **Settings → Environments → github-pages**, configure:
 - deployment branches restricted to `main`; and
 - no undocumented administrator bypass.
 
-The Pages workflow assigns its mutation-capable deploy job to the `github-pages` environment. The build job may assemble and validate the artifact first, but deployment cannot start until the environment reviewer approves it. Record the settings review and deployment approval with the release evidence.
+The Pages workflow assigns its mutation-capable deploy job to the `github-pages` environment. This job is checkout-free and runs only the pinned Pages deployment action with `pages: write` and `id-token: write`. Repository code executes in other jobs with read-only permissions. The build job may assemble and validate the artifact first, but deployment cannot start until the environment reviewer approves it. Record the settings review and deployment approval with the release evidence.
 
 ## Enforced repository pipeline
 
@@ -47,6 +47,10 @@ Before an artifact is eligible for deployment, automation verifies:
 `External source links` runs for every `main` push as well as weekly and on demand. Its named restricted-access report records the requested URL, status and final destination for every `401`, `403` or `429` result.
 
 Before the deploy job can reach the protected environment, the Pages release gate queries the GitHub Actions API with read-only permission and requires successful `push` runs of both `Quality` and `External source links` for its exact 40-character `GITHUB_SHA` on `main`. Evidence from another branch or commit, a manual run or a scheduled run cannot satisfy the gate. The newest run and rerun attempt controls the result, and the summary links to that immutable attempt. The check waits for a bounded period, honors bounded primary and secondary rate-limit delays, and fails closed on a completed failure, terminal API error or timeout.
+
+The same read-only release-gate job checks that the candidate is the current `main` tip before environment approval. This is not an atomic freshness guarantee: `main` can advance during the approval wait or deployment. Reviewers must compare the pending candidate SHA with the intended release and current branch state. After deployment, a separate read-only `production-smoke` job checks the manifest routes and exact content and records the deployed SHA. Its failure means deployment has already occurred and requires the release/rollback response below; it does not undo publication automatically.
+
+The local Nu gate uses the exact `vnu-jar@26.8.30` tarball with size, SHA-256 and SHA-512 pins, extracts only the approved regular-file archive entries within the decompression bound, and verifies the original standalone-JAR size and SHA-256/SHA-1. It runs a private per-run read-only copy without installing npm packages or running package scripts. Nu and external-source network checks reject unapproved/non-public destinations before connecting and revalidate redirects.
 
 ## Release sequence
 

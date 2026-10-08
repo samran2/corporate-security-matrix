@@ -35,6 +35,9 @@ jobs:
         with:
           python-version: "3.14"
 
+      - name: Validate external link checker security boundaries
+        run: python3 scripts/test_validate_project_links.py
+
       - name: Verify authoritative sources and publish restricted-access report
         shell: bash
         run: |

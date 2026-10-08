@@ -22,6 +22,11 @@ import {
   smokeSite,
   validateManifest,
 } from "./site.mjs";
+import {
+  readExactAssetBytes,
+  validateNuStandaloneEntries,
+  validateStandaloneArchive,
+} from "./validate_html.mjs";
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(SCRIPT_DIR, "..");
@@ -141,6 +146,14 @@ try {
       "assessment-compare.js",
       "assessment.js",
       "assessment-comparison.js",
+      "coverage.html",
+      "coverage.css",
+      "coverage.js",
+      "coverage-model.js",
+      "matrix-coverage.js",
+      "matrix-coverage-governance.js",
+      "matrix-coverage-safety.js",
+      "matrix-coverage-digital.js",
       "matrix-overlays.js",
       "source-lifecycle-register.json",
       "source-change-register.json",
@@ -152,6 +165,9 @@ try {
       "docs/ASSESSMENT-THREAT-MODEL.md",
       "docs/decisions/0001-local-assessment-and-encrypted-export.md",
       "docs/decisions/0002-separate-jurisdiction-overlays.md",
+      "docs/ADR-0003-coverage-workspace.md",
+      "docs/COVERAGE-WORKSPACE.md",
+      "docs/COVERAGE-REVIEW.md",
     ];
     for (const file of futureFiles) {
       assert.equal(existsSync(resolve(ARTIFACT, file)), false, `${file} must not enter the v1.1 artifact`);
@@ -169,6 +185,15 @@ try {
       "assessment-compare.js",
       "assessment.js",
       "assessment-comparison.js",
+      "coverage.html",
+      "coverage.css",
+      "coverage.js",
+      "coverage-model.js",
+      "matrix-coverage.js",
+      "matrix-coverage-governance.js",
+      "matrix-coverage-safety.js",
+      "matrix-coverage-digital.js",
+      "CSMCoverage",
       "matrix-overlays.js",
       "matrixOverlays",
       "overlaySelect",
@@ -193,6 +218,19 @@ try {
       encoding: "utf8",
     });
     assert.equal(syntax.status, 0, output(syntax));
+  });
+
+  test("prunes the additive draft coverage workspace link from the public v1.1 artifact", () => {
+    rebuild();
+    const source = readFileSync(resolve(ROOT, "index.html"), "utf8");
+    assert.match(source, /<!-- csm-release-scope:v1\.2\.0:begin -->[\s\S]*?href="coverage\.html"[\s\S]*?<!-- csm-release-scope:v1\.2\.0:end -->/);
+    assert.equal(readFileSync(resolve(ARTIFACT, "index.html"), "utf8").includes("coverage.html"), false);
+    assert.equal(existsSync(resolve(ARTIFACT, "coverage.html")), false);
+    assert.deepEqual([...SITE_MANIFEST.htmlFiles].sort(), ["404.html", "acknowledgements.html", "framework.html", "index.html"]);
+    assert.throws(
+      () => validateManifest(manifestFixture((manifest) => { manifest.files.push("coverage.html"); })),
+      /Future release file entered the v1\.1 manifest/,
+    );
   });
 
   test("compiles the v1.1 control bar to two occupied columns", () => {
@@ -372,6 +410,125 @@ try {
         manifest.requiredPredeployWorkflows.reverse();
       })),
       canonicalPredeployError,
+    );
+  });
+
+  test("pins the W3C Nu checker to the exact reviewed official standalone asset identity", () => {
+    const expectedNu = {
+      version: "26.8.30",
+      distribution: "npm-tarball",
+      packageName: "vnu-jar",
+      tarballUrl: "https://registry.npmjs.org/vnu-jar/-/vnu-jar-26.8.30.tgz",
+      tarballSizeBytes: 30116214,
+      tarballSha256: "2bda313c3dd6d05ada3655085ea12e40b380826fde8f719a44cb4deda6c8c887",
+      tarballIntegrity: "sha512-M+m1H4/3lkBQGBFqmLpCB9nf7/4+Zqb4di0kNEwJ130vsyR2R/E8fULkL1IO9+TA3LwS8Dto07TT8ACzkXwNog==",
+      unpackedTarSizeBytes: 32649216,
+      archiveEntry: "package/build/dist/vnu.jar",
+      packageArchiveEntries: [
+        "package/LICENSE",
+        "package/build/dist/vnu.jar",
+        "package/vnu-jar.js",
+        "package/vnu-java-downloader.js",
+        "package/package.json",
+        "package/README.md",
+      ],
+      releaseId: 258370454,
+      releaseTargetCommit: "f84563f28898457af3cb76ec8c820cf17a2174c4",
+      assetId: 535987626,
+      assetUrl: "https://api.github.com/repos/validator/validator/releases/assets/535987626",
+      assetSizeBytes: 32626931,
+      sha256: "b7d886d87b031ca3096cf982477df911b3002448e48228510fd981a3b9c67f8e",
+      upstreamSha1: "8e058f91d2777b777626ded9ec924478ec0feab1",
+      mainClass: "nu.validator.client.SimpleCommandLineValidator",
+      requiredArchiveEntries: [
+        "META-INF/MANIFEST.MF",
+        "nu/validator/client/SimpleCommandLineValidator.class",
+        "org/eclipse/jetty/client/Response$CompleteListener.class",
+        "com/ibm/icu/text/CharsetDetector.class",
+      ],
+    };
+    assert.deepEqual(SITE_MANIFEST.w3cNu, expectedNu);
+
+    for (const mutate of [
+      (nu) => { nu.assetUrl = "https://repo1.maven.org/maven2/nu/validator/validator/26.8.24/validator-26.8.24.jar"; },
+      (nu) => { nu.version = "26.8.24"; },
+      (nu) => { nu.releaseId += 1; },
+      (nu) => { nu.releaseTargetCommit = "0".repeat(40); },
+      (nu) => { nu.assetId += 1; },
+      (nu) => { nu.assetSizeBytes -= 1; },
+      (nu) => { nu.sha256 = "0".repeat(64); },
+      (nu) => { nu.upstreamSha1 = "0".repeat(40); },
+      (nu) => { nu.requiredArchiveEntries.pop(); },
+      (nu) => { nu.tarballUrl = "https://example.invalid/vnu.tgz"; },
+      (nu) => { nu.tarballSizeBytes -= 1; },
+      (nu) => { nu.tarballSha256 = "0".repeat(64); },
+      (nu) => { nu.tarballIntegrity = "sha512-unknown"; },
+      (nu) => { nu.unpackedTarSizeBytes += 512; },
+      (nu) => { nu.archiveEntry = "package/other.jar"; },
+      (nu) => { nu.packageArchiveEntries.pop(); },
+      (nu) => { nu.unreviewedMirror = "https://example.invalid/vnu.jar"; },
+    ]) {
+      assert.throws(
+        () => validateManifest(manifestFixture((manifest) => { mutate(manifest.w3cNu); })),
+        /w3cNu must pin exactly the reviewed official standalone validator distribution/,
+      );
+    }
+  });
+
+  test("rejects a Nu archive that lacks standalone runtime dependencies", () => {
+    const requiredEntries = SITE_MANIFEST.w3cNu.requiredArchiveEntries;
+    assert.doesNotThrow(() => validateNuStandaloneEntries([
+      "META-INF/MANIFEST.MF",
+      ...requiredEntries,
+      "nu/validator/messages.properties",
+    ]));
+    assert.throws(
+      () => validateNuStandaloneEntries([
+        "META-INF/MANIFEST.MF",
+        "nu/validator/client/SimpleCommandLineValidator.class",
+      ]),
+      /standalone archive is missing required entries: .*org\/eclipse\/jetty\/client\/Response\$CompleteListener\.class/,
+    );
+    assert.throws(
+      () => validateNuStandaloneEntries("nu/validator/client/SimpleCommandLineValidator.class"),
+      /archive entry list must be an array/,
+    );
+
+    let inspectedCommand;
+    assert.throws(
+      () => validateStandaloneArchive("/tmp/thin-validator.jar", (command, args, options) => {
+        inspectedCommand = { command, args, options };
+        return {
+          status: 0,
+          stdout: "META-INF/MANIFEST.MF\nnu/validator/client/SimpleCommandLineValidator.class\n",
+          stderr: "",
+        };
+      }),
+      /org\/eclipse\/jetty\/client\/Response\$CompleteListener\.class/,
+    );
+    assert.equal(inspectedCommand.command, "jar");
+    assert.deepEqual(inspectedCommand.args, ["--list", "--file", "/tmp/thin-validator.jar"]);
+  });
+
+  await testAsync("bounds Nu asset downloads even when Content-Length is absent", async () => {
+    const exactResponse = new Response(new ReadableStream({
+      start(controller) {
+        controller.enqueue(new Uint8Array([1, 2]));
+        controller.enqueue(new Uint8Array([3, 4]));
+        controller.close();
+      },
+    }));
+    assert.deepEqual(await readExactAssetBytes(exactResponse, 4), Buffer.from([1, 2, 3, 4]));
+
+    const oversizedResponse = new Response(new ReadableStream({
+      start(controller) {
+        controller.enqueue(new Uint8Array([1, 2, 3]));
+        controller.enqueue(new Uint8Array([4, 5]));
+      },
+    }));
+    await assert.rejects(
+      () => readExactAssetBytes(oversizedResponse, 4),
+      /download exceeded 4 bytes before completion/,
     );
   });
 

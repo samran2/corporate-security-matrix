@@ -90,6 +90,12 @@ jobs:
           node --check assessment-compare.js
           node --check assessment.js
           node --check assessment-comparison.js
+          node --check matrix-coverage-governance.js
+          node --check matrix-coverage-safety.js
+          node --check matrix-coverage-digital.js
+          node --check matrix-coverage.js
+          node --check coverage-model.js
+          node --check coverage.js
           node --check app.js
           node --check scripts/site.mjs
           node --check scripts/test_site.mjs
@@ -100,6 +106,11 @@ jobs:
           node --check scripts/validate_source_register.mjs
           node --check scripts/validate_overlays.mjs
           node --check scripts/validate_html.mjs
+          node --check scripts/test_validate_html.mjs
+          node --check scripts/test_action_brief.mjs
+          node --check scripts/test_coverage_catalogue.mjs
+          node --check scripts/test_coverage_model.mjs
+          node --check scripts/test_coverage_ui.mjs
           node --check scripts/test_validate_overlays.mjs
           node --check scripts/test_runtime_bootstrap.mjs
           node --check scripts/validate_overlay_ui.mjs
@@ -127,10 +138,16 @@ jobs:
           node scripts/validate_workflows.mjs --self-test
           node scripts/verify_workflow_runs.mjs --self-test
           node scripts/test_site.mjs
+          node --test scripts/test_validate_html.mjs
+          node scripts/test_action_brief.mjs
+          node scripts/test_coverage_catalogue.mjs
+          node scripts/test_coverage_model.mjs
+          node scripts/test_coverage_ui.mjs
 
       - name: Validate release surface
         run: |
           python3 -m py_compile scripts/validate_project.py
+          python3 scripts/test_validate_project_links.py
           python3 scripts/validate_project.py
 
       - name: Build and validate Pages artifact

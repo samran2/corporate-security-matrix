@@ -33,7 +33,15 @@ The matrix is a planning and management aid. It does not certify compliance, rep
 5. Use the [operating framework](FRAMEWORK.md) to assess maturity, confidence and corrective actions.
 6. Revisit the view after incidents, exercises, acquisitions, supplier changes and major technology or operating-model change.
 
-The selected domain, decision layer and search term are encoded in the URL so a precise matrix view can be shared without application-side storage. URL state can remain in browser history, copied links and hosting or access logs, so do not enter sensitive organizational or personal information in search.
+The selected domain, decision layer and search term are encoded in the URL so a precise matrix view can be shared without application-side storage. The unpublished candidate also supports a lifecycle `phase` filter; links without it keep their existing behavior. URL state can remain in browser history, copied links and hosting or access logs, so do not enter sensitive organizational or personal information in search.
+
+### Integrated action-brief development
+
+The unreleased development candidate adds lifecycle-phase filtering, canonical-ID search and an action brief for up to 12 selected Controls & actions across domains. Choose an owner role from the action's domain profile and a Now/Next/Later planning horizon, then download Markdown or print the brief. Selection order and horizons express your planning choices; they are not a risk score, severity ranking or prescribed deadlines.
+
+The brief stays in memory and survives changes to public filters. Reloading or leaving the page clears it, including browser navigation-cache restoration. Selections and owner/horizon choices are excluded from shared URLs, history state, browser storage and network requests. Owners are roles, not person names; the brief collects no free-text organisational notes or assessment responses.
+
+Outputs include exact canonical IDs, the core framework version, implementation aids and the relevant phase-context sources for each action. They explicitly exclude jurisdiction overlays and describe sources as context, not entry-level proof. **Markdown download, print and Save as PDF create unencrypted copies that may contain sensitive priorities.** Handle those copies under your organisation's policy. This capability remains unreleased; development commits and draft pull requests do not satisfy the outstanding content, browser and release-approval gates.
 
 ### Integrated mitigation-tool development
 
@@ -86,7 +94,7 @@ Core files:
 - `matrix-references.js` — domain source records and explicit phase-context mappings
 - `matrix-tools-d01-d03.js`, `matrix-tools-d04-d06.js` and `matrix-tools-d07-d09.js` — candidate implementation-aid records keyed by canonical mitigation identifier
 - `matrix-tools.js` — fail-closed aggregation and runtime contract for the mitigation-tool layer
-- `app.js` — search, filtering, keyboard behavior and shareable state
+- `app.js` — search, filtering, keyboard behavior, public URL state and the candidate in-memory action brief
 - `styles.css` — responsive visual system and print layout
 - `scripts/validate_project.py` — deterministic release checks
 - `ROADMAP.md` — release gates, publication runbook and planned product evolution
@@ -117,7 +125,10 @@ node --check app.js
 node scripts/validate_data.mjs
 node scripts/validate_mitigation_tools.mjs
 node scripts/validate_mitigation_tools_ui.mjs
+node scripts/test_action_brief.mjs
 node scripts/validate_ui.mjs
+node --test scripts/test_validate_html.mjs
+python3 scripts/test_validate_project_links.py
 python3 scripts/validate_project.py
 ```
 

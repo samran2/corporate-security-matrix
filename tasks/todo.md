@@ -1,8 +1,48 @@
 # Corporate Security Matrix Delivery Tasks
 
-Last updated: 2026-08-29
+Last updated: 2026-10-09
 
 This is the implementation backlog for [`../ROADMAP.md`](../ROADMAP.md). A checked task means its acceptance criteria and verification are supported by repository evidence. External approvals are listed separately and must never be inferred from code or automated test results.
+
+The current phase-filter, action-brief and security-hardening changes are an unreleased development integration. The public release remains `v1.0.0`; browser, public-HTML, expert-review and release-approval gates below remain open.
+
+## GitHub review handoff — 2026-10-09
+
+The user subsequently authorized a GitHub update after Codex Security review. This permits development-branch commits, push and a draft pull request, not a merge, production deployment, version tag, GitHub Release or protection-setting change. The resulting commit and pull request will be recorded in GitHub; the earlier local-preview checkpoint below remains historical evidence.
+
+- Completed Codex Security diff scan: `e7ef1bfc-9c24-4a04-ab4c-7b67bc40b5df`, baseline `c149c364c4fc5d69fc0e738fd524f73709814574`, snapshot `codex-security-snapshot/v1:sha256:54833e70a304946a94e223363e89577bbdb565c908ec2d32be91a399d1cb7aba`.
+- Five independent compact reviews accounted for all 26 changed source/test/manifest/workflow files; nine documentation files were also reviewed. No technically plausible vulnerability candidates or reportable findings were identified. This is a diff review, not a new exhaustive repository audit or professional content approval.
+- Deterministic local regression, workflow, project and artifact gates were rerun successfully. Java-based public-HTML execution and the existing external browser/content/release gates are not waived; GitHub CI results must be checked against the submitted commit.
+- After sealing the immutable scan, only documentation was clarified to distinguish this authorization from the original local-only implementation. Runtime, data, validators and workflows remain the reviewed bytes. Documentation readback and final artifact validation are required before push.
+
+## Premium coverage integration — local preview
+
+Scope: implement G01–G15 from `docs/COVERAGE-REVIEW.md` without rewriting the canonical matrix or existing encrypted assessment format. Contract and privacy review: `docs/ADR-0003-coverage-workspace.md`. Usage and traceability: `docs/COVERAGE-WORKSPACE.md`.
+
+- [x] Lock the additive catalogue/session contract and record the local-preview release boundary before parallel implementation.
+- [x] Implement eighteen draft topics, ninety phase checks, 180 implementation aids and verified canonical-ID links.
+- [x] Implement explicit applicability, mandatory non-applicability rationale, accountable roles, check judgments, critical gaps and next actions in memory only.
+- [x] Implement six recommendation-only context profiles, five cross-domain tabletop scenarios and an honest printable leadership report.
+- [x] Prove catalogue/document rejection, immutable atomic updates, source/core/profile/scenario parity and no URL/storage/network response flows.
+- [ ] Verify keyboard, mobile, no-script, startup-error, reduced-motion, pagehide and print paths against the integrated preview.
+- [x] Validate the unchanged four-page v1.1 artifact and exclusion of the draft workspace and its home-page link.
+- [x] Complete independent code/security and content review, resolve material findings and record final evidence.
+- [ ] Named competent human reviewers approve high-consequence content; user research and release-owner approval authorize publication. Automated tests and agent reviews cannot close this external gate.
+
+The original local implementation task did not authorize commit, push, tag, GitHub Release or deployment. The later development-branch handoff authorization is recorded above; public release still requires its separate gates. The preview introduces no new continuation-file format; existing encrypted assessment files remain compatible and cannot contain coverage-topic judgments.
+
+### Checkpoint evidence — 2026-10-09
+
+- Model: `node scripts/test_coverage_model.mjs` passes 22 catalogue mutations plus exact document/version/ownership checks, atomic immutable updates, exclusions, literal-text safety and the real 18-topic catalogue.
+- Catalogue: `node scripts/test_coverage_catalogue.mjs` passes 10 contracts: all G01–G15, 90 checks/180 aids, 27 official context records, shard/source/core parity, six profiles/five scenarios and fail-closed aggregation. Related cross-phase core context is explicitly supported; unrelated-domain links are rejected.
+- UI: `node scripts/test_coverage_ui.mjs` passes 33 deterministic DOM cases. Ten actor-pack mutations cover the independently reproduced empty-pack startup bug. It is fixed by complete 9 × 5 × 3 actor validation and the exact 495-reviewed-entry guard. Safe text rendering, all missing bundles, invalid edits, native field labels, recommendation-only profiles, print lifecycle/failure and pagehide/BFCache reset pass. DOM tests are not real screen-reader or browser-print approval.
+- Real browser (Codex in-app browser, fresh localhost port 8795): ready with no warning/error logs; no horizontal overflow and primary controls at least 44 × 44 pixels at 320, 390, 768 and 1440 widths; five saved judgments produce the expected separate counts; blank non-applicability rationale blocks topic navigation and focuses its field; profile recommendations retain all eighteen topics; a zero-result search leaves all eighteen report sections intact; Enter selects a topic and focuses its heading, followed by a visible-focus source link; literal test markup creates no DOM element; navigation to the matrix and Back returns an empty session with blank text fields and no saved sentinel in the report. Synthetic test judgments were discarded.
+- Print: source rules and deterministic beforeprint/afterprint/failure tests pass. A native print attempt blocked the browser automation at the operating-system dialog; the temporary agent-created test tab was closed successfully. Actual print-layout/Save-as-PDF acceptance remains open. Native no-JavaScript, reduced-motion emulation, additional browser engines and screen-reader acceptance also remain open; their static/DOM safeguards are tested, not their full real-browser paths.
+- Existing gates remain green: data/contracts, runtime bootstrap/history, action brief, matrix UI, mitigation tools/UI, assessment (19), comparison (9), overlays/UI and source-register mutations. HTML-download/archive security tests (16) and link-checker offline tests (21) pass.
+- Workflow checks: baseline plus 112 mutations and 29 exact-SHA cases pass. Project validation passes 92 required files and six local HTML documents. Site tests pass 34 cases. The built v1.1 artifact has 36 files, four HTML pages, three canonical/sitemap pages and 99,050 / 150,000 gzip bytes; all draft coverage assets and its CTA are excluded. Final artifact SHA-256 after the development-preview changelog entry: `e8f7998e1165ae9c083c4be40e421a3d541e0422d8a2881f8ead113e571de8e7`.
+- Artifact route smoke: 41 probes pass in two consecutive coherent localhost sweeps on port 8796, covering the published pages, assets, documents and deep links. This is not a production deployment or live GitHub verification.
+- Independent fresh-context review of all shards, model, aggregator, UI, contracts and release pruning has no remaining P1/P2 findings. Source consultation and agent review do not constitute named competent human professional approval.
+- The local W3C Nu execution gate remains unverified because Java is unavailable; its pinned downloader and security regressions pass. No release approval, commit, push or deployment is claimed.
 
 ## v1.1.0 — Candidate stabilization
 
@@ -70,6 +110,33 @@ This is the implementation backlog for [`../ROADMAP.md`](../ROADMAP.md). A check
 **Dependencies:** R11-01, R11-02
 
 **Files likely touched:** `matrix-tools-d01-d03.js`, `matrix-tools-d04-d06.js`, `matrix-tools-d07-d09.js`, `matrix-tools.js`, `index.html`, `app.js`, `styles.css`, mitigation-tool validators and review documentation
+
+**Estimated scope:** Medium
+
+### Task R11-02B: Turn selected controls into a local action brief
+
+**Description:** Add lifecycle-phase filtering and a small cross-domain planning brief without changing canonical matrix content or collecting assessment responses.
+
+**Acceptance criteria:**
+
+- [x] `phase=identify|protect|detect|respond|recover` selects one lifecycle phase; omitted, `all` or invalid values resolve to all phases, and existing `domain`, `view` and `q` links retain their meaning.
+- [x] Public phase state participates in URL canonicalization and Back/Forward restoration; canonical entry IDs participate in search.
+- [x] The in-memory model accepts at most 12 unique reviewed canonical mitigation IDs across domains, with an owner role from the action's own domain profile and a valid Now/Next/Later horizon.
+- [x] Invalid multi-field edits are rejected atomically; unknown IDs, duplicate selections, another domain's owner role and unknown fields cannot enter the brief.
+- [x] Selection order and horizons are explicitly planning choices, not severity, risk ranking or prescribed deadlines; no person names, free-text notes or assessment answers are collected.
+- [x] Selections remain independent of public filters and are excluded from URLs, history state, browser storage and network requests; reload or `pagehide` clears them.
+- [x] Markdown/print output records exact IDs, the core framework version, tools and each action's own phase-context sources, states that overlays are not included, and warns that output is unencrypted.
+- [ ] Real-browser checks establish keyboard focus after add/remove/clear, owner/horizon changes, phase selection and Back/Forward at 320, 390, 768 and 1440 pixels.
+- [ ] No-JavaScript, startup-error, reduced-motion, print cancellation and browser navigation-cache paths remain useful and preserve the stated privacy behavior.
+
+**Verification:**
+
+- [x] `node scripts/test_action_brief.mjs` covers canonical selection, limits, duplicates, atomic owner/horizon validation, cross-domain provenance and Markdown escaping.
+- [ ] Browser and print evidence is recorded against the final integrated candidate.
+
+**Dependencies:** R11-01, R11-02, R11-02A, R11-03 and R11-04 for the complete UI contract
+
+**Files likely touched:** `app.js`, `index.html`, `styles.css`, `scripts/test_action_brief.mjs` and candidate documentation
 
 **Estimated scope:** Medium
 
@@ -241,6 +308,33 @@ This is the implementation backlog for [`../ROADMAP.md`](../ROADMAP.md). A check
 
 **Estimated scope:** Medium
 
+### Task R11-09A: Isolate deployment authority and harden validation downloads
+
+**Description:** Close the reviewed deployment-script, download-address and mutable-cache boundaries while retaining local, checksum-pinned HTML validation.
+
+**Acceptance criteria:**
+
+- [x] The protected Pages/OIDC job has no checkout, repository scripts or general shell step; only the pinned deployment action executes with write permissions.
+- [x] Exact-SHA/current-main checks run in a separate read-only job, and production route smoke tests run in a separate read-only post-deployment job.
+- [x] Documentation identifies the pre-approval current-main check as an observation rather than an atomic freshness lock, and a post-deployment smoke failure does not imply automatic rollback.
+- [x] The official versioned `vnu-jar@26.8.30` tarball has exact-size, SHA-256 and SHA-512 pins; bounded extraction admits the exact regular-file archive set and verifies the originally reviewed JAR bytes without package installation or lifecycle scripts.
+- [x] Nu executes a verified private per-run read-only JAR rather than reopening a mutable shared-cache path.
+- [x] Nu and external-source redirect/DNS checks reject non-public destinations and bind connections to validated addresses.
+- [ ] All four public HTML documents pass the completed local Nu gate on the candidate artifact.
+- [ ] Independent security review accepts the final integrated diff before publication.
+
+**Verification:**
+
+- [x] `node --test scripts/test_validate_html.mjs` passes all 16 controlled download, extraction and cache checks.
+- [x] `python3 scripts/test_validate_project_links.py` passes all 21 controlled endpoint/redirect checks.
+- [ ] Integrated workflow validation, artifact build and browser smoke evidence names the final candidate.
+
+**Dependencies:** R11-08 and R11-09
+
+**Files likely touched:** `.github/workflows/pages.yml`, validator scripts/tests, `scripts/site-manifest.json` and release-control documentation
+
+**Estimated scope:** Medium
+
 ### Task R11-10: Harden final-SHA workflow evidence
 
 **Description:** Ensure deployment cannot rely on stale workflow success, omit published scripts from checks or lose evidence during transient API and concurrency failures.
@@ -270,9 +364,11 @@ This is the implementation backlog for [`../ROADMAP.md`](../ROADMAP.md). A check
 - [ ] `node scripts/validate_data.mjs`
 - [ ] `node scripts/validate_ui.mjs`
 - [ ] `node scripts/validate_mitigation_tools.mjs` and `node scripts/validate_mitigation_tools_ui.mjs`
+- [ ] `node scripts/test_action_brief.mjs`, `node --test scripts/test_validate_html.mjs` and `python3 scripts/test_validate_project_links.py`
 - [ ] `python3 scripts/validate_project.py`
 - [ ] Mutation checks prove the new gates fail for the intended defects.
 - [ ] Every mitigation disclosure, tool-text search result and expanded print representation passes browser and accessibility review at the applicable viewport sizes.
+- [ ] Phase filtering, canonical-ID search, cross-domain action selection, owner/horizon changes, page-lifetime clearing and unencrypted Markdown/print warnings pass browser review.
 - [ ] The mitigation-tool human review record covers all 180 mappings and 360 records; heuristic vendor and claim-pattern screening is not treated as expert approval.
 - [ ] Browser, keyboard, no-JavaScript, print, reduced-motion and error-state review passes at 320, 390, 768 and 1440 pixels.
 - [ ] Fresh-context code, security and accessibility review finds no open P1 or P2 issue.

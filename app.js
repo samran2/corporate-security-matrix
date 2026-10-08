@@ -152,7 +152,7 @@ const MITIGATION_TOOL_ENDORSEMENT_PATTERN =
 const MITIGATION_TOOL_ABSOLUTE_CLAIM_PATTERN =
   /\b(?:zero risk|no risk|risk-free|completely safe|fully prevents?\b|(?:prevents?|stops?|blocks?) (?:all|every) (?:breaches?|failures?|harm|incidents?|risks?|threats?)|(?:eliminates?|eradicates?) (?:all |the )?(?:breaches?|failures?|harm|incidents?|risks?|threats?)|(?:certifies?|guarantees?|ensures?)(?: complete| full| total)? (?:compliance(?: with (?:all|every) requirements?)?|safety|security|protection)|(?:guarantees?|ensures?) that (?:all |every )?(?:breaches?|failures?|incidents?|risks?|threats?) never (?:happen|occur)|makes? (?:all |any |every )?(?:breaches?|failures?|harm|incidents?|risks?|threats?) impossible|cannot fail|never fails?|infallible|always (?:blocks?|detects?|ensures?|prevents?|protects?|stops?))\b/i;
 const HISTORY_FOCUS_SELECTOR_PATTERN =
-  /^#(?:tab-[a-z0-9-]+|view-(?:all|actors|risks|mitigations)|previousDomain|nextDomain|matrixSearch)$/;
+  /^#(?:tab-[a-z0-9-]+|view-(?:all|actors|risks|mitigations)|phase-(?:all|identify|protect|detect|respond|recover)|previousDomain|nextDomain|matrixSearch)$/;
 /* csm-release-scope:v1.3.0:begin */
 const OVERLAY_HISTORY_FOCUS_SELECTOR_PATTERN = /^#overlaySelect$/;
 /* csm-release-scope:v1.3.0:end */
@@ -630,8 +630,94 @@ function showDataError() {
   if (dataError) dataError.hidden = false;
 }
 
+const ACTION_BRIEF_LIMIT = 12;
+const ACTION_BRIEF_HORIZONS = {
+  now: "Now · next 30 days",
+  next: "Next · 31–60 days",
+  later: "Later · 61–90 days"
+};
+
+function createActionCatalog() {
+  const catalog = new Map();
+  domains.forEach((domain) => phases.forEach((phase) => {
+    const mapping = phaseEvidenceByDomain[domain.id][phase.id];
+    const sources = mapping.relationship === "context"
+      ? mapping.sourceIds.map((id) => referencesByDomain[domain.id].find((source) => source.id === id)).filter(Boolean)
+      : [];
+    domain.cells[phase.id].controls.forEach((entry) => {
+      if (entry.reviewState !== "reviewed") return;
+      catalog.set(entry.id, {
+        id: entry.id, text: entry.text, domainId: domain.id, domainName: domain.name,
+        phaseId: phase.id, phaseTitle: phase.title, owners: [...domain.profile.owners],
+        tools: mitigationTools.entries[entry.id], sources
+      });
+    });
+  }));
+  return catalog;
+}
+
+// Selections are intentionally independent of public navigation and page filters.
+function createActionBriefModel(catalog) {
+  const selected = new Map();
+  return {
+    has: (id) => selected.has(id),
+    add(id) {
+      if (!catalog.has(id)) return "unknown";
+      if (selected.has(id)) return "duplicate";
+      if (selected.size >= ACTION_BRIEF_LIMIT) return "limit";
+      selected.set(id, { owner: "", horizon: "next" });
+      return "added";
+    },
+    remove: (id) => selected.delete(id),
+    clear: () => selected.clear(),
+    update(id, fields) {
+      if (!selected.has(id) || !fields || typeof fields !== "object") return false;
+      if (Object.keys(fields).some((key) => !["owner", "horizon"].includes(key))) return false;
+      if (Object.hasOwn(fields, "owner") && fields.owner !== "" && !catalog.get(id).owners.includes(fields.owner)) return false;
+      if (Object.hasOwn(fields, "horizon") && !Object.hasOwn(ACTION_BRIEF_HORIZONS, fields.horizon)) return false;
+      selected.set(id, { ...selected.get(id), ...fields });
+      return true;
+    },
+    getItems() {
+      return [...selected].map(([id, choice]) => {
+        const entry = catalog.get(id);
+        return {
+          ...entry, ...choice, owners: [...entry.owners],
+          tools: entry.tools.map((tool) => ({ ...tool })),
+          sources: entry.sources.map((source) => ({ ...source }))
+        };
+      });
+    }
+  };
+}
+
+function escapeBriefMarkdown(value) {
+  return String(value).replace(/[\r\n]+/g, " ").replace(/([\\`*_{}\[\]()#+.!|>])/g, "\\$1");
+}
+
+function buildActionBriefMarkdown(items) {
+  const lines = [
+    "# Corporate Security Matrix — Action brief", "",
+    `Framework: ${MITIGATION_TOOL_FRAMEWORK_VERSION}`, "Overlay: not included", "",
+    "User-selected controls in selection order, not a risk ranking. Planning horizons are choices, not risk severity or prescribed deadlines.",
+    "Context sources, not entry-level proof. No compliance or risk-elimination claim is made.",
+    "This export is unencrypted and may contain sensitive priorities. Handle it within your organisation's policy.", ""
+  ];
+  items.forEach((item, index) => {
+    lines.push(`## ${index + 1}. ${item.id}`, "", `${escapeBriefMarkdown(item.domainName)} · ${escapeBriefMarkdown(item.phaseTitle)}`, "", escapeBriefMarkdown(item.text), "",
+      `Owner role: ${escapeBriefMarkdown(item.owner || "Unassigned")}`,
+      `Planning horizon: ${escapeBriefMarkdown(ACTION_BRIEF_HORIZONS[item.horizon])}`, "", "Implementation aids:");
+    item.tools.forEach((tool) => lines.push(`- ${escapeBriefMarkdown(tool.name)}: ${escapeBriefMarkdown(tool.use)}`));
+    lines.push("", "Context sources, not entry-level proof:");
+    item.sources.forEach((source) => lines.push(`- ${escapeBriefMarkdown(source.org)} — ${escapeBriefMarkdown(source.title || source.shortTitle)} (${escapeBriefMarkdown(source.id)}; verified ${escapeBriefMarkdown(source.verifiedOn)}): <${getSafeExternalHttpsUrl(source.url)}>`));
+    lines.push("");
+  });
+  return lines.join("\n");
+}
+
 function initializeApp() {
 const validViews = new Set(["all", "actors", "risks", "mitigations"]);
+const validPhases = new Set(["all", ...phases.map((phase) => phase.id)]);
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const urlState = new URLSearchParams(window.location.search);
 const requestedDomain = urlState.get("domain");
@@ -646,6 +732,7 @@ const state = {
   activeDomain: domains.some((domain) => domain.id === requestedDomain) ? requestedDomain : domains[0].id,
   view: validViews.has(requestedView) ? requestedView : "all",
   query: (urlState.get("q") ?? "").trim(),
+  phase: validPhases.has(urlState.get("phase")) ? urlState.get("phase") : "all",
   /* csm-release-scope:v1.3.0:begin */
   overlay: availableOverlayIds.has(requestedOverlay) ? requestedOverlay : ""
   /* csm-release-scope:v1.3.0:end */
@@ -674,12 +761,128 @@ const copyLinkButton = document.getElementById("copyLink");
 const copyStatus = document.getElementById("copyStatus");
 const sourceMappingCount = document.getElementById("sourceMappingCount");
 const mobileNav = document.querySelector(".mobile-nav");
+const phaseButtons = [...document.querySelectorAll("button[data-phase-mode]")];
+const briefPanel = document.getElementById("actionBrief");
+const briefList = document.getElementById("actionBriefList");
+const briefEmpty = document.getElementById("actionBriefEmpty");
+const briefStatus = document.getElementById("actionBriefStatus");
+const briefCount = document.getElementById("actionBriefCount");
+const openBriefButton = document.getElementById("openActionBrief");
+const exportBriefButton = document.getElementById("exportActionBrief");
+const printBriefButton = document.getElementById("printActionBrief");
+const clearBriefButton = document.getElementById("clearActionBrief");
+const briefModel = createActionBriefModel(createActionCatalog());
+const selectionStatus = createElement("span", "sr-only");
+selectionStatus.setAttribute("role", "status");
+selectionStatus.setAttribute("aria-live", "polite");
+openBriefButton.after(selectionStatus);
 
 function createElement(tag, className = "", text) {
   const element = document.createElement(tag);
   if (className) element.className = className;
   if (text !== undefined && text !== null) element.textContent = text;
   return element;
+}
+
+function updateSelectionButtons() {
+  document.querySelectorAll(".matrix-tile__select").forEach((button) => {
+    const selected = briefModel.has(button.dataset.actionId);
+    button.setAttribute("aria-pressed", String(selected));
+    button.textContent = selected ? "Remove from brief" : "Add to brief";
+    button.setAttribute("aria-label", `${selected ? "Remove" : "Add"} ${button.dataset.actionId} ${selected ? "from" : "to"} action brief`);
+  });
+}
+
+function announceBrief(message) {
+  selectionStatus.textContent = briefPanel.hidden ? message : "";
+  briefStatus.textContent = briefPanel.hidden ? "" : message;
+}
+
+function createBriefField(item, key, labelText, options) {
+  const field = createElement("div", "action-brief__field");
+  const label = createElement("label", "", `${labelText}: ${options[item[key]]}`);
+  const select = createElement("select");
+  select.id = `brief-${item.id.toLowerCase()}-${key}`;
+  label.htmlFor = select.id;
+  Object.entries(options).forEach(([value, text]) => {
+    const option = createElement("option", "", text);
+    option.value = value;
+    select.append(option);
+  });
+  select.value = item[key];
+  select.addEventListener("change", () => {
+    if (!briefModel.update(item.id, { [key]: select.value })) return;
+    label.textContent = `${labelText}: ${options[select.value]}`;
+    announceBrief(`${labelText} updated for ${item.id}.`);
+  });
+  field.append(label, select);
+  return field;
+}
+
+function renderActionBrief() {
+  const items = briefModel.getItems();
+  briefCount.textContent = String(items.length);
+  briefEmpty.hidden = items.length > 0;
+  [exportBriefButton, printBriefButton, clearBriefButton].forEach((button) => { button.disabled = items.length === 0; });
+  briefList.replaceChildren();
+  items.forEach((item, index) => {
+    const row = createElement("li", "action-brief__item");
+    const meta = createElement("p", "action-brief__meta", `${item.id} · ${item.domainName} · ${item.phaseTitle}`);
+    const title = createElement("h4", "action-brief__title", item.text);
+    const fields = createElement("div", "action-brief__fields");
+    fields.append(
+      createBriefField(item, "owner", "Owner role", Object.fromEntries([["", "Unassigned"], ...item.owners.map((owner) => [owner, owner])])),
+      createBriefField(item, "horizon", "Planning horizon", ACTION_BRIEF_HORIZONS)
+    );
+    const tools = createElement("ul", "action-brief__tools");
+    item.tools.forEach((tool) => {
+      const toolItem = createElement("li");
+      toolItem.append(createElement("strong", "", `${tool.name}: `), createElement("span", "", tool.use));
+      tools.append(toolItem);
+    });
+    const sourceLabel = createElement("p", "action-brief__meta", "Context sources, not entry-level proof:");
+    const sources = createElement("ul", "action-brief__sources");
+    item.sources.forEach((source) => {
+      const sourceItem = createElement("li");
+      const link = createElement("a", "", `${source.org} · ${source.title || source.shortTitle}`);
+      link.href = getSafeExternalHttpsUrl(source.url);
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.append(createElement("span", "sr-only", "; opens in a new tab"));
+      sourceItem.append(link, createElement("span", "", ` · ${source.id} · verified ${source.verifiedOn}`));
+      sources.append(sourceItem);
+    });
+    const remove = createElement("button", "action-brief__remove", "Remove control");
+    remove.type = "button";
+    remove.setAttribute("aria-label", `Remove ${item.id} from action brief`);
+    remove.addEventListener("click", () => {
+      briefModel.remove(item.id);
+      renderActionBrief();
+      updateSelectionButtons();
+      announceBrief(`Removed ${item.id}. ${briefModel.getItems().length} of ${ACTION_BRIEF_LIMIT} controls selected.`);
+      const remainingButtons = briefList.querySelectorAll(".action-brief__remove");
+      const target = remainingButtons[Math.min(index, remainingButtons.length - 1)] || briefEmpty;
+      if (target === briefEmpty) briefEmpty.tabIndex = -1;
+      target.focus();
+    });
+    row.append(meta, title, fields, tools, sourceLabel, sources, remove);
+    briefList.append(row);
+  });
+}
+
+function toggleBriefSelection(id, button) {
+  const wasSelected = briefModel.has(id);
+  let result = "removed";
+  if (wasSelected) briefModel.remove(id);
+  else result = briefModel.add(id);
+  if (result === "limit") {
+    button.textContent = "Brief full · 12 controls";
+    announceBrief("The action brief is full. Remove a control before adding another; the limit is 12.");
+    return;
+  }
+  renderActionBrief();
+  updateSelectionButtons();
+  announceBrief(`${wasSelected ? "Removed" : "Added"} ${id}. ${briefModel.getItems().length} of ${ACTION_BRIEF_LIMIT} controls selected.`);
 }
 
 function getActiveDomain() {
@@ -782,6 +985,7 @@ function syncUrl({ push = false, focusSelector = getDefaultHistoryFocusSelector(
   if (state.activeDomain !== domains[0].id) params.set("domain", state.activeDomain);
   if (state.view !== "all") params.set("view", state.view);
   if (state.query) params.set("q", state.query);
+  if (state.phase !== "all") params.set("phase", state.phase);
   /* csm-release-scope:v1.3.0:begin */
   if (state.overlay) params.set("overlay", state.overlay);
   /* csm-release-scope:v1.3.0:end */
@@ -1226,7 +1430,15 @@ function createMatrixTile(kind, label, text, code, tools = [], revealTools = fal
   tile.id = code.toLocaleLowerCase("en");
   tile.dataset.kind = kind;
   tile.append(topline, createElement("p", "matrix-tile__text", text));
-  if (kind === "mitigations") tile.append(createMitigationToolsDetails(tools, code, revealTools));
+  if (kind === "mitigations") {
+    const select = createElement("button", "matrix-tile__select", briefModel.has(code) ? "Remove from brief" : "Add to brief");
+    select.type = "button";
+    select.dataset.actionId = code;
+    select.setAttribute("aria-pressed", String(briefModel.has(code)));
+    select.setAttribute("aria-label", `${briefModel.has(code) ? "Remove" : "Add"} ${code} ${briefModel.has(code) ? "from" : "to"} action brief`);
+    select.addEventListener("click", () => toggleBriefSelection(code, select));
+    tile.append(createMitigationToolsDetails(tools, code, revealTools), select);
+  }
   return tile;
 }
 
@@ -1304,7 +1516,7 @@ function createPhaseDetailCard(domain, phase) {
       tools: getMitigationTools(record.id)
     }))
   ].map((entry) => {
-    const coreSearchValues = [entry.label, entry.text, phase.title, domain.name];
+    const coreSearchValues = [entry.id, entry.label, entry.text, phase.title, domain.name];
     const toolSearchValues = entry.tools.flatMap((tool) => [tool.name, tool.use]);
     const searchMatch = getMatrixEntrySearchMatch(state.query, coreSearchValues, toolSearchValues);
     return { ...entry, matchesSearch: searchMatch.matches, revealTools: searchMatch.revealTools };
@@ -1326,10 +1538,13 @@ function createPhaseDetailCard(domain, phase) {
 
 function renderMatrix() {
   const domain = getActiveDomain();
-  const cards = phases.map((phase) => createPhaseDetailCard(domain, phase));
+  const visiblePhases = phases.filter((phase) => state.phase === "all" || state.phase === phase.id);
+  const cards = visiblePhases.map((phase) => createPhaseDetailCard(domain, phase));
   const entryCount = cards.reduce((total, card) => total + Number(card.dataset.entryCount), 0);
 
   matrixGrid.replaceChildren(...cards);
+  matrixGrid.dataset.phaseMode = state.phase;
+  matrixGrid.classList.toggle("is-phase-focused", state.phase !== "all");
   matrixGrid.setAttribute("aria-labelledby", `tab-${domain.id}`);
   emptyState.hidden = entryCount !== 0;
   matrixGrid.hidden = entryCount === 0;
@@ -1341,7 +1556,8 @@ function renderMatrix() {
     mitigations: "controls and actions"
   };
   const searchLabel = state.query ? ` matching “${state.query}”` : "";
-  resultCount.textContent = `${entryCount} ${entryCount === 1 ? "entry" : "entries"}${searchLabel} · ${layerLabels[state.view]} · ${domain.name}`;
+  const phaseLabel = state.phase === "all" ? "All phases" : phases.find((phase) => phase.id === state.phase).title;
+  resultCount.textContent = `${entryCount} ${entryCount === 1 ? "entry" : "entries"}${searchLabel} · ${layerLabels[state.view]} · ${phaseLabel} · ${domain.name}`;
 }
 
 function renderReferences() {
@@ -1376,6 +1592,25 @@ function setView(view, { focus = false, sync = true } = {}) {
       returnFocusSelector: `#view-${previousView}`
     });
   }
+}
+
+function renderPhaseControls() {
+  phaseButtons.forEach((button) => {
+    const active = button.dataset.phaseMode === state.phase;
+    button.setAttribute("aria-checked", String(active));
+    button.tabIndex = active ? 0 : -1;
+    button.classList.toggle("is-active", active);
+  });
+}
+
+function setPhase(phase, { focus = false, sync = true } = {}) {
+  if (!validPhases.has(phase)) return;
+  const previousPhase = state.phase;
+  state.phase = phase;
+  renderPhaseControls();
+  renderMatrix();
+  if (focus) phaseButtons.find((button) => button.dataset.phaseMode === phase)?.focus();
+  if (sync) syncUrl({ push: true, focusSelector: `#phase-${phase}`, returnFocusSelector: `#phase-${previousPhase}` });
 }
 
 function updateSearch(value) {
@@ -1414,6 +1649,86 @@ viewButtons.forEach((button, index) => {
     event.preventDefault();
     setView(viewButtons[nextIndex].dataset.viewMode, { focus: true });
   });
+});
+
+phaseButtons.forEach((button, index) => {
+  button.addEventListener("click", () => setPhase(button.dataset.phaseMode));
+  button.addEventListener("keydown", (event) => {
+    let nextIndex = index;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") nextIndex = (index + 1) % phaseButtons.length;
+    else if (event.key === "ArrowLeft" || event.key === "ArrowUp") nextIndex = (index - 1 + phaseButtons.length) % phaseButtons.length;
+    else if (event.key === "Home") nextIndex = 0;
+    else if (event.key === "End") nextIndex = phaseButtons.length - 1;
+    else return;
+    event.preventDefault();
+    setPhase(phaseButtons[nextIndex].dataset.phaseMode, { focus: true });
+  });
+});
+
+const briefContext = createElement("p", "action-brief__meta", `Framework: ${MITIGATION_TOOL_FRAMEWORK_VERSION} · Overlay: not included. User-selected controls in selection order, not a risk ranking. Planning horizons are choices, not prescribed deadlines. Context sources, not entry-level proof; no compliance or risk-elimination claim. Downloads are unencrypted.`);
+briefEmpty.before(briefContext);
+openBriefButton.addEventListener("click", () => {
+  briefPanel.hidden = !briefPanel.hidden;
+  openBriefButton.setAttribute("aria-expanded", String(!briefPanel.hidden));
+  if (!briefPanel.hidden) briefPanel.focus();
+});
+document.getElementById("closeActionBrief").addEventListener("click", () => {
+  briefPanel.hidden = true;
+  openBriefButton.setAttribute("aria-expanded", "false");
+  openBriefButton.focus();
+});
+clearBriefButton.addEventListener("click", () => {
+  briefModel.clear();
+  renderActionBrief();
+  updateSelectionButtons();
+  announceBrief("All action brief selections cleared.");
+  briefEmpty.tabIndex = -1;
+  briefEmpty.focus();
+});
+exportBriefButton.addEventListener("click", () => {
+  const items = briefModel.getItems();
+  if (!items.length) return;
+  try {
+    const blob = new Blob([buildActionBriefMarkdown(items)], { type: "text/markdown;charset=utf-8" });
+    const downloadUrl = URL.createObjectURL(blob);
+    const link = createElement("a");
+    link.href = downloadUrl;
+    link.download = "csm-action-brief.md";
+    link.hidden = true;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000);
+    announceBrief("Unencrypted brief download requested. Handle the file within your organisation's policy.");
+  } catch {
+    announceBrief("Download unavailable. You can print the brief instead.");
+  }
+});
+function resetBriefPrintMode() {
+  page.classList.remove("printing-action-brief");
+}
+printBriefButton.addEventListener("click", () => {
+  if (!briefModel.getItems().length) return;
+  page.classList.add("printing-action-brief");
+  try {
+    window.print();
+  } catch {
+    resetBriefPrintMode();
+    announceBrief("Printing unavailable. You can download the brief instead.");
+  }
+});
+window.addEventListener("afterprint", resetBriefPrintMode);
+window.matchMedia("print").addEventListener("change", (event) => {
+  if (!event.matches) resetBriefPrintMode();
+});
+window.addEventListener("pagehide", () => {
+  briefModel.clear();
+  renderActionBrief();
+  updateSelectionButtons();
+  announceBrief("");
+  briefPanel.hidden = true;
+  openBriefButton.setAttribute("aria-expanded", "false");
+  resetBriefPrintMode();
 });
 
 function focusAfterMobileDomainChange(activeButton, fallbackButton) {
@@ -1481,6 +1796,7 @@ window.addEventListener("popstate", (event) => {
 
   state.activeDomain = domains.some((item) => item.id === domain) ? domain : domains[0].id;
   state.view = validViews.has(view) ? view : "all";
+  state.phase = validPhases.has(params.get("phase")) ? params.get("phase") : "all";
   state.query = (params.get("q") ?? "").trim();
   /* csm-release-scope:v1.3.0:begin */
   state.overlay = availableOverlayIds.has(overlay) ? overlay : "";
@@ -1498,6 +1814,7 @@ window.addEventListener("popstate", (event) => {
   renderOverlayContext();
   /* csm-release-scope:v1.3.0:end */
   renderReferences();
+  renderPhaseControls();
   setView(state.view, { sync: false });
   const historyFocusSelector =
     normalizeHistoryFocusSelector(event.state?.focusSelector) ?? getDefaultHistoryFocusSelector();
@@ -1517,6 +1834,8 @@ renderActiveDomain();
 renderOverlayContext();
 /* csm-release-scope:v1.3.0:end */
 renderReferences();
+renderPhaseControls();
+renderActionBrief();
 setView(state.view, { sync: false });
 syncUrl();
 }

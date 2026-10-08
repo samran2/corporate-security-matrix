@@ -92,6 +92,12 @@ jobs:
           node --check assessment-compare.js
           node --check assessment.js
           node --check assessment-comparison.js
+          node --check matrix-coverage-governance.js
+          node --check matrix-coverage-safety.js
+          node --check matrix-coverage-digital.js
+          node --check matrix-coverage.js
+          node --check coverage-model.js
+          node --check coverage.js
           node --check app.js
           node --check scripts/site.mjs
           node --check scripts/test_site.mjs
@@ -102,6 +108,11 @@ jobs:
           node --check scripts/validate_source_register.mjs
           node --check scripts/validate_overlays.mjs
           node --check scripts/validate_html.mjs
+          node --check scripts/test_validate_html.mjs
+          node --check scripts/test_action_brief.mjs
+          node --check scripts/test_coverage_catalogue.mjs
+          node --check scripts/test_coverage_model.mjs
+          node --check scripts/test_coverage_ui.mjs
           node --check scripts/test_validate_overlays.mjs
           node --check scripts/test_runtime_bootstrap.mjs
           node --check scripts/validate_overlay_ui.mjs
@@ -126,7 +137,13 @@ jobs:
           node scripts/validate_workflows.mjs --self-test
           node scripts/verify_workflow_runs.mjs --self-test
           node scripts/test_site.mjs
+          node --test scripts/test_validate_html.mjs
+          node scripts/test_action_brief.mjs
+          node scripts/test_coverage_catalogue.mjs
+          node scripts/test_coverage_model.mjs
+          node scripts/test_coverage_ui.mjs
           python3 -m py_compile scripts/validate_project.py
+          python3 scripts/test_validate_project_links.py
           python3 scripts/validate_project.py
 
       - name: Configure Pages
@@ -184,6 +201,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          ref: ${{ github.sha }}
 
       - name: Set up Node.js
         uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
@@ -196,23 +214,42 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: node scripts/verify_workflow_runs.mjs
 
+      # This observes main before protected-environment approval. Main can change
+      # while approval or deployment waits; this is not an atomic deployment lock.
+      - name: Require current main tip
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/verify_workflow_runs.mjs --verify-current-main
+
   deploy:
     needs: [build, release-gate]
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     permissions:
-      actions: read
-      contents: read
       pages: write
       id-token: write
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0
+
+  production-smoke:
+    needs: deploy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
     steps:
       - name: Check out route manifest
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+          ref: ${{ github.sha }}
 
       - name: Set up Node.js
         uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
@@ -220,17 +257,10 @@ jobs:
           node-version: "24"
           package-manager-cache: false
 
-      - name: Require current main tip
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: node scripts/verify_workflow_runs.mjs --verify-current-main
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0
-
       - name: Verify deployed manifest routes and exact content
-        run: node scripts/site.mjs smoke "${{ steps.deployment.outputs.page_url }}" --retries 10
+        env:
+          CSM_PAGE_URL: ${{ needs.deploy.outputs.page_url }}
+        run: node scripts/site.mjs smoke "$CSM_PAGE_URL" --retries 10
 
       - name: Record exact deployed SHA
         if: always()

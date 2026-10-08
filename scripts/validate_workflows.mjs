@@ -599,6 +599,12 @@ const JAVASCRIPT_SYNTAX_COMMANDS = [
   "node --check assessment-compare.js",
   "node --check assessment.js",
   "node --check assessment-comparison.js",
+  "node --check matrix-coverage-governance.js",
+  "node --check matrix-coverage-safety.js",
+  "node --check matrix-coverage-digital.js",
+  "node --check matrix-coverage.js",
+  "node --check coverage-model.js",
+  "node --check coverage.js",
   "node --check app.js",
   "node --check scripts/site.mjs",
   "node --check scripts/test_site.mjs",
@@ -609,6 +615,11 @@ const JAVASCRIPT_SYNTAX_COMMANDS = [
   "node --check scripts/validate_source_register.mjs",
   "node --check scripts/validate_overlays.mjs",
   "node --check scripts/validate_html.mjs",
+  "node --check scripts/test_validate_html.mjs",
+  "node --check scripts/test_action_brief.mjs",
+  "node --check scripts/test_coverage_catalogue.mjs",
+  "node --check scripts/test_coverage_model.mjs",
+  "node --check scripts/test_coverage_ui.mjs",
   "node --check scripts/test_validate_overlays.mjs",
   "node --check scripts/test_runtime_bootstrap.mjs",
   "node --check scripts/validate_overlay_ui.mjs",
@@ -636,10 +647,16 @@ const DATA_AND_UI_GATE_COMMANDS = [
   "node scripts/validate_workflows.mjs --self-test",
   "node scripts/verify_workflow_runs.mjs --self-test",
   "node scripts/test_site.mjs",
+  "node --test scripts/test_validate_html.mjs",
+  "node scripts/test_action_brief.mjs",
+  "node scripts/test_coverage_catalogue.mjs",
+  "node scripts/test_coverage_model.mjs",
+  "node scripts/test_coverage_ui.mjs",
 ];
 
 const RELEASE_SURFACE_COMMANDS = [
   "python3 -m py_compile scripts/validate_project.py",
+  "python3 scripts/test_validate_project_links.py",
   "python3 scripts/validate_project.py",
 ];
 
@@ -735,6 +752,8 @@ function validate(workflows) {
   const pagesReleaseGateRaw = requireRawJobStructure(errors, "pages.yml", pages, "release-gate");
   const pagesDeploy = requireJobStructure(errors, "pages.yml", pages, "deploy");
   const pagesDeployRaw = requireRawJobStructure(errors, "pages.yml", pages, "deploy");
+  const pagesProductionSmoke = requireJobStructure(errors, "pages.yml", pages, "production-smoke");
+  const pagesProductionSmokeRaw = requireRawJobStructure(errors, "pages.yml", pages, "production-smoke");
 
   for (const workflow of MANIFEST.requiredPredeployWorkflows) {
     const text = workflows[workflow.file] || "";
@@ -745,6 +764,14 @@ function validate(workflows) {
   for (const [file, text] of [["validate.yml", quality], ["links.yml", links], ["pages.yml", pages]]) {
     requireExactMappingKeys(errors, file, text, 0, ["name", "on", "permissions", "concurrency", "jobs"], "workflow-level");
   }
+  requireExactMappingKeys(
+    errors,
+    "pages.yml",
+    pagesStructure.split("\njobs:\n")[1] || "",
+    2,
+    ["build", "release-gate", "deploy", "production-smoke"],
+    "Pages job",
+  );
   requireExactMappingKeys(errors, "validate.yml", qualityJob, 4, ["runs-on", "timeout-minutes", "steps"], "jobs.quality");
   requireExactMappingKeys(errors, "links.yml", linksJob, 4, ["runs-on", "timeout-minutes", "steps"], "jobs.links");
   requireExactMappingKeys(
@@ -768,8 +795,16 @@ function validate(workflows) {
     "pages.yml",
     pagesDeploy,
     4,
-    ["needs", "runs-on", "timeout-minutes", "permissions", "environment", "steps"],
+    ["needs", "runs-on", "timeout-minutes", "permissions", "outputs", "environment", "steps"],
     "jobs.deploy",
+  );
+  requireExactMappingKeys(
+    errors,
+    "pages.yml",
+    pagesProductionSmoke,
+    4,
+    ["needs", "runs-on", "timeout-minutes", "permissions", "steps"],
+    "jobs.production-smoke",
   );
   requireExactMappingBlock(errors, "validate.yml", quality, 0, "permissions", "", ["contents: read"], "workflow permissions");
   requireExactMappingBlock(errors, "links.yml", links, 0, "permissions", "", ["contents: read"], "workflow permissions");
@@ -801,8 +836,28 @@ function validate(workflows) {
     4,
     "permissions",
     "",
-    ["actions: read", "contents: read", "pages: write", "id-token: write"],
+    ["pages: write", "id-token: write"],
     "jobs.deploy permissions",
+  );
+  requireExactMappingBlock(
+    errors,
+    "pages.yml",
+    pagesDeploy,
+    4,
+    "outputs",
+    "",
+    ["page_url: ${{ steps.deployment.outputs.page_url }}"],
+    "jobs.deploy public URL output",
+  );
+  requireExactMappingBlock(
+    errors,
+    "pages.yml",
+    pagesProductionSmoke,
+    4,
+    "permissions",
+    "",
+    ["contents: read"],
+    "jobs.production-smoke permissions",
   );
   requireExactMappingBlock(
     errors,
@@ -925,6 +980,24 @@ function validate(workflows) {
 
   requireNoJobExecutionOverride(errors, "links.yml", linksJob, "links");
   requireMatch(errors, "links.yml", linksStructure, /^  group: external-source-links-\$\{\{ github\.event_name \}\}-\$\{\{ github\.sha \}\}$/m, "per-event, per-SHA link concurrency");
+  requireExactRunStep(
+    errors,
+    "links.yml",
+    linksJobRaw,
+    "Validate external link checker security boundaries",
+    ["python3 scripts/test_validate_project_links.py"],
+    "offline external-link network-boundary regression gate",
+  );
+  requireConsecutiveSteps(
+    errors,
+    "links.yml",
+    linksJobRaw,
+    [
+      "Validate external link checker security boundaries",
+      "Verify authoritative sources and publish restricted-access report",
+    ],
+    "offline security regressions before external network checks",
+  );
   requireExactRunStep(
     errors,
     "links.yml",
@@ -1053,6 +1126,18 @@ function validate(workflows) {
   );
   requireMatch(errors, "pages.yml", pagesReleaseGate, /^    permissions:\n      actions: read$/m, "read-only actions permission on the exact-SHA workflow gate");
   requireMatch(errors, "pages.yml", pagesReleaseGate, /^    needs: build$/m, "release-gate dependency on the validated build");
+  requireExactActionStep(
+    errors,
+    "pages.yml",
+    pagesReleaseGateRaw,
+    "Check out workflow gate",
+    /^actions\/checkout@[a-f0-9]{40}$/,
+    "read-only exact-SHA workflow-gate checkout",
+    {
+      exactStructurePattern: /^      - name: Check out workflow gate\n        uses: actions\/checkout@[a-f0-9]{40}\n        with:\n          persist-credentials: false\n          ref: \$\{\{ github\.sha \}\}$/,
+      structurePatterns: [/^        with:\n          persist-credentials: false\n          ref: \$\{\{ github\.sha \}\}$/m],
+    },
+  );
   const verifierStep = requireExactRunStep(
     errors,
     "pages.yml",
@@ -1072,17 +1157,10 @@ function validate(workflows) {
     );
   }
 
-  requireNoJobExecutionOverride(errors, "pages.yml", pagesDeploy, "deploy");
-  requireMatch(errors, "pages.yml", pagesDeploy, /^    needs: \[build, release-gate\]$/m, "deployment dependency on build and exact-SHA gate");
-  requireMatch(errors, "pages.yml", pagesDeploy, /^    environment:\n      name: github-pages$/m, "the protected github-pages environment");
-  const deployEnvironments = jobFieldValues(pagesDeploy, "environment");
-  if (deployEnvironments.length !== 1 || deployEnvironments[0] !== "") {
-    errors.push("pages.yml jobs.deploy must define exactly one canonical protected environment mapping.");
-  }
   requireExactRunStep(
     errors,
     "pages.yml",
-    pagesDeployRaw,
+    pagesReleaseGateRaw,
     "Require current main tip",
     ["node scripts/verify_workflow_runs.mjs --verify-current-main"],
     "current-main-tip freshness gate",
@@ -1091,37 +1169,73 @@ function validate(workflows) {
       exactStructurePattern: /^      - name: Require current main tip\n        env:\n          GITHUB_TOKEN: \$\{\{ github\.token \}\}\n        run: node scripts\/verify_workflow_runs\.mjs --verify-current-main$/,
     },
   );
+  requireConsecutiveSteps(
+    errors,
+    "pages.yml",
+    pagesReleaseGateRaw,
+    ["Require successful exact-SHA workflows", "Require current main tip"],
+    "read-only exact-SHA and current-main gates",
+  );
+  const releaseGateSteps = rawWorkflowStepBlocks(pagesReleaseGateRaw).map(stepName);
+  if (releaseGateSteps.at(-1) !== "Require current main tip") {
+    errors.push("pages.yml jobs.release-gate must check current main as its final step.");
+  }
+
+  requireNoJobExecutionOverride(errors, "pages.yml", pagesDeploy, "deploy");
+  requireMatch(errors, "pages.yml", pagesDeploy, /^    needs: \[build, release-gate\]$/m, "deployment dependency on build and exact-SHA gate");
+  requireMatch(errors, "pages.yml", pagesDeploy, /^    runs-on: ubuntu-24\.04$/m, "the isolated hosted Pages runner");
+  requireMatch(errors, "pages.yml", pagesDeploy, /^    environment:\n      name: github-pages$/m, "the protected github-pages environment");
+  const deployEnvironments = jobFieldValues(pagesDeploy, "environment");
+  if (deployEnvironments.length !== 1 || deployEnvironments[0] !== "") {
+    errors.push("pages.yml jobs.deploy must define exactly one canonical protected environment mapping.");
+  }
   requireExactActionStep(
     errors,
     "pages.yml",
     pagesDeployRaw,
     "Deploy to GitHub Pages",
-    /^actions\/deploy-pages@[a-f0-9]{40}$/,
+    /^actions\/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128$/,
     "canonical Pages deployment",
     {
       fields: { id: "deployment" },
       exactStructurePattern: /^      - name: Deploy to GitHub Pages\n        id: deployment\n        uses: actions\/deploy-pages@[a-f0-9]{40}$/,
     },
   );
-  requireConsecutiveSteps(
+  const deploymentSteps = rawWorkflowStepBlocks(pagesDeployRaw);
+  if (deploymentSteps.length !== 1 || stepName(deploymentSteps[0]) !== "Deploy to GitHub Pages") {
+    errors.push("pages.yml jobs.deploy must execute only the canonical pinned deployment action, without checkout or repository code.");
+  }
+
+  requireNoJobExecutionOverride(errors, "pages.yml", pagesProductionSmoke, "production-smoke");
+  requireMatch(errors, "pages.yml", pagesProductionSmoke, /^    needs: deploy$/m, "production smoke dependency on successful deployment");
+  requireExactActionStep(
     errors,
     "pages.yml",
-    pagesDeployRaw,
-    ["Require current main tip", "Deploy to GitHub Pages"],
-    "current-main-tip verification immediately before Pages deployment",
+    pagesProductionSmokeRaw,
+    "Check out route manifest",
+    /^actions\/checkout@[a-f0-9]{40}$/,
+    "read-only exact-SHA production-smoke checkout",
+    {
+      exactStructurePattern: /^      - name: Check out route manifest\n        uses: actions\/checkout@[a-f0-9]{40}\n        with:\n          persist-credentials: false\n          ref: \$\{\{ github\.sha \}\}$/,
+      structurePatterns: [/^        with:\n          persist-credentials: false\n          ref: \$\{\{ github\.sha \}\}$/m],
+    },
   );
   requireExactRunStep(
     errors,
     "pages.yml",
-    pagesDeployRaw,
+    pagesProductionSmokeRaw,
     "Verify deployed manifest routes and exact content",
-    ["node scripts/site.mjs smoke \"${{ steps.deployment.outputs.page_url }}\" --retries 10"],
+    ['node scripts/site.mjs smoke "$CSM_PAGE_URL" --retries 10'],
     "two-sweep manifest-backed production smoke gate",
+    {
+      allowedTopLevelFields: ["env"],
+      exactStructurePattern: /^      - name: Verify deployed manifest routes and exact content\n        env:\n          CSM_PAGE_URL: \$\{\{ needs\.deploy\.outputs\.page_url \}\}\n        run: node scripts\/site\.mjs smoke "\$CSM_PAGE_URL" --retries 10$/,
+    },
   );
   requireExactRunStep(
     errors,
     "pages.yml",
-    pagesDeployRaw,
+    pagesProductionSmokeRaw,
     "Record exact deployed SHA",
     shaSummaryCommands("Pages deployment SHA"),
     "Pages deployment SHA summary",
@@ -1149,6 +1263,84 @@ function selfTest(workflows) {
     ["single-sweep production smoke", "pages.yml", /--retries 10/, "--retries 1"],
     ["non-main link workflow", "links.yml", /branches: \[main\]/, "branches: [release]"],
     ["mutable action reference", "validate.yml", /actions\/checkout@[a-f0-9]{40}/, "actions/checkout@main"],
+    [
+      "missing HTML-validator test syntax gate",
+      "validate.yml",
+      /node --check scripts\/test_validate_html\.mjs/,
+      "true # node --check scripts/test_validate_html.mjs",
+    ],
+    [
+      "missing HTML-validator security regressions in Quality",
+      "validate.yml",
+      /node --test scripts\/test_validate_html\.mjs/,
+      "true # node --test scripts/test_validate_html.mjs",
+    ],
+    [
+      "failure-masked HTML-validator security regressions in Pages",
+      "pages.yml",
+      /node --test scripts\/test_validate_html\.mjs/,
+      "node --test scripts/test_validate_html.mjs || true",
+    ],
+    [
+      "missing action-brief regressions in Quality",
+      "validate.yml",
+      /node scripts\/test_action_brief\.mjs/,
+      "true # node scripts/test_action_brief.mjs",
+    ],
+    [
+      "failure-masked action-brief regressions in Pages",
+      "pages.yml",
+      /node scripts\/test_action_brief\.mjs/,
+      "node scripts/test_action_brief.mjs || true",
+    ],
+    [
+      "missing link-checker security regressions in Quality",
+      "validate.yml",
+      /python3 scripts\/test_validate_project_links\.py/,
+      "true # python3 scripts/test_validate_project_links.py",
+    ],
+    [
+      "missing coverage catalogue regression gate in Quality",
+      "validate.yml",
+      /node scripts\/test_coverage_catalogue\.mjs/,
+      "true # node scripts/test_coverage_catalogue.mjs",
+    ],
+    [
+      "failure-masked coverage model regressions in Pages",
+      "pages.yml",
+      /node scripts\/test_coverage_model\.mjs/,
+      "node scripts/test_coverage_model.mjs || true",
+    ],
+    [
+      "missing coverage UI privacy regressions in Quality",
+      "validate.yml",
+      /node scripts\/test_coverage_ui\.mjs/,
+      "true # node scripts/test_coverage_ui.mjs",
+    ],
+    [
+      "failure-masked link-checker security regressions in Pages",
+      "pages.yml",
+      /python3 scripts\/test_validate_project_links\.py/,
+      "python3 scripts/test_validate_project_links.py || true",
+    ],
+    [
+      "disabled offline link-checker regression prerequisite",
+      "links.yml",
+      /(      - name: Validate external link checker security boundaries\n)/,
+      "$1        if: ${{ false }}\n",
+    ],
+    [
+      "failure-masked offline link-checker regression prerequisite",
+      "links.yml",
+      /run: python3 scripts\/test_validate_project_links\.py/,
+      "run: python3 scripts/test_validate_project_links.py || true",
+    ],
+    [
+      "offline link regressions moved after network checking",
+      "links.yml",
+      /(      - name: Validate external link checker security boundaries\n        run: python3 scripts\/test_validate_project_links\.py\n)\n(      - name: Verify authoritative sources[\s\S]*?          exit "\$validator_status"\n)/,
+      "$2\n$1",
+    ],
     ["unnamed mutable action", "validate.yml", /steps:\n/, "steps:\n      - uses: example/unsafe-action@main\n"],
     ["flow-map mutable action", "validate.yml", /steps:\n/, "steps:\n      - { name: Unsafe, \"uses\": \"example/unsafe-action@main\" }\n"],
     ["multiline mutable action", "validate.yml", /steps:\n/, "steps:\n      - uses:\n          example/unsafe-action@main\n"],
@@ -1419,8 +1611,86 @@ function selfTest(workflows) {
     [
       "interposed step after current-main-tip verification",
       "pages.yml",
-      /(        run: node scripts\/verify_workflow_runs\.mjs --verify-current-main\n)(\n      - name: Deploy to GitHub Pages)/,
-      "$1\n      - name: Interposed deployment step\n        run: true\n$2",
+      /(        run: node scripts\/verify_workflow_runs\.mjs --verify-current-main\n)(\n  deploy:)/,
+      "$1\n      - name: Interposed release-gate step\n        run: true\n$2",
+    ],
+    [
+      "checkout in the privileged Pages job",
+      "pages.yml",
+      /(      - name: Deploy to GitHub Pages\n)/,
+      "      - name: Privileged checkout\n        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1\n\n$1",
+    ],
+    [
+      "repository script in the privileged Pages job",
+      "pages.yml",
+      /(      - name: Deploy to GitHub Pages\n)/,
+      "      - name: Privileged repository code\n        run: node scripts/verify_workflow_runs.mjs --verify-current-main\n\n$1",
+    ],
+    [
+      "post-deployment command in the privileged Pages job",
+      "pages.yml",
+      /(        uses: actions\/deploy-pages@[a-f0-9]{40}[^\n]*\n)/,
+      "$1\n      - name: Privileged summary\n        run: echo completed\n",
+    ],
+    [
+      "additional pinned action in the privileged Pages job",
+      "pages.yml",
+      /(      - name: Deploy to GitHub Pages\n)/,
+      "      - name: Privileged setup action\n        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903\n\n$1",
+    ],
+    [
+      "unreviewed deployment action commit",
+      "pages.yml",
+      /actions\/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128/,
+      `actions/deploy-pages@${"a".repeat(40)}`,
+    ],
+    [
+      "privileged deployment action environment override",
+      "pages.yml",
+      /(        id: deployment\n)/,
+      "$1        env:\n          NODE_OPTIONS: --require ./repository-hook.cjs\n",
+    ],
+    [
+      "privileged deployment action input override",
+      "pages.yml",
+      /(        uses: actions\/deploy-pages@[a-f0-9]{40}[^\n]*\n)/,
+      "$1        with:\n          artifact_name: alternate-artifact\n",
+    ],
+    [
+      "unnecessary contents authority in privileged Pages job",
+      "pages.yml",
+      /(      pages: write\n)/,
+      "      contents: read\n$1",
+    ],
+    [
+      "elevated production smoke authority",
+      "pages.yml",
+      /(  production-smoke:[\s\S]*?      contents: read\n)/,
+      "$1      id-token: write\n",
+    ],
+    [
+      "production smoke bypassing deployment success",
+      "pages.yml",
+      /(  production-smoke:\n)    needs: deploy\n/,
+      "$1    needs: build\n",
+    ],
+    [
+      "production smoke checks mutable main",
+      "pages.yml",
+      /(      - name: Check out route manifest[\s\S]*?          ref:) \$\{\{ github\.sha \}\}/,
+      "$1 refs/heads/main",
+    ],
+    [
+      "release gate checks mutable main",
+      "pages.yml",
+      /(      - name: Check out workflow gate[\s\S]*?          ref:) \$\{\{ github\.sha \}\}/,
+      "$1 refs/heads/main",
+    ],
+    [
+      "production smoke uses unrelated URL",
+      "pages.yml",
+      /CSM_PAGE_URL: \$\{\{ needs\.deploy\.outputs\.page_url \}\}/,
+      "CSM_PAGE_URL: https://example.com/",
     ],
     [
       "always-running deploy job",
@@ -1563,6 +1833,7 @@ function selfTest(workflows) {
   ];
   for (const [label, file, pattern, replacement] of mutations) {
     const mutated = { ...workflows, [file]: workflows[file].replace(pattern, replacement) };
+    assert(mutated[file] !== workflows[file], `${label} mutation must change its canonical fixture`);
     assert(validate(mutated).length > 0, `${label} mutation must fail closed`);
     console.log(`PASS rejects ${label}`);
   }

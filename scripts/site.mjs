@@ -34,6 +34,14 @@ const REQUIRED_EXCLUDED_RELEASE_FILES = [
   "assessment-compare.js",
   "assessment.js",
   "assessment-comparison.js",
+  "coverage.html",
+  "coverage.css",
+  "coverage.js",
+  "coverage-model.js",
+  "matrix-coverage.js",
+  "matrix-coverage-governance.js",
+  "matrix-coverage-safety.js",
+  "matrix-coverage-digital.js",
   "matrix-overlays.js",
   "source-lifecycle-register.json",
   "source-change-register.json",
@@ -45,12 +53,48 @@ const REQUIRED_EXCLUDED_RELEASE_FILES = [
   "docs/ASSESSMENT-THREAT-MODEL.md",
   "docs/decisions/0001-local-assessment-and-encrypted-export.md",
   "docs/decisions/0002-separate-jurisdiction-overlays.md",
+  "docs/ADR-0003-coverage-workspace.md",
+  "docs/COVERAGE-WORKSPACE.md",
+  "docs/COVERAGE-REVIEW.md",
 ];
 const REQUIRED_GZIP_BUDGET_BYTES = 150000;
 const REQUIRED_PREDEPLOY_WORKFLOWS = [
   { file: "validate.yml", name: "Quality" },
   { file: "links.yml", name: "External source links" },
 ];
+const REQUIRED_W3C_NU = {
+  version: "26.8.30",
+  distribution: "npm-tarball",
+  packageName: "vnu-jar",
+  tarballUrl: "https://registry.npmjs.org/vnu-jar/-/vnu-jar-26.8.30.tgz",
+  tarballSizeBytes: 30116214,
+  tarballSha256: "2bda313c3dd6d05ada3655085ea12e40b380826fde8f719a44cb4deda6c8c887",
+  tarballIntegrity: "sha512-M+m1H4/3lkBQGBFqmLpCB9nf7/4+Zqb4di0kNEwJ130vsyR2R/E8fULkL1IO9+TA3LwS8Dto07TT8ACzkXwNog==",
+  unpackedTarSizeBytes: 32649216,
+  archiveEntry: "package/build/dist/vnu.jar",
+  packageArchiveEntries: [
+    "package/LICENSE",
+    "package/build/dist/vnu.jar",
+    "package/vnu-jar.js",
+    "package/vnu-java-downloader.js",
+    "package/package.json",
+    "package/README.md",
+  ],
+  releaseId: 258370454,
+  releaseTargetCommit: "f84563f28898457af3cb76ec8c820cf17a2174c4",
+  assetId: 535987626,
+  assetUrl: "https://api.github.com/repos/validator/validator/releases/assets/535987626",
+  assetSizeBytes: 32626931,
+  sha256: "b7d886d87b031ca3096cf982477df911b3002448e48228510fd981a3b9c67f8e",
+  upstreamSha1: "8e058f91d2777b777626ded9ec924478ec0feab1",
+  mainClass: "nu.validator.client.SimpleCommandLineValidator",
+  requiredArchiveEntries: [
+    "META-INF/MANIFEST.MF",
+    "nu/validator/client/SimpleCommandLineValidator.class",
+    "org/eclipse/jetty/client/Response$CompleteListener.class",
+    "com/ibm/icu/text/CharsetDetector.class",
+  ],
+};
 const RELEASE_SCOPE_MARKER_TOKEN = "csm-release-scope:";
 const RELEASE_SCOPE_MARKER_PATTERN =
   /^\s*(\/\*|<!--)\s*csm-release-scope:(v\d+\.\d+\.\d+):(begin|end)\s*(\*\/|-->)\s*(?:\r?\n)?$/;
@@ -245,18 +289,19 @@ function validateManifest(manifest = MANIFEST) {
   }
 
   const nu = manifest.w3cNu;
-  if (
-    !nu ||
-    typeof nu.version !== "string" ||
-    new URL(nu.assetUrl).protocol !== "https:" ||
-    !/^[a-f0-9]{64}$/.test(nu.sha256) ||
-    !/^[a-f0-9]{40}$/.test(nu.upstreamSha1) ||
-    !/^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*)+$/.test(nu.mainClass)
-  ) {
-    fail("w3cNu must declare an HTTPS asset, version, SHA-256, upstream SHA-1 and Java main class.");
-  }
-  if (!nu.assetUrl.includes(`/${nu.version}/`) || !nu.assetUrl.includes(`-${nu.version}.jar`)) {
-    fail("w3cNu asset URL must be pinned to its declared immutable version.");
+  const requiredNuKeys = Object.keys(REQUIRED_W3C_NU).sort();
+  const actualNuKeys = nu && typeof nu === "object" && !Array.isArray(nu)
+    ? Object.keys(nu).sort()
+    : [];
+  const exactNuIdentity =
+    JSON.stringify(actualNuKeys) === JSON.stringify(requiredNuKeys) &&
+    requiredNuKeys.every((key) => (
+      Array.isArray(REQUIRED_W3C_NU[key])
+        ? JSON.stringify(nu[key]) === JSON.stringify(REQUIRED_W3C_NU[key])
+        : nu[key] === REQUIRED_W3C_NU[key]
+    ));
+  if (!exactNuIdentity) {
+    fail("w3cNu must pin exactly the reviewed official standalone validator distribution.");
   }
 
   if (
@@ -1070,4 +1115,12 @@ if (isMain) {
   });
 }
 
-export { compileReleaseSource, createSmokeRequest, evaluateSmokeResponse, fetchSmokeProbe, smokeRoutes, smokeSite, validateManifest };
+export {
+  compileReleaseSource,
+  createSmokeRequest,
+  evaluateSmokeResponse,
+  fetchSmokeProbe,
+  smokeRoutes,
+  smokeSite,
+  validateManifest,
+};

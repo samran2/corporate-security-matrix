@@ -36,7 +36,7 @@
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     <link rel="stylesheet" href="styles.css">
   </head>
-  <body data-app-state="pending">
+  <body class="home-workspace" data-app-state="pending">
     <a class="skip-link" href="#matrix-explorer">Skip to matrix explorer</a>
 
     <header class="site-header" aria-label="Primary navigation">
@@ -71,26 +71,29 @@
       <section class="hero hero--home" aria-labelledby="hero-title">
         <div class="hero__inner">
           <div class="hero__copy">
-            <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Open enterprise-security operating model</p>
-            <h1 id="hero-title">See risk.<br><span>Decide faster.</span></h1>
+            <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> The corporate-security workspace</p>
+            <h1 id="hero-title">Make security decisions<br><span>with the full picture.</span></h1>
             <p class="lede">
-              One evidence-led view of the people, physical, operational, cyber, integrity and resilience risks that shape enterprise security.
+              One operating model for people, places, operations and technology. Explore risks, practical controls, implementation tools and their source context.
             </p>
             <div class="hero__actions">
-              <a class="button button--primary" href="#matrix-explorer">Explore the matrix <span aria-hidden="true">↓</span></a>
+              <a class="button button--primary" href="#matrix-explorer">Start exploring <span aria-hidden="true">↓</span></a>
               <a class="button button--secondary" href="framework.html">Open the operating framework</a>
+              <!-- csm-release-scope:v1.2.0:begin -->
+              <a class="button button--secondary" href="coverage.html">Corporate coverage workspace · draft preview</a>
+              <!-- csm-release-scope:v1.2.0:end -->
             </div>
             <p class="hero__note">Edition 1.1.0 · Reviewed August 2026 · No analytics</p>
           </div>
 
           <div class="hero-system" role="group" aria-label="Matrix model overview">
             <div class="hero-system__topline">
-              <span>Enterprise view</span>
-              <span class="live-label"><span aria-hidden="true"></span> Evidence-led</span>
+              <span>One operating picture</span>
+              <span class="live-label"><span aria-hidden="true"></span> Open model</span>
             </div>
-            <div class="hero-system__metric">
-              <strong>9</strong>
-              <span>security domains aligned to one decision model</span>
+            <div class="hero-system__purpose">
+              <p>Follow the risk.<br><strong>Find the next action.</strong></p>
+              <span>Choose a domain, focus a lifecycle phase and build an action brief from the controls you select.</span>
             </div>
             <div class="hero-system__phases" role="list" aria-label="Five lifecycle phases">
               <span role="listitem"><small>01</small>Identify</span>
@@ -118,21 +121,24 @@
 
       <section class="intro-section" aria-labelledby="intro-title">
         <div>
-          <p class="eyebrow">A shared operating picture</p>
-          <h2 id="intro-title">Move from fragmented risk lists to coordinated decisions.</h2>
+          <p class="eyebrow">Built for the leadership conversation</p>
+          <h2 id="intro-title">From a risk question to a practical next step.</h2>
         </div>
         <p>
-          The matrix connects threat sources and initiating conditions to material risks, failure modes and practical controls. Use it to frame leadership reviews, establish domain ownership and find gaps across the full defensive lifecycle.
+          Review threat sources, failure modes and controls together. Open implementation tools where you need more detail, then collect selected controls into a brief for your next leadership review.
         </p>
       </section>
 
       <section class="explorer" id="matrix-explorer" aria-labelledby="matrix-title" tabindex="-1">
         <div class="explorer__heading">
           <div>
-            <p class="eyebrow">Interactive matrix</p>
-            <h2 id="matrix-title">Explore the operating model</h2>
+            <p class="eyebrow">Explore · Focus · Act</p>
+            <h2 id="matrix-title">Your operating picture</h2>
           </div>
           <div class="explorer__actions app-interactive">
+            <button class="text-button text-button--brief" id="openActionBrief" type="button" aria-controls="actionBrief" aria-expanded="false">
+              Action brief <span class="brief-count" id="actionBriefCount">0</span>
+            </button>
             <button class="text-button" id="copyLink" type="button" aria-describedby="copyStatus">
               Copy this view
             </button>
@@ -190,6 +196,18 @@
             </div>
           </div>
 
+          <fieldset class="control-panel control-panel--phase">
+            <legend class="control-label">Lifecycle phase</legend>
+            <div class="phase-switch" role="radiogroup" aria-label="Filter lifecycle phase">
+              <button id="phase-all" type="button" class="phase-switch__button is-active" data-phase-mode="all" role="radio" aria-checked="true">All phases</button>
+              <button id="phase-identify" type="button" class="phase-switch__button" data-phase-mode="identify" role="radio" aria-checked="false" tabindex="-1">Identify</button>
+              <button id="phase-protect" type="button" class="phase-switch__button" data-phase-mode="protect" role="radio" aria-checked="false" tabindex="-1">Protect</button>
+              <button id="phase-detect" type="button" class="phase-switch__button" data-phase-mode="detect" role="radio" aria-checked="false" tabindex="-1">Detect</button>
+              <button id="phase-respond" type="button" class="phase-switch__button" data-phase-mode="respond" role="radio" aria-checked="false" tabindex="-1">Respond</button>
+              <button id="phase-recover" type="button" class="phase-switch__button" data-phase-mode="recover" role="radio" aria-checked="false" tabindex="-1">Recover</button>
+            </div>
+          </fieldset>
+
           <!-- csm-release-scope:v1.3.0:begin -->
           <div class="control-panel control-panel--overlay">
             <label class="control-label" for="overlaySelect">Jurisdiction context</label>
@@ -242,6 +260,25 @@
             <span>Try a broader search or show all decision layers.</span>
           </div>
         </div>
+
+        <section class="action-brief app-interactive" id="actionBrief" aria-labelledby="actionBriefTitle" tabindex="-1" hidden>
+          <div id="actionBriefReport">
+            <header class="action-brief__heading">
+              <p class="eyebrow">Selected controls · Current session</p>
+              <h3 id="actionBriefTitle">Your action brief</h3>
+              <p class="action-brief__privacy">Select up to 12 controls across domains. Selections stay in this tab's memory. Reloading or leaving this page clears the brief. Downloaded or printed briefs may contain sensitive information; handle them within your organisation's policy.</p>
+            </header>
+            <p class="action-brief__empty" id="actionBriefEmpty">Your brief is empty. Add a control from the matrix to keep its implementation tools and source context together.</p>
+            <ol class="action-brief__list" id="actionBriefList"></ol>
+          </div>
+          <p class="action-brief__status" id="actionBriefStatus" role="status" aria-live="polite"></p>
+          <div class="action-brief__actions" role="group" aria-label="Action brief controls">
+            <button class="text-button text-button--brief" id="exportActionBrief" type="button">Download brief</button>
+            <button class="text-button" id="printActionBrief" type="button">Print brief</button>
+            <button class="text-button" id="clearActionBrief" type="button">Clear selections</button>
+            <button class="text-button" id="closeActionBrief" type="button">Close brief</button>
+          </div>
+        </section>
       </section>
 
       <section class="evidence-section" id="source-pack" aria-labelledby="evidence-title" tabindex="-1">
