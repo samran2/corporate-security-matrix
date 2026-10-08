@@ -56,13 +56,13 @@
   <g transform="translate(870 206)">
     <rect x="0" y="0" width="430" height="236" rx="28" fill="#eef8f3" stroke="#a7c8be" />
     <text x="28" y="46" fill="#0b5e4b" font-family="'Avenir Next', 'Trebuchet MS', sans-serif" font-size="28" font-weight="700">3. Structured cell content</text>
-    <text x="28" y="86" fill="#55666f" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="20">Each column stacks actor context,</text>
-    <text x="28" y="116" fill="#55666f" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="20">concrete risks and direct mitigations.</text>
+    <text x="28" y="86" fill="#55666f" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="20">Each column connects threat sources,</text>
+    <text x="28" y="116" fill="#55666f" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="20">material risks and practical controls.</text>
     <rect x="28" y="148" width="110" height="54" rx="18" fill="#edf4fb" stroke="#b7cce2" />
-    <text x="83" y="180" fill="#204a72" text-anchor="middle" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="15" font-weight="700">Possible actor</text>
+    <text x="83" y="180" fill="#204a72" text-anchor="middle" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="14" font-weight="700">Threat source</text>
     <rect x="154" y="148" width="110" height="54" rx="18" fill="#fbeeed" stroke="#e4c0ba" />
-    <text x="209" y="180" fill="#872314" text-anchor="middle" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="15" font-weight="700">Detailed risk</text>
+    <text x="209" y="180" fill="#872314" text-anchor="middle" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="14" font-weight="700">Risk / failure</text>
     <rect x="280" y="148" width="122" height="54" rx="18" fill="#edf8f4" stroke="#b9d4c8" />
-    <text x="341" y="180" fill="#0b5e4b" text-anchor="middle" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="15" font-weight="700">Mitigation</text>
+    <text x="341" y="180" fill="#0b5e4b" text-anchor="middle" font-family="'Aptos', 'Segoe UI', sans-serif" font-size="14" font-weight="700">Control / action</text>
   </g>
 </svg>

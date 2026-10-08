@@ -23,9 +23,17 @@ body:
     id: evidence
     attributes:
       label: Authoritative evidence
-      description: Provide official source links and relevant scope details.
+      description: Provide the original official source, edition or release status, jurisdiction or intended audience, and the scope that supports the correction.
+      placeholder: "Source URL; title and edition; current status; where it applies; relevant section or page"
     validations:
       required: true
+  - type: textarea
+    id: applicability
+    attributes:
+      label: Applicability or limitation
+      description: Note any sector, jurisdiction, legal, contractual or professional-competence boundary that should remain visible.
+    validations:
+      required: false
   - type: textarea
     id: proposal
     attributes:

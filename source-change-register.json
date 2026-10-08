@@ -1,0 +1,415 @@
+[
+  {
+    "id": "SRC-20260829-001",
+    "sourceKey": "core/personnel-security/iso-31030-2021",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-002",
+    "sourceKey": "core/personnel-security/cisa-personal-security",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-003",
+    "sourceKey": "core/personnel-security/cisa-employment-screening",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-004",
+    "sourceKey": "core/personnel-security/cisa-insider-threat-resources",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-005",
+    "sourceKey": "core/personnel-security/ilo-c190",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-006",
+    "sourceKey": "core/personnel-security/who-mental-health-at-work",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-007",
+    "sourceKey": "core/premises-security/cisa-hometown-security",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-008",
+    "sourceKey": "core/premises-security/ifc-general-ehs",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-009",
+    "sourceKey": "core/premises-security/iso-22341-2021",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-010",
+    "sourceKey": "core/premises-security/iso-22342-2023",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-011",
+    "sourceKey": "core/premises-security/cisa-be-air-aware",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-012",
+    "sourceKey": "core/rescue-safety/osha-emergency-preparedness",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-013",
+    "sourceKey": "core/rescue-safety/osha-1910-38",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-014",
+    "sourceKey": "core/rescue-safety/osha-fight-or-flee",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-015",
+    "sourceKey": "core/rescue-safety/ifc-general-ehs",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-016",
+    "sourceKey": "core/rescue-safety/iso-22320-2018",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-017",
+    "sourceKey": "core/rescue-safety/ifrc-first-aid-2025",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-018",
+    "sourceKey": "core/rescue-safety/who-mass-casualty-emergency-units",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-019",
+    "sourceKey": "core/security-of-production-and-operations/nist-c-scrm-publications",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-020",
+    "sourceKey": "core/security-of-production-and-operations/iso-28000-2022",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-021",
+    "sourceKey": "core/security-of-production-and-operations/iso-31000-2018",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-022",
+    "sourceKey": "core/security-of-production-and-operations/nist-sp-800-161-r1",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-023",
+    "sourceKey": "core/security-of-production-and-operations/iso-9001-2015",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-024",
+    "sourceKey": "core/security-of-production-and-operations/iso-ts-22318-2021",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-025",
+    "sourceKey": "core/environmental-safety/iso-14001-2026",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-026",
+    "sourceKey": "core/environmental-safety/ifc-general-ehs",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-027",
+    "sourceKey": "core/environmental-safety/iso-50001-2018",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-028",
+    "sourceKey": "core/environmental-safety/who-chemical-incidents",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-029",
+    "sourceKey": "core/environmental-safety/who-chemical-safety",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-030",
+    "sourceKey": "core/information-and-cyber-security/nist-csf-2-0",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-031",
+    "sourceKey": "core/information-and-cyber-security/cisa-cybersecurity-performance-goals",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-032",
+    "sourceKey": "core/information-and-cyber-security/nist-sp-800-61-r3",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-033",
+    "sourceKey": "core/information-and-cyber-security/iso-iec-27001-2022",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-034",
+    "sourceKey": "core/information-and-cyber-security/nist-sp-800-53-r5",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-035",
+    "sourceKey": "core/information-and-cyber-security/enisa-threat-landscape-2025",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-036",
+    "sourceKey": "core/compliance-control/unodc-uncac",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-037",
+    "sourceKey": "core/compliance-control/unodc-business-integrity",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-038",
+    "sourceKey": "core/compliance-control/ungc-principle-10",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-039",
+    "sourceKey": "core/compliance-control/oecd-anti-bribery-recommendation-2021",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-040",
+    "sourceKey": "core/compliance-control/iso-37001-2025",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-041",
+    "sourceKey": "core/compliance-control/world-bank-integrity-smes",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-042",
+    "sourceKey": "core/compliance-control/iso-37301-2021",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-043",
+    "sourceKey": "core/compliance-control/iso-37002-2021",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-044",
+    "sourceKey": "core/compliance-control/iso-ts-37008-2023",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-045",
+    "sourceKey": "core/contingency-and-crisis-management/iso-22301-2019",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-046",
+    "sourceKey": "core/contingency-and-crisis-management/undrr-sendai-framework",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-047",
+    "sourceKey": "core/contingency-and-crisis-management/iso-31000-2018",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-048",
+    "sourceKey": "core/contingency-and-crisis-management/iso-22398-2013",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-049",
+    "sourceKey": "core/contingency-and-crisis-management/who-health-edrm",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-050",
+    "sourceKey": "core/contingency-and-crisis-management/iso-22361-2022",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-051",
+    "sourceKey": "core/contingency-and-crisis-management/iso-ts-22317-2021",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-052",
+    "sourceKey": "core/industrial-safety/ilo-osh-2001",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-053",
+    "sourceKey": "core/industrial-safety/iso-45001-2018",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-054",
+    "sourceKey": "core/industrial-safety/ifc-general-ehs-ohs",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-055",
+    "sourceKey": "core/industrial-safety/ilo-c155",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-056",
+    "sourceKey": "core/industrial-safety/who-occupational-health",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-057",
+    "sourceKey": "core/industrial-safety/ilo-worker-health-surveillance",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-058",
+    "sourceKey": "core/industrial-safety/ilo-managing-disability",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  },
+  {
+    "id": "SRC-20260829-059",
+    "sourceKey": "core/industrial-safety/ilo-psychosocial-risks",
+    "recordedOn": "2026-08-29",
+    "type": "verified",
+    "summary": "Recorded the v1.1.0 candidate source-verification baseline."
+  }
+]

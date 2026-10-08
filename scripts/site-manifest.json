@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 1,
+  "siteBaseUrl": "https://samran2.github.io/corporate-security-matrix/",
+  "sitemapLastModified": "2026-08-29",
+  "releaseScope": {
+    "version": "1.1.0",
+    "excludedScopes": [
+      "v1.2.0",
+      "v1.3.0",
+      "v1.4.0",
+      "v1.5.0"
+    ],
+    "sourcePruning": {
+      "index.html": ["v1.2.0", "v1.3.0"],
+      "app.js": ["v1.3.0"],
+      "styles.css": ["v1.3.0"],
+      "SOURCE-LIBRARY.md": ["v1.3.0"]
+    },
+    "excludedFiles": [
+      "assessment.html",
+      "assessment.css",
+      "assessment-model.js",
+      "assessment-crypto.js",
+      "assessment-compare.js",
+      "assessment.js",
+      "assessment-comparison.js",
+      "coverage.html",
+      "coverage.css",
+      "coverage.js",
+      "coverage-model.js",
+      "matrix-coverage.js",
+      "matrix-coverage-governance.js",
+      "matrix-coverage-safety.js",
+      "matrix-coverage-digital.js",
+      "matrix-overlays.js",
+      "source-lifecycle-register.json",
+      "source-change-register.json",
+      "source-change-register.checkpoint.json",
+      "OVERLAY-EU-FI.md",
+      "SOURCE-CHANGE-REGISTER.md",
+      "tasks/plan.md",
+      "tasks/todo.md",
+      "docs/ASSESSMENT-THREAT-MODEL.md",
+      "docs/decisions/0001-local-assessment-and-encrypted-export.md",
+      "docs/decisions/0002-separate-jurisdiction-overlays.md",
+      "docs/ADR-0003-coverage-workspace.md",
+      "docs/COVERAGE-WORKSPACE.md",
+      "docs/COVERAGE-REVIEW.md"
+    ],
+    "forbiddenRuntimeReferences": [
+      "assessment.html",
+      "assessment.css",
+      "assessment-model.js",
+      "assessment-crypto.js",
+      "assessment-compare.js",
+      "assessment.js",
+      "assessment-comparison.js",
+      "coverage.html",
+      "coverage.css",
+      "coverage.js",
+      "coverage-model.js",
+      "matrix-coverage.js",
+      "matrix-coverage-governance.js",
+      "matrix-coverage-safety.js",
+      "matrix-coverage-digital.js",
+      "CSMCoverage",
+      "matrix-overlays.js",
+      "matrixOverlays",
+      "overlaySelect",
+      "overlayContext",
+      "requestedOverlay",
+      "overlayCatalog",
+      "setOverlay(",
+      "source-lifecycle-register.json",
+      "source-change-register.json"
+    ]
+  },
+  "files": [
+    "index.html",
+    "framework.html",
+    "acknowledgements.html",
+    "404.html",
+    "styles.css",
+    "app.js",
+    "matrix-domains.js",
+    "matrix-actors.js",
+    "matrix-briefs.js",
+    "matrix-references.js",
+    "matrix-tools-d01-d03.js",
+    "matrix-tools-d04-d06.js",
+    "matrix-tools-d07-d09.js",
+    "matrix-tools.js",
+    ".nojekyll",
+    "robots.txt",
+    "sitemap.xml",
+    "README.md",
+    "SOURCE-LIBRARY.md",
+    "FACT-CHECK.md",
+    "FRAMEWORK.md",
+    "CONTENT-REVIEW.md",
+    "SECURITY.md",
+    "CONTRIBUTING.md",
+    "CODE_OF_CONDUCT.md",
+    "CHANGELOG.md",
+    "ROADMAP.md",
+    "RELEASE-CONTROLS.md",
+    "DEVELOPMENT.md",
+    "CITATION.cff",
+    "LICENSE",
+    "assets/favicon.svg",
+    "assets/apple-touch-icon.png",
+    "assets/social-preview.png",
+    "assets/github-preview.svg",
+    "assets/matrix-anatomy.svg"
+  ],
+  "htmlFiles": [
+    "index.html",
+    "framework.html",
+    "acknowledgements.html",
+    "404.html"
+  ],
+  "nonPublicFiles": [
+    ".nojekyll"
+  ],
+  "entryPointContract": {
+    "canonicalUrl": "https://samran2.github.io/corporate-security-matrix/",
+    "explicitIndexUrl": "https://samran2.github.io/corporate-security-matrix/index.html",
+    "recoveryFiles": [
+      "README.md",
+      "404.html"
+    ]
+  },
+  "canonicalPages": [
+    {
+      "file": "index.html",
+      "url": "https://samran2.github.io/corporate-security-matrix/"
+    },
+    {
+      "file": "framework.html",
+      "url": "https://samran2.github.io/corporate-security-matrix/framework.html"
+    },
+    {
+      "file": "acknowledgements.html",
+      "url": "https://samran2.github.io/corporate-security-matrix/acknowledgements.html"
+    }
+  ],
+  "deepLinks": [
+    "?domain=information-and-cyber-security&view=risks&q=identity#matrix-explorer",
+    "index.html?domain=industrial-safety&view=mitigations#source-pack",
+    "framework.html#adoption-title"
+  ],
+  "criticalGzipBudgetBytes": 150000,
+  "requiredPredeployWorkflows": [
+    {
+      "file": "validate.yml",
+      "name": "Quality"
+    },
+    {
+      "file": "links.yml",
+      "name": "External source links"
+    }
+  ],
+  "w3cNu": {
+    "version": "26.8.30",
+    "distribution": "npm-tarball",
+    "packageName": "vnu-jar",
+    "tarballUrl": "https://registry.npmjs.org/vnu-jar/-/vnu-jar-26.8.30.tgz",
+    "tarballSizeBytes": 30116214,
+    "tarballSha256": "2bda313c3dd6d05ada3655085ea12e40b380826fde8f719a44cb4deda6c8c887",
+    "tarballIntegrity": "sha512-M+m1H4/3lkBQGBFqmLpCB9nf7/4+Zqb4di0kNEwJ130vsyR2R/E8fULkL1IO9+TA3LwS8Dto07TT8ACzkXwNog==",
+    "unpackedTarSizeBytes": 32649216,
+    "archiveEntry": "package/build/dist/vnu.jar",
+    "packageArchiveEntries": [
+      "package/LICENSE",
+      "package/build/dist/vnu.jar",
+      "package/vnu-jar.js",
+      "package/vnu-java-downloader.js",
+      "package/package.json",
+      "package/README.md"
+    ],
+    "releaseId": 258370454,
+    "releaseTargetCommit": "f84563f28898457af3cb76ec8c820cf17a2174c4",
+    "assetId": 535987626,
+    "assetUrl": "https://api.github.com/repos/validator/validator/releases/assets/535987626",
+    "assetSizeBytes": 32626931,
+    "sha256": "b7d886d87b031ca3096cf982477df911b3002448e48228510fd981a3b9c67f8e",
+    "upstreamSha1": "8e058f91d2777b777626ded9ec924478ec0feab1",
+    "mainClass": "nu.validator.client.SimpleCommandLineValidator",
+    "requiredArchiveEntries": [
+      "META-INF/MANIFEST.MF",
+      "nu/validator/client/SimpleCommandLineValidator.class",
+      "org/eclipse/jetty/client/Response$CompleteListener.class",
+      "com/ibm/icu/text/CharsetDetector.class"
+    ]
+  }
+}

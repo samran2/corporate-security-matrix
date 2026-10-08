@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; frame-src 'none'; worker-src 'none'"
+    >
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#07111f">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <title>Local assessment — Corporate Security Matrix</title>
+    <meta
+      name="description"
+      content="Assess 45 corporate-security lifecycle cells locally, review maturity and evidence confidence, and print an executive summary."
+    >
+    <link rel="canonical" href="https://samran2.github.io/corporate-security-matrix/assessment.html">
+    <meta property="og:title" content="Local assessment — Corporate Security Matrix">
+    <meta property="og:description" content="Assess 45 corporate-security lifecycle cells locally and print an executive summary without sending assessment data anywhere.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Corporate Security Matrix">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:url" content="https://samran2.github.io/corporate-security-matrix/assessment.html">
+    <meta property="og:image" content="https://samran2.github.io/corporate-security-matrix/assets/social-preview.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Corporate Security Matrix — See risk. Decide faster. Build resilience.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Local assessment — Corporate Security Matrix">
+    <meta name="twitter:description" content="Assess 45 corporate-security lifecycle cells locally and print an executive summary without sending assessment data anywhere.">
+    <meta name="twitter:image" content="https://samran2.github.io/corporate-security-matrix/assets/social-preview.png">
+    <meta name="twitter:image:alt" content="Corporate Security Matrix — See risk. Decide faster. Build resilience.">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assessment.css">
+    <script src="matrix-domains.js" defer></script>
+    <script src="assessment-model.js" defer></script>
+    <script src="assessment-crypto.js" defer></script>
+    <script src="assessment-compare.js" defer></script>
+    <script src="assessment.js" defer></script>
+    <script src="assessment-comparison.js" defer></script>
+  </head>
+  <body data-framework-version="1.1.0">
+    <a class="skip-link" href="#assessment-workspace">Skip to assessment</a>
+
+    <header class="site-header" aria-label="Primary navigation">
+      <div class="site-header__inner">
+        <a class="brand" href="index.html" aria-label="Corporate Security Matrix home">
+          <span class="brand__mark" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span>
+          </span>
+          <span class="brand__name">Corporate Security Matrix</span>
+        </a>
+        <nav class="site-nav" aria-label="Site">
+          <a href="index.html#matrix-explorer">Matrix</a>
+          <a href="framework.html">Framework</a>
+          <a href="assessment.html" aria-current="page">Assessment</a>
+          <a href="index.html#source-pack">Evidence</a>
+        </nav>
+        <details class="mobile-nav">
+          <summary>Menu</summary>
+          <nav aria-label="Mobile site navigation">
+            <a href="index.html#matrix-explorer">Matrix</a>
+            <a href="framework.html">Framework</a>
+            <a href="assessment.html" aria-current="page">Assessment</a>
+            <a href="index.html#source-pack">Evidence</a>
+          </nav>
+        </details>
+      </div>
+    </header>
+
+    <main id="assessment-workspace" tabindex="-1">
+      <section class="page-hero assessment-hero" aria-labelledby="assessment-title">
+        <div class="page-hero__inner">
+          <p class="eyebrow">Private, local decision support</p>
+          <h1 id="assessment-title">Assess the operating model.</h1>
+          <p class="page-hero__lede">
+            Score all 45 domain-and-phase cells, separate maturity from evidence confidence, and produce a concise leadership view without sending assessment data anywhere.
+          </p>
+          <div class="assessment-hero__facts" role="list" aria-label="Assessment privacy and scope">
+            <span role="listitem">45 cells</span>
+            <span role="listitem">Memory only</span>
+            <span role="listitem">No analytics</span>
+            <span role="listitem">Encrypted export</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="assessment-shell" id="assessmentStartupNotice" aria-labelledby="assessment-startup-title">
+        <div class="assessment-message">
+          <h2 id="assessment-startup-title">Preparing the local assessment</h2>
+          <p>If this message remains visible, the interactive assessment did not start or JavaScript is disabled. No assessment data has been collected or stored.</p>
+          <p>You can still use the <a href="index.html#matrix-explorer">matrix</a>, read the <a href="framework.html">operating framework</a> and browse the <a href="SOURCE-LIBRARY.md">59-source library</a>.</p>
+        </div>
+      </section>
+
+      <div class="assessment-shell assessment-app" data-assessment-app hidden>
+        <p class="assessment-privacy">
+          <strong>Your assessment stays in this tab.</strong> It is not placed in the URL, browser storage, analytics or a network request. Closing or reloading the tab discards unsaved work.
+        </p>
+
+        <div id="assessmentError" class="assessment-message assessment-message--error" role="alert" tabindex="-1" hidden></div>
+        <p id="assessmentStatus" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+
+        <section class="assessment-summary" aria-labelledby="summary-title">
+          <div class="assessment-section-heading">
+            <div>
+              <p class="eyebrow">Executive view</p>
+              <h2 id="summary-title">Assessment summary</h2>
+            </div>
+            <p id="completionMessage">Not started · 0 of 45 cells fully assessed</p>
+          </div>
+
+          <div class="assessment-metrics" role="list" aria-label="Assessment metrics">
+            <article role="listitem">
+              <span>Maturity index</span>
+              <strong id="maturityIndex">—</strong>
+              <small>Average, 0–4</small>
+            </article>
+            <article role="listitem">
+              <span>Confidence index</span>
+              <strong id="confidenceIndex">—</strong>
+              <small>Evidence-weighted, 0–100</small>
+            </article>
+            <article role="listitem">
+              <span>Coverage</span>
+              <strong id="coverageIndex">0%</strong>
+              <small id="coverageDetail">0 of 45 cells</small>
+            </article>
+            <article role="listitem">
+              <span>Weakest phase</span>
+              <strong id="weakestPhase">—</strong>
+              <small id="weakestPhaseDetail">Complete cells to compare</small>
+            </article>
+          </div>
+
+          <div class="assessment-summary-grid">
+            <section aria-labelledby="distribution-title">
+              <h3 id="distribution-title">Maturity distribution</h3>
+              <ol id="maturityDistribution" class="assessment-distribution" aria-label="Fully assessed cells by maturity level"></ol>
+            </section>
+            <section aria-labelledby="priorities-title">
+              <h3 id="priorities-title">Priority actions</h3>
+              <ol id="priorityActions" class="assessment-priorities"></ol>
+              <p id="priorityEmpty" class="assessment-empty">Add a next action to a cell to build the leadership action list.</p>
+            </section>
+          </div>
+
+          <p class="assessment-version" id="assessmentVersion">Framework 1.1.0 · Core model · Assessment schema 1</p>
+        </section>
+
+        <section class="assessment-grid-section" aria-labelledby="heatmap-title">
+          <div class="assessment-section-heading">
+            <div>
+              <p class="eyebrow">45-cell view</p>
+              <h2 id="heatmap-title">Assessment heatmap</h2>
+            </div>
+            <p>Select a cell to edit it. A cell counts toward coverage after all four scores are set.</p>
+          </div>
+          <div id="assessmentHeatmap" class="assessment-heatmap" role="region" aria-label="Assessment heatmap" tabindex="0"></div>
+          <div class="assessment-legend" role="list" aria-label="Maturity scale">
+            <span role="listitem"><i class="assessment-key assessment-key--unset"></i>Not complete</span>
+            <span role="listitem"><i class="assessment-key assessment-key--0"></i>0 Exposed</span>
+            <span role="listitem"><i class="assessment-key assessment-key--1"></i>1 Reactive</span>
+            <span role="listitem"><i class="assessment-key assessment-key--2"></i>2 Defined</span>
+            <span role="listitem"><i class="assessment-key assessment-key--3"></i>3 Assured</span>
+            <span role="listitem"><i class="assessment-key assessment-key--4"></i>4 Adaptive</span>
+          </div>
+        </section>
+
+        <div class="assessment-work-area">
+          <section class="assessment-editor" id="assessmentEditor" aria-labelledby="editor-title">
+            <div class="assessment-editor__heading">
+              <div>
+                <p class="eyebrow">Selected cell</p>
+                <h2 id="editor-title" tabindex="-1">People and Personnel Security · Identify</h2>
+              </div>
+              <span id="cellProgress">0 of 4 scores set</span>
+            </div>
+
+            <fieldset class="assessment-score-group">
+              <legend>Maturity</legend>
+              <label for="maturityScore">Maturity level</label>
+              <select id="maturityScore">
+                <option value="">Not assessed</option>
+                <option value="0">0 — Exposed</option>
+                <option value="1">1 — Reactive</option>
+                <option value="2">2 — Defined</option>
+                <option value="3">3 — Assured</option>
+                <option value="4">4 — Adaptive</option>
+              </select>
+            </fieldset>
+
+            <fieldset class="assessment-score-group">
+              <legend>Evidence confidence</legend>
+              <p>Each component uses 0–4. The index weights control evidence 50%, independent challenge 30% and exercise recency 20%.</p>
+              <div class="assessment-confidence-grid">
+                <label for="controlEvidenceScore">
+                  <span>Control evidence <small>50%</small></span>
+                  <select id="controlEvidenceScore">
+                    <option value="">Not assessed</option>
+                    <option value="0">0 — None</option>
+                    <option value="1">1 — Limited</option>
+                    <option value="2">2 — Partial</option>
+                    <option value="3">3 — Strong</option>
+                    <option value="4">4 — Compelling</option>
+                  </select>
+                </label>
+                <label for="independentChallengeScore">
+                  <span>Independent challenge <small>30%</small></span>
+                  <select id="independentChallengeScore">
+                    <option value="">Not assessed</option>
+                    <option value="0">0 — None</option>
+                    <option value="1">1 — Limited</option>
+                    <option value="2">2 — Partial</option>
+                    <option value="3">3 — Strong</option>
+                    <option value="4">4 — Compelling</option>
+                  </select>
+                </label>
+                <label for="exerciseRecencyScore">
+                  <span>Exercise recency <small>20%</small></span>
+                  <select id="exerciseRecencyScore">
+                    <option value="">Not assessed</option>
+                    <option value="0">0 — Not exercised</option>
+                    <option value="1">1 — Stale</option>
+                    <option value="2">2 — Partially current</option>
+                    <option value="3">3 — Current</option>
+                    <option value="4">4 — Recently proven</option>
+                  </select>
+                </label>
+              </div>
+              <p class="assessment-confidence-result">Cell confidence: <strong id="cellConfidence">—</strong></p>
+            </fieldset>
+
+            <div class="assessment-text-fields">
+              <p class="assessment-sensitive-note"><strong>Keep entries non-sensitive.</strong> Do not enter personal data, credentials, exact access details or hazardous operational instructions.</p>
+              <label for="criticalGap">
+                <span>Critical gap <small><span id="criticalGapCount">0</span>/500</small></span>
+                <textarea id="criticalGap" rows="3" maxlength="500" placeholder="What material weakness or uncertainty needs leadership attention?"></textarea>
+              </label>
+              <label for="nextAction">
+                <span>Next action <small><span id="nextActionCount">0</span>/500</small></span>
+                <textarea id="nextAction" rows="3" maxlength="500" placeholder="What specific action should happen next?"></textarea>
+              </label>
+              <label for="ownerRole">
+                <span>Owner role <small><span id="ownerRoleCount">0</span>/120</small></span>
+                <input id="ownerRole" type="text" maxlength="120" autocomplete="off" placeholder="Role, not a person's name">
+              </label>
+            </div>
+
+            <div class="assessment-editor__actions">
+              <button class="button button--primary" id="applyCell" type="button">Apply cell changes</button>
+              <button class="text-button" id="clearCell" type="button">Clear this cell</button>
+            </div>
+          </section>
+
+          <aside class="assessment-actions" aria-labelledby="actions-title">
+            <p class="eyebrow">Local controls</p>
+            <h2 id="actions-title">Continue or report</h2>
+
+            <section class="assessment-action-card" aria-labelledby="print-title">
+              <h3 id="print-title">Print leadership view</h3>
+              <p>Use the browser print dialog to print or save the summary and heatmap as a PDF.</p>
+              <p><strong>Printing creates an unencrypted copy.</strong> Paper, print preview, Save as PDF and operating-system print queues may retain assessment content.</p>
+              <button class="button button--secondary" id="printAssessment" type="button">Print assessment</button>
+            </section>
+
+            <section class="assessment-action-card assessment-save" aria-labelledby="save-title">
+              <h3 id="save-title">Encrypted continuation file</h3>
+              <p>This app does not store or recover the passphrase. Your browser or password manager may offer to save it; keep it separately.</p>
+              <label for="assessmentPassphrase">Passphrase</label>
+              <input
+                id="assessmentPassphrase"
+                type="password"
+                minlength="15"
+                maxlength="1024"
+                autocomplete="new-password"
+                spellcheck="false"
+                aria-describedby="passphraseHelp"
+              >
+              <label for="assessmentPassphraseConfirmation">Confirm passphrase</label>
+              <input
+                id="assessmentPassphraseConfirmation"
+                type="password"
+                minlength="15"
+                maxlength="1024"
+                autocomplete="new-password"
+                spellcheck="false"
+              >
+              <p id="passphraseHelp" class="assessment-help">Unicode and spaces are allowed. Losing the passphrase means losing access to the file.</p>
+              <button class="button button--secondary" id="downloadAssessment" type="button">Download encrypted file</button>
+
+              <hr>
+
+              <label for="assessmentFile">Encrypted assessment file</label>
+              <input id="assessmentFile" type="file" accept=".json,application/json">
+              <p class="assessment-help">Maximum file size: 1 MiB. Import replaces the in-memory assessment only after full validation.</p>
+              <button class="button button--secondary" id="importAssessment" type="button">Import encrypted file</button>
+              <p id="cryptoAvailability" class="assessment-help"></p>
+            </section>
+
+            <section class="assessment-action-card" aria-labelledby="reset-title">
+              <h3 id="reset-title">Start again</h3>
+              <p>Resetting clears all 45 cells from this tab. Download a continuation file first if needed.</p>
+              <button class="text-button assessment-reset" id="resetAssessment" type="button">Reset assessment</button>
+            </section>
+          </aside>
+        </div>
+
+        <section class="assessment-comparison" id="assessment-comparison" aria-labelledby="comparison-title" hidden aria-busy="true">
+          <div class="assessment-section-heading">
+            <div>
+              <p class="eyebrow">Change tracking</p>
+              <h2 id="comparison-title">Compare two encrypted snapshots</h2>
+            </div>
+            <p>Baseline and current are authenticated independently before any result is shown.</p>
+          </div>
+
+          <p class="assessment-privacy comparison-privacy">
+            <strong>The two decrypted snapshots remain only in this tab.</strong> They are not written to the URL, browser storage or a network request. Clearing or closing the tab drops this page's references to them.
+          </p>
+          <p class="assessment-sensitive-note">
+            <strong>Printing creates an unencrypted copy.</strong> Review the report before using browser print or Save as PDF, because print previews, files and operating-system queues may retain its content.
+          </p>
+          <div id="comparisonError" class="assessment-message assessment-message--error" role="alert" tabindex="-1" hidden></div>
+          <p id="comparisonStatus" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+          <p id="comparisonAvailability" class="assessment-help"></p>
+
+          <div class="comparison-loaders" id="comparisonLoaders">
+            <fieldset class="comparison-loader" id="baselineComparisonLoader" disabled>
+              <legend>1. Baseline snapshot</legend>
+              <label for="baselineComparisonFile">Encrypted assessment file</label>
+              <input id="baselineComparisonFile" type="file" accept=".json,application/json" aria-describedby="baselineComparisonHelp baselineComparisonMeta" disabled>
+              <label for="baselineComparisonPassphrase">Passphrase</label>
+              <input id="baselineComparisonPassphrase" type="password" minlength="15" maxlength="1024" autocomplete="off" spellcheck="false" disabled>
+              <p id="baselineComparisonHelp" class="assessment-help">Maximum file size: 1 MiB. Loading replaces only the validated baseline slot.</p>
+              <button class="button button--secondary" id="loadBaselineComparison" type="button" disabled>Load baseline</button>
+              <p id="baselineComparisonMeta" class="comparison-slot-status" role="status">No baseline loaded.</p>
+            </fieldset>
+
+            <fieldset class="comparison-loader" id="currentComparisonLoader" disabled>
+              <legend>2. Current snapshot</legend>
+              <label for="currentComparisonFile">Encrypted assessment file</label>
+              <input id="currentComparisonFile" type="file" accept=".json,application/json" aria-describedby="currentComparisonHelp currentComparisonMeta" disabled>
+              <label for="currentComparisonPassphrase">Passphrase</label>
+              <input id="currentComparisonPassphrase" type="password" minlength="15" maxlength="1024" autocomplete="off" spellcheck="false" disabled>
+              <p id="currentComparisonHelp" class="assessment-help">Maximum file size: 1 MiB. Loading replaces only the validated current slot.</p>
+              <button class="button button--secondary" id="loadCurrentComparison" type="button" disabled>Load current</button>
+              <p id="currentComparisonMeta" class="comparison-slot-status" role="status">No current snapshot loaded.</p>
+            </fieldset>
+          </div>
+
+          <div class="comparison-controls" id="comparisonPrimaryControls">
+            <button class="button button--primary" id="compareSnapshots" type="button" disabled>Compare snapshots</button>
+            <button class="text-button" id="clearComparison" type="button" disabled>Clear comparison</button>
+          </div>
+
+          <section class="comparison-report" id="comparisonReport" aria-labelledby="comparison-report-title" tabindex="-1" hidden>
+            <div class="assessment-section-heading">
+              <div>
+                <p class="eyebrow">Paired executive view</p>
+                <h3 id="comparison-report-title">Snapshot comparison</h3>
+              </div>
+              <p>Positive and negative changes are reported separately for maturity and evidence confidence.</p>
+            </div>
+            <div id="comparisonWarnings" class="comparison-warnings"></div>
+            <div id="comparisonProvenance" class="comparison-provenance"></div>
+            <div id="comparisonMetrics" class="comparison-metrics"></div>
+
+            <div class="comparison-detail-grid">
+              <section aria-labelledby="comparison-changes-title">
+                <h4 id="comparison-changes-title">Changed cells</h4>
+                <div id="comparisonChanges"></div>
+              </section>
+              <section aria-labelledby="comparison-gaps-title">
+                <h4 id="comparison-gaps-title">Open critical gaps</h4>
+                <div id="comparisonGaps"></div>
+              </section>
+              <section aria-labelledby="comparison-actions-title">
+                <h4 id="comparison-actions-title">Next-action portfolio</h4>
+                <div id="comparisonActions"></div>
+              </section>
+            </div>
+
+            <section class="board-builder" aria-labelledby="board-builder-title">
+              <h3 id="board-builder-title">Board-ready summary</h3>
+              <p>Select up to five suggested findings. For each selected finding, state explicitly whether a board decision is required; a next action is never silently treated as a decision request.</p>
+              <p id="boardSelectionCount" class="assessment-help">0 of 5 findings selected</p>
+              <div id="boardFindingChoices" class="board-finding-choices"></div>
+              <div class="comparison-controls">
+                <button class="button button--secondary" id="generateBoardSummary" type="button" disabled>Generate board summary</button>
+                <button class="button button--secondary" id="printComparison" type="button" disabled>Print comparison report</button>
+              </div>
+              <section id="boardSummaryReport" class="board-summary-report" aria-labelledby="board-summary-title" tabindex="-1" hidden>
+                <h4 id="board-summary-title">Board summary</h4>
+                <div id="boardSummaryContent"></div>
+              </section>
+            </section>
+          </section>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__top">
+        <div>
+          <a class="brand brand--footer" href="index.html">
+            <span class="brand__mark" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>
+            <span class="brand__name">Corporate Security Matrix</span>
+          </a>
+          <p>An open, evidence-led operating model for enterprise security.</p>
+        </div>
+        <nav aria-label="Footer">
+          <a href="index.html#matrix-explorer">Matrix</a>
+          <a href="framework.html">Framework</a>
+          <a href="SECURITY.md">Security</a>
+          <a href="https://github.com/samran2/corporate-security-matrix" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        </nav>
+      </div>
+      <div class="site-footer__bottom">
+        <span>MIT licensed · Static site · No accounts · No analytics</span>
+        <span>Assessment data remains local to the user's tab or encrypted file.</span>
+      </div>
+    </footer>
+  </body>
+</html>
